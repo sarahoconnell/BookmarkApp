@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="bookmarkRepository" class="ie.cit.adf.domain.dao.InMemoryBookmarkRepository" />
+	<bean id="jdbcBookmarkRepository" class="ie.cit.adf.domain.dao.JdbcBookmarkRepository">
+		<constructor-arg ref="dataSource" />
+	</bean>
+
+	<bean class="ie.cit.adf.services.BookmarkServiceImpl">
+		<constructor-arg ref="jdbcBookmarkRepository" />
+	</bean>
+
+	<jdbc:embedded-database id="dataSource" type="H2">
+		<jdbc:script location="classpath:db-schema.sql" />
+	</jdbc:embedded-database>
+
+	<bean id="org.h2.tools.Server-WebServer" class="org.h2.tools.Server"
+		factory-method="createWebServer" init-method="start" lazy-init="false"
+		destroy-method="stop" depends-on="dataSource">
+		<constructor-arg value="-web,-webPort,8082" />
+	</bean>
+
+	<bean class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+</beans>
