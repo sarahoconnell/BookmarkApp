@@ -5,13 +5,20 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 
-	<bean id="bookmarkRepository" class="ie.cit.adf.domain.dao.InMemoryBookmarkRepository" />
 	<bean id="jdbcBookmarkRepository" class="ie.cit.adf.domain.dao.JdbcBookmarkRepository">
 		<constructor-arg ref="dataSource" />
 	</bean>
 
 	<bean class="ie.cit.adf.services.BookmarkServiceImpl">
 		<constructor-arg ref="jdbcBookmarkRepository" />
+	</bean>
+	
+	<bean id="jdbcUserRepository" class="ie.cit.adf.domain.dao.JdbcUserRepository">
+		<constructor-arg ref="dataSource" />
+	</bean>
+
+	<bean class="ie.cit.adf.services.UserServiceImpl">
+		<constructor-arg ref="jdbcUserRepository" />
 	</bean>
 
 	<jdbc:embedded-database id="dataSource" type="H2">
