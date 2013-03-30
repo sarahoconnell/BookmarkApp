@@ -30,6 +30,10 @@ public class UserServiceImpl implements UserService {
 		return repo.findById(userId);
 	}
 
+	public User findUser(String name, String password) {
+		return repo.findByNamePassword(name, password);
+	}
+
 	public User update(String userId, String name, String password, String twitterId) {
 		User user = repo.findById(userId);
 		user.setName(name);

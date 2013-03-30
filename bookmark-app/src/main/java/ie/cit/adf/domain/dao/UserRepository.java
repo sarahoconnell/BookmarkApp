@@ -6,6 +6,9 @@ import java.util.List;
 
 public interface UserRepository {
 
+
+	User findByNamePassword(String name, String password);
+	
 	User findById(String id);
 
 	List<User> getAll();

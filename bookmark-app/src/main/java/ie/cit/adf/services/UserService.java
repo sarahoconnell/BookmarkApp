@@ -18,6 +18,9 @@ public interface UserService {
 	// GET {id}
 	User get(String userId);
 
+	// validate 
+	User findUser(String name, String password);
+	
 	// DELETE {id}
 	void delete(String userId);
 

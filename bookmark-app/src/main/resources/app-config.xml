@@ -4,14 +4,6 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-
-	<bean id="jdbcBookmarkRepository" class="ie.cit.adf.domain.dao.JdbcBookmarkRepository">
-		<constructor-arg ref="dataSource" />
-	</bean>
-
-	<bean class="ie.cit.adf.services.BookmarkServiceImpl">
-		<constructor-arg ref="jdbcBookmarkRepository" />
-	</bean>
 	
 	<bean id="jdbcUserRepository" class="ie.cit.adf.domain.dao.JdbcUserRepository">
 		<constructor-arg ref="dataSource" />
@@ -19,6 +11,22 @@
 
 	<bean class="ie.cit.adf.services.UserServiceImpl">
 		<constructor-arg ref="jdbcUserRepository" />
+	</bean>
+	
+	<bean id="jdbcLinkRepository" class="ie.cit.adf.domain.dao.JdbcLinkRepository">
+		<constructor-arg ref="dataSource" />
+	</bean>
+
+	<bean class="ie.cit.adf.services.LinkServiceImpl">
+		<constructor-arg ref="jdbcLinkRepository" />
+	</bean>
+
+	<bean id="jdbcBoardRepository" class="ie.cit.adf.domain.dao.JdbcBoardRepository">
+		<constructor-arg ref="dataSource" />
+	</bean>
+
+	<bean class="ie.cit.adf.services.BoardServiceImpl">
+		<constructor-arg ref="jdbcBoardRepository" />
 	</bean>
 
 	<jdbc:embedded-database id="dataSource" type="H2">
