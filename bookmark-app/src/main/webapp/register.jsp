@@ -1,6 +1,7 @@
 <jsp:include page="includes/header.jsp"/>
 	   
 	   ${error} 
+	   ${message} 
 	   
       <form class="form-horizontal" action="createUser" method="post">
 	  <div class="control-group">

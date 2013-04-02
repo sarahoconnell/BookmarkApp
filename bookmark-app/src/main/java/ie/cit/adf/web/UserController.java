@@ -47,14 +47,11 @@ public class UserController {
 		}
 					
 		User newUser = userService.create(name, password, twitterId);
-		userService.createRole(newUser, "ROLE_USER");
-		
+		userService.createRole(newUser, "ROLE_USER");		
 		Board newBoard = boardService.create("default", "default", newUser.getId());
-		Collection<Board> allBoards = boardService.findAllByUserId(newUser.getId());
-		
-		model.addAttribute("user", newUser);
-		model.addAttribute("boards", allBoards);
-		return "dashboard.jsp";
+
+		model.addAttribute("message", "Registration successful! Please login.....");
+		return "register.jsp";
 	}
 
 }

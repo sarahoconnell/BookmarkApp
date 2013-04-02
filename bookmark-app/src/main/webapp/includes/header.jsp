@@ -48,23 +48,24 @@
             </ul>
             <c:if test="${not empty error}">
 				<div class="pull-right error">
-					Your login attempt was not successful, try again. Caused :
-			${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+					Your login attempt was not successful, try again. Caused by:
+			              ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
 				</div>
 			</c:if>
-            
-			     <form class="navbar-form pull-right" action="<c:url value='j_spring_security_check' />" method='POST'>
+			<security:authorize access="isAuthenticated()">
+			   <div class="pull-right user-header">Hello, <security:authentication property="principal.username" />!
+			   	   <a href="<c:url value="/j_spring_security_logout" />" class="user-header"> Logout</a>
+			   </div>
+			</security:authorize>
+			
+			<security:authorize access="! isAuthenticated()">
+			    <form class="navbar-form pull-right" action="<c:url value='j_spring_security_check' />" method='POST'>
 	              <input class="span2" type="text" placeholder="Name" name="j_username">
 	              <input class="span2" type="password" placeholder="Password" name="j_password">
 	              <button type="submit" name="submit"  class="btn">Sign in</button>
 	            </form>
-			
-			
-			   <div class="pull-right user-header">Hello, ${user.name}! TODO ADD SEARCH! 
-			   	   <a href="<c:url value="/j_spring_security_logout" />" > Logout</a>
-			   </div>
-			
-                
+			</security:authorize>
+            
           </div><!--/.nav-collapse -->
         </div>
       </div>

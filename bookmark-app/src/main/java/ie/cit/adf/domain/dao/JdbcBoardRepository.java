@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 public class JdbcBoardRepository implements BoardRepository {
 
@@ -41,6 +42,11 @@ public class JdbcBoardRepository implements BoardRepository {
 				.query("SELECT ID, NAME, DESCRIPTION FROM board",mapper);
 	}
 	
+	
+
+    private String getLoggedInUser() {
+	return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
 
 	@Override
 	public List<Board> findAllByUserId(String userid) {

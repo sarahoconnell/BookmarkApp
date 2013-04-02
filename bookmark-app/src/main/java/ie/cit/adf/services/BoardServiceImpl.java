@@ -26,9 +26,11 @@ public class BoardServiceImpl implements BoardService {
 		return repo.findAll();
 	}
 	
+
 	public  Collection<Board> findAllByUserId(String userId) {
 		return repo.findAllByUserId(userId);
 	}
+	
 
 	public Board create(String name, String description, String userId) {
 		Board board = new Board();

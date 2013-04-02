@@ -62,15 +62,6 @@ public class HibernateUserRepository implements UserRepository {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public User findByNamePassword(String name, String password) {
-		Query query = session().createQuery("from User where name = :name and password = :password ");
-		query.setParameter("name", name);
-		query.setParameter("password", password);
-		return (User)query.uniqueResult();
-	}
-	
-	@SuppressWarnings("unchecked")
-	@Override
 	public User findByName(String name) {
 		Query query = session().createQuery("from User where name = :name");
 		query.setParameter("name", name);

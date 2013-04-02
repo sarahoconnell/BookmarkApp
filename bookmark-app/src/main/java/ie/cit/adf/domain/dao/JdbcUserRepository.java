@@ -24,16 +24,6 @@ public class JdbcUserRepository implements UserRepository {
 
 
 	@Override
-	public User findByNamePassword(String name, String password) {
-		List<User> users =  
-		jdbcTemplate.query(
-				"SELECT ID, NAME, PASSWORD, TWITTERID FROM users WHERE NAME=? and PASSWORD=?", userMapper, name, password);
-		if(users.isEmpty())
-			return null;
-		else return users.get(0);
-	}
-	
-	@Override
 	public User findByName(String name) {
 		List<User> users =  
 		jdbcTemplate.query(

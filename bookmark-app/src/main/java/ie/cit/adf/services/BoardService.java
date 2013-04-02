@@ -14,7 +14,7 @@ public interface BoardService {
 	
 	// GET
 	Collection<Board> findAllByUserId(String userId);
-
+	
 	// POST
 	Board create(String name, String description, String userId);
 

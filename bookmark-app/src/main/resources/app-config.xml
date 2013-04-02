@@ -75,8 +75,8 @@
 		</property>
 	</bean>
 	  
-	<security:http auto-config="true">
-		<security:intercept-url pattern="/welcome*" access="ROLE_USER" />
+	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/welcome*"/>
 		<security:form-login login-page="/login" default-target-url="/welcome"
 			authentication-failure-url="/loginfailed" />
 		<security:logout logout-success-url="/logout" />

@@ -8,9 +8,6 @@ public interface UserService {
 
    // GET {id}
    User findById(String userId);
-
-   // validate 
-   User findByNamePassword(String name, String password);
    
    User findByName(String name);
 		

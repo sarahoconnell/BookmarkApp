@@ -26,7 +26,6 @@ public class LoginController {
 	public String printWelcome(ModelMap model, Principal principal ) {
  
 		String name = principal.getName();
-
 		User user = userService.findByName(name);
 		Collection<Board> allBoards = boardService.findAllByUserId(user.getId());
 		

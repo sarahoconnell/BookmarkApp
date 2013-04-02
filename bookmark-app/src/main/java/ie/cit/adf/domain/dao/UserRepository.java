@@ -20,5 +20,4 @@ public interface UserRepository {
     User findByName(String name);
     Collection<User> findAll();
 
-	User findByNamePassword(String name, String password);
 }

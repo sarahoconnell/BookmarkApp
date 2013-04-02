@@ -19,7 +19,7 @@ public class HibernateBoardRepository implements BoardRepository {
     @Autowired
     private SessionFactory sf;
 
-    private String getLoggedInUser() {
+    private String getLoggedInUserId() {
 	return SecurityContextHolder.getContext().getAuthentication().getName();
     }
     
@@ -54,11 +54,12 @@ public class HibernateBoardRepository implements BoardRepository {
     	return session().createQuery("from Board").list();
     }
 
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public Collection<Board> findAllByUserId(String userId) {
 		Query query = session().createQuery("from Board where userId = :userId ");
-		query.setParameter("userId", getLoggedInUser());
+		query.setParameter("userId", userId);
 		return query.list();
 	}
 	

@@ -27,10 +27,6 @@ public class UserServiceImpl implements UserService {
 		return repo.findByName(name);
 	}
 	
-	public User findByNamePassword(String name, String password) {
-		return repo.findByNamePassword(name, password);
-	}
-
 	public Collection<User> findAll() {
 		return repo.findAll();
 	}
