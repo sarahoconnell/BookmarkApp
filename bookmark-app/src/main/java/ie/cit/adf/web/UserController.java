@@ -40,39 +40,19 @@ public class UserController {
 			model.addAttribute("error", "Passwords do not match!!");
 			return "register.jsp";			
 		}
-		
+		if(userService.findByName(name)!=null)
+		{
+			model.addAttribute("error", "User already exists!!");
+			return "register.jsp";						
+		}
+					
 		User newUser = userService.create(name, password, twitterId);
 		userService.createRole(newUser, "ROLE_USER");
-
 		
 		Board newBoard = boardService.create("default", "default", newUser.getId());
 		Collection<Board> allBoards = boardService.findAllByUserId(newUser.getId());
 		
 		model.addAttribute("user", newUser);
-		model.addAttribute("boards", allBoards);
-		return "dashboard.jsp";
-	}
-
-	@RequestMapping("login")
-	public String login(@RequestParam String name, @RequestParam String password, Model model) {
-		// JAIL BREAK!!!! - TODO USER validation
-
-		if(name.isEmpty() || password.isEmpty())
-		{
-			model.addAttribute("error", "Empty credentials");
-			return "register.jsp";		
-		}
-		
-		User user = userService.findByNamePassword(name, password);
-		if(user==null)
-		{
-			model.addAttribute("error", "Invalid credentials");
-			return "register.jsp";			
-		}
-		
-		Collection<Board> allBoards = boardService.findAllByUserId(user.getId());
-		
-		model.addAttribute("user", user);
 		model.addAttribute("boards", allBoards);
 		return "dashboard.jsp";
 	}
