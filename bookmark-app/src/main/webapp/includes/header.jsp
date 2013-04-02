@@ -27,7 +27,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="dashboard.jsp">devInterest</a>
+          <a class="brand" href="dashboard">devInterest</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
@@ -48,8 +48,8 @@
             </ul>
             <c:if test="${not empty error}">
 				<div class="pull-right error">
-					Your login attempt was not successful, try again. Caused by:
-			              ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+					Your login attempt was not successful, try again.   
+			              ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}<br>
 				</div>
 			</c:if>
 			<security:authorize access="isAuthenticated()">

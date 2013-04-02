@@ -25,13 +25,21 @@ public class LoginController {
 	@RequestMapping(value="/welcome", method = RequestMethod.GET)
 	public String printWelcome(ModelMap model, Principal principal ) {
  
-		String name = principal.getName();
-		User user = userService.findByName(name);
-		Collection<Board> allBoards = boardService.findAllByUserId(user.getId());
-		
-		model.addAttribute("user", user);
-		model.addAttribute("boards", allBoards);
-		return "dashboard.jsp";
+		try{
+
+			String name = principal.getName();
+			User user = userService.findByName(name);
+			Collection<Board> allBoards = boardService.findAllByUserId(user.getId());
+			
+			model.addAttribute("user", user);
+			model.addAttribute("boards", allBoards);
+			return "dashboard";
+		}
+		catch(Exception e)
+		{
+			model.addAttribute("error", "true");
+			return "index.jsp";
+		}
  
 	}
  
