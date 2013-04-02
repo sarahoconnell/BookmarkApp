@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-@RequestMapping("api")
+@RequestMapping("api")  
 public class BookmarkRestController {
 /*	@Autowired
 	private BookmarkService bookmarkService;

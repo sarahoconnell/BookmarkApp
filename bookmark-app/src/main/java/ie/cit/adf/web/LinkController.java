@@ -11,13 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LinkController {
-	@Autowired
+	@Autowired  
 	private LinkService linkService;
-
-	@RequestMapping("add")
-	public String register() {
-		return "../addLink.jsp";
-	}
 
 	@RequestMapping("createLink")
 	public String create(@RequestParam String url, @RequestParam String description, @RequestParam String boardId, Model model) {

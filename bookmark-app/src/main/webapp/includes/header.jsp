@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="security" %>  
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +27,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">devInterest</a>
+          <a class="brand" href="dashboard.jsp">devInterest</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
@@ -45,17 +46,24 @@
                 </ul>
               </li>
             </ul>
+            <c:if test="${not empty error}">
+				<div class="pull-right error">
+					Your login attempt was not successful, try again. Caused :
+			${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
+				</div>
+			</c:if>
             
-            <c:if test="${empty user.name}">
-			     <form class="navbar-form pull-right" action="login" method="post">
-	              <input class="span2" type="text" placeholder="Name" id="name" name="name">
-	              <input class="span2" type="password" placeholder="Password" id="password" name="password">
-	              <button type="submit" class="btn">Sign in</button>
+			     <form class="navbar-form pull-right" action="<c:url value='j_spring_security_check' />" method='POST'>
+	              <input class="span2" type="text" placeholder="Name" name="j_username">
+	              <input class="span2" type="password" placeholder="Password" name="j_password">
+	              <button type="submit" name="submit"  class="btn">Sign in</button>
 	            </form>
-			</c:if>
-			<c:if test="${not empty user.name}">
-			   <div class="pull-right user-header">Hello, ${user.name}! TODO ADD SEARCH!</div>
-			</c:if>
+			
+			
+			   <div class="pull-right user-header">Hello, ${user.name}! TODO ADD SEARCH! 
+			   	   <a href="<c:url value="/j_spring_security_logout" />" > Logout</a>
+			   </div>
+			
                 
           </div><!--/.nav-collapse -->
         </div>

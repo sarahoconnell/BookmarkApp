@@ -2,18 +2,19 @@ package ie.cit.adf.domain.dao;
 
 import ie.cit.adf.domain.Link;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface LinkRepository {
 
-	Link findById(String id);
+    Link get(String id);
 
-	List<Link> getAll();
+    void create(Link link);
 
-	void add(Link link);
+    void update(Link link);
+   
+    void delete(Link link);
 
-	void delete(String linkId);
-
-	void update(Link linkId);
+    Link findById(String id);
+    Collection<Link> findAll();
 
 }

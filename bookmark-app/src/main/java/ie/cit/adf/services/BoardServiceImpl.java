@@ -3,37 +3,40 @@ package ie.cit.adf.services;
 import ie.cit.adf.domain.Board;
 import ie.cit.adf.domain.dao.BoardRepository;
 
-import java.util.List;
+import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional
 public class BoardServiceImpl implements BoardService {
-	private BoardRepository repo;
+    
+	@Autowired
+    @Qualifier("hibernateBoardRepository")
+	BoardRepository repo;
 
-	public BoardServiceImpl(BoardRepository repo) {
-		this.repo = repo;
-	}
-
-	public List<Board> getAll() {
-		return repo.getAll();
+	public Board findById(String boardId) {
+		return repo.findById(boardId);
 	}
 	
-
-	public List<Board> getAll(String userId) {
-		return repo.getAll(userId);
+	public Collection<Board> findAll() {
+		return repo.findAll();
 	}
-
+	
+	public  Collection<Board> findAllByUserId(String userId) {
+		return repo.findAllByUserId(userId);
+	}
 
 	public Board create(String name, String description, String userId) {
 		Board board = new Board();
 		board.setName(name);
 		board.setDescription(description);
 		board.setUserId(userId);
-		repo.add(board);
+		repo.create(board);
 		return board;
-	}
-
-
-	public Board get(String boardId) {
-		return repo.findById(boardId);
 	}
 
 	public Board update(String boardId, String name, String description) {
@@ -46,8 +49,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void delete(String boardId) {
-		repo.delete(boardId);
+	public void delete(Board board) {
+		repo.delete(board);
 	}
 
 }

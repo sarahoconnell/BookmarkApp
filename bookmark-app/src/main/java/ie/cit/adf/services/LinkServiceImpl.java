@@ -3,17 +3,28 @@ package ie.cit.adf.services;
 import ie.cit.adf.domain.Link;
 import ie.cit.adf.domain.dao.LinkRepository;
 
-import java.util.List;
+import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional
 public class LinkServiceImpl implements LinkService {
-	private LinkRepository repo;
 
-	public LinkServiceImpl(LinkRepository repo) {
-		this.repo = repo;
+    @Autowired
+    @Qualifier("hibernateLinkRepository")
+	LinkRepository repo;
+
+	public Link findById(String id) {
+		return repo.findById(id);
 	}
 
-	public List<Link> getAll() {
-		return repo.getAll();
+	
+	public Collection<Link> findAll() {
+		return repo.findAll();
 	}
 
 	public Link create(String url, String description, String boardId) {
@@ -21,13 +32,8 @@ public class LinkServiceImpl implements LinkService {
 		link.setUrl(url);
 		link.setDescrption(description);
 		link.setBoardId(boardId);
-		repo.add(link);
+		repo.create(link);
 		return link;
-	}
-
-
-	public Link get(String id) {
-		return repo.findById(id);
 	}
 
 	public Link update(String id, String url, String description, String boardId) {
@@ -41,8 +47,8 @@ public class LinkServiceImpl implements LinkService {
 	}
 
 	@Override
-	public void delete(String id) {
-		repo.delete(id);
+	public void delete(Link link) {
+		repo.delete(link);
 	}
 
 }

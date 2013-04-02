@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -21,33 +22,41 @@ public class JdbcBoardRepository implements BoardRepository {
 	}
 
 	@Override
-	public Board findById(String id) {
-		return jdbcTemplate.queryForObject(
-				"SELECT ID, NAME, DESCRIPTION FROM board WHERE ID=?", mapper, id);
+	public Board get(String id) {
+		Board board = findById(id);
+		if (board == null)
+		    throw new EmptyResultDataAccessException(1);
+		return board;
 	}
 
+    public Board findById(String id) {
+		return jdbcTemplate.queryForObject(
+				"SELECT ID, NAME, DESCRIPTION FROM board WHERE ID=?", mapper, id);
+    }
+
+    
 	@Override
-	public List<Board> getAll() {
+	public List<Board> findAll() {
 		return jdbcTemplate
 				.query("SELECT ID, NAME, DESCRIPTION FROM board",mapper);
 	}
 	
 
 	@Override
-	public List<Board> getAll(String userid) {
+	public List<Board> findAllByUserId(String userid) {
 		return jdbcTemplate
 				.query("SELECT ID, NAME, DESCRIPTION FROM board WHERE USERID=?", mapper, userid);
 	}
 
 	@Override
-	public void add(Board board) {
+	public void create(Board board) {
 		jdbcTemplate.update("INSERT INTO board VALUES(?,?,?, ?)", 
 				board.getId(), board.getName(), board.getDescription(), board.getUserId());
 	}
 
 	@Override
-	public void delete(String id) {
-		jdbcTemplate.update("DELETE FROM users WHERE ID=?", id);
+	public void delete(Board board) {
+		jdbcTemplate.update("DELETE FROM boards WHERE ID=?", board.getId());
 	}
 
 	@Override
@@ -55,6 +64,7 @@ public class JdbcBoardRepository implements BoardRepository {
 		jdbcTemplate.update("UPDATE board SET NAME=?, DESCRIPTION=? WHERE ID=?",
 				board.getName(), board.getDescription());
 	}
+
 }
 
 class boardMapper implements RowMapper<Board> {

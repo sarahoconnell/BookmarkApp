@@ -6,8 +6,6 @@ import static org.junit.Assert.fail;
 import ie.cit.adf.domain.User;
 import ie.cit.adf.domain.dao.UserRepository;
 
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -20,13 +18,14 @@ public class UserServiceImplTest {
 	@Before 
 	public void setup() {
 		userRepository = Mockito.mock(UserRepository.class);
-		tested = new UserServiceImpl(userRepository);
+		tested = new UserServiceImpl();
+		tested.repo = userRepository;
 	}
 
 	@Test
 	public void testCreateUser() {  
 		User newUser = tested.create("Sarah", "password", "tweetid");
-		Mockito.verify(userRepository).add(newUser);
+		Mockito.verify(userRepository).create(newUser);
 		assertThat(newUser.getName(), equalTo("Sarah"));
 		assertThat(newUser.getPassword(), equalTo("password"));
 		assertThat(newUser.getTwitterId(), equalTo("tweetid"));

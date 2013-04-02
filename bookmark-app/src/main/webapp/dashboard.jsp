@@ -21,15 +21,15 @@
   <form class="form-horizontal" action="createLink" method="post">
   <div class="modal-body">    
 	  <div class="control-group">
-	    <label class="control-label" for="name">URL</label>
+	    <label class="control-label" for="url">URL</label>
 	    <div class="controls">
 	      <input type="text" id="url" name="url" placeholder="http://awsomelink.here">
 	    </div>
 	  </div>
 	  <div class="control-group">
-	    <label class="control-label" for="password">Description</label>
+	    <label class="control-label" for="description">Description</label>
 	    <div class="controls">
-	      <input type="password" id="description" name="description" placeholder="Description">
+	      <input type="text" id="description" name="description" placeholder="Description">
 	    </div>
 	  </div>	
 	  <div class="control-group">
@@ -66,9 +66,9 @@
 	    </div>
 	  </div>
 	  <div class="control-group">
-	    <label class="control-label" for="password">Description</label>
+	    <label class="control-label" for="description">Description</label>
 	    <div class="controls">
-	      <input type="password" id="description" name="description" placeholder="Description">
+	      <input type="text" id="description" name="description" placeholder="Description">
 	    </div>
 	  </div>
   </div>

@@ -2,26 +2,29 @@ package ie.cit.adf.services;
 
 import ie.cit.adf.domain.User;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface UserService {
 
+   // GET {id}
+   User findById(String userId);
+
+   // validate 
+   User findByNamePassword(String name, String password);
+   
+   User findByName(String name);
+		
 	// GET
-	List<User> getAll();
+	Collection<User> findAll();
 
 	// POST
 	User create(String name, String password, String twitterId);
-
+	void createRole(User user, String role);
+	
 	// PUT
 	User update(String userId, String name, String password, String twitterId);
-
-	// GET {id}
-	User get(String userId);
-
-	// validate 
-	User findUser(String name, String password);
 	
 	// DELETE {id}
-	void delete(String userId);
+	void delete(User user);
 
 }

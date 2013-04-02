@@ -1,5 +1,6 @@
 package ie.cit.adf.domain.dao;
 
+import ie.cit.adf.domain.Board;
 import ie.cit.adf.domain.Link;
 
 import java.sql.ResultSet;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -21,26 +23,34 @@ public class JdbcLinkRepository implements LinkRepository {
 	}
 
 	@Override
+	public Link get(String id) {
+		Link link = findById(id);
+		if (link == null)
+		    throw new EmptyResultDataAccessException(1);
+		return link;
+	}
+	
+	@Override
 	public Link findById(String id) {
 		return jdbcTemplate.queryForObject(
 				"SELECT ID, URL, DESCRIPTION, BOARDID FROM link WHERE ID=?", mapper, id);
 	}
 
 	@Override
-	public List<Link> getAll() {
+	public List<Link> findAll() {
 		return jdbcTemplate
 				.query("SELECT ID, URL, DESCRIPTION, BOARDID FROM link",mapper);
 	}
 
 	@Override
-	public void add(Link link) {
+	public void create(Link link) {
 		jdbcTemplate.update("INSERT INTO link VALUES(?,?,?,?)", 
 				link.getId(), link.getUrl(), link.getDescription(), link.getBoardId());
 	}
 
 	@Override
-	public void delete(String id) {
-		jdbcTemplate.update("DELETE FROM link WHERE ID=?", id);
+	public void delete(Link link) {
+		jdbcTemplate.update("DELETE FROM link WHERE ID=?", link.getId());
 	}
 
 	@Override

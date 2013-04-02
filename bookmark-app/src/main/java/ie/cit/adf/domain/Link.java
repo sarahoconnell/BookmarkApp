@@ -2,17 +2,42 @@ package ie.cit.adf.domain;
 
 import java.util.UUID;
 
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 
-@XmlRootElement(name = "link")
-public class Link {
+import org.hibernate.validator.constraints.NotEmpty;
+
+
+@Entity
+@Table(name="LINK")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class Link  {
+	@Id
 	private String id;
+	@Basic
+	@NotEmpty
 	private String url;
+	@Basic
 	private String description;
+	@Basic
 	private String boardId;
+	
 
 	public Link() {
-		id = UUID.randomUUID().toString();
+		this("");
+	}
+	public Link(String url){
+		this(UUID.randomUUID().toString(), url, "", "");
+	}
+	public Link(String id, String url, String description, String boardId){
+		this.id = id;
+		this.url = url;
+		this.description = description; 
+		this.boardId = boardId;
 	}
 
 	public String getId() {

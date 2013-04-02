@@ -1,19 +1,38 @@
 package ie.cit.adf.services;
 
 import ie.cit.adf.domain.User;
+import ie.cit.adf.domain.UserRole;
 import ie.cit.adf.domain.dao.UserRepository;
 
-import java.util.List;
+import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional
 public class UserServiceImpl implements UserService {
-	private UserRepository repo;
 
-	public UserServiceImpl(UserRepository repo) {
-		this.repo = repo;
+    @Autowired
+    @Qualifier("hibernateUserRepository")
+	UserRepository repo;
+
+	public User findById(String userId) {
+		return repo.findById(userId);
 	}
 
-	public List<User> getAll() {
-		return repo.getAll();
+	public User findByName(String name) {
+		return repo.findByName(name);
+	}
+	
+	public User findByNamePassword(String name, String password) {
+		return repo.findByNamePassword(name, password);
+	}
+
+	public Collection<User> findAll() {
+		return repo.findAll();
 	}
 
 	public User create(String name, String password, String twitterId) {
@@ -21,19 +40,18 @@ public class UserServiceImpl implements UserService {
 		user.setName(name);
 		user.setPassword(password);
 		user.setTwitterId(twitterId);
-		repo.add(user);
+		user.setEnabled(true);
+		repo.create(user);
 		return user;
 	}
 
-
-	public User get(String userId) {
-		return repo.findById(userId);
+	public void createRole(User user, String role) {
+		UserRole userRole = new UserRole();
+		userRole.setUserId(user.getId());
+		userRole.setAuthority(role); // TODO - other roles for USERS
+		repo.createRole(userRole);
 	}
-
-	public User findUser(String name, String password) {
-		return repo.findByNamePassword(name, password);
-	}
-
+	
 	public User update(String userId, String name, String password, String twitterId) {
 		User user = repo.findById(userId);
 		user.setName(name);
@@ -45,8 +63,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void delete(String userId) {
-		repo.delete(userId);
+	public void delete(User user) {
+		repo.delete(user);
 	}
 
 }

@@ -2,12 +2,15 @@ package ie.cit.adf.services;
 
 import ie.cit.adf.domain.Link;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface LinkService {
 
+	// GET {id}
+	Link findById(String id);
+	
 	// GET
-	List<Link> getAll();
+	Collection<Link> findAll();
 
 	// POST
 	Link create(String url, String description, String boardId);
@@ -15,10 +18,7 @@ public interface LinkService {
 	// PUT
 	Link update(String id, String url, String description, String boardId);
 
-	// GET {id}
-	Link get(String id);
-
 	// DELETE {id}
-	void delete(String id);
+	void delete(Link link);
 
 }

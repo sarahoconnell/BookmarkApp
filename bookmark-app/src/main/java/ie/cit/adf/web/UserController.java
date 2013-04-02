@@ -5,6 +5,7 @@ import ie.cit.adf.domain.User;
 import ie.cit.adf.services.BoardService;
 import ie.cit.adf.services.UserService;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,8 +42,11 @@ public class UserController {
 		}
 		
 		User newUser = userService.create(name, password, twitterId);
+		userService.createRole(newUser, "ROLE_USER");
+
+		
 		Board newBoard = boardService.create("default", "default", newUser.getId());
-		List<Board> allBoards = boardService.getAll(newUser.getId());
+		Collection<Board> allBoards = boardService.findAllByUserId(newUser.getId());
 		
 		model.addAttribute("user", newUser);
 		model.addAttribute("boards", allBoards);
@@ -59,14 +63,14 @@ public class UserController {
 			return "register.jsp";		
 		}
 		
-		User user = userService.findUser(name, password);
+		User user = userService.findByNamePassword(name, password);
 		if(user==null)
 		{
 			model.addAttribute("error", "Invalid credentials");
 			return "register.jsp";			
 		}
 		
-		List<Board> allBoards = boardService.getAll(user.getId());
+		Collection<Board> allBoards = boardService.findAllByUserId(user.getId());
 		
 		model.addAttribute("user", user);
 		model.addAttribute("boards", allBoards);

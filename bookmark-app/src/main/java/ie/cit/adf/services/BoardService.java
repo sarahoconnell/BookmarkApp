@@ -2,15 +2,18 @@ package ie.cit.adf.services;
 
 import ie.cit.adf.domain.Board;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface BoardService {
 
-	// GET
-	List<Board> getAll();
+	// GET {id}
+	Board findById(String id);
 	
 	// GET
-	List<Board> getAll(String userId);
+	Collection<Board> findAll();
+	
+	// GET
+	Collection<Board> findAllByUserId(String userId);
 
 	// POST
 	Board create(String name, String description, String userId);
@@ -18,10 +21,7 @@ public interface BoardService {
 	// PUT
 	Board update(String id, String name, String description);
 
-	// GET {id}
-	Board get(String id);
-
 	// DELETE {id}
-	void delete(String id);
+	void delete(Board board);
 
 }
