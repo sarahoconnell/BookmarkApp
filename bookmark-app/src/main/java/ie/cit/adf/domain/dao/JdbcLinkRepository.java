@@ -35,7 +35,14 @@ public class JdbcLinkRepository implements LinkRepository {
 		return jdbcTemplate.queryForObject(
 				"SELECT ID, URL, DESCRIPTION, BOARDID FROM link WHERE ID=?", mapper, id);
 	}
+	
+	@Override
+	public List<Link> findAllByBoardId(String id) {
+		return jdbcTemplate
+				.query("SELECT ID, URL, DESCRIPTION, BOARDID FROM link WHERE BOARDID=?", mapper, id);
+	}
 
+	
 	@Override
 	public List<Link> findAll() {
 		return jdbcTemplate
@@ -66,7 +73,7 @@ class linkMapper implements RowMapper<Link> {
 		Link link = new Link();
 		link.setId(rs.getString("ID"));
 		link.setUrl(rs.getString("URL"));
-		link.setDescrption(rs.getString("DESCRIPTION"));
+		link.setDescription(rs.getString("DESCRIPTION"));
 		link.setBoardId(rs.getString("BOARDID"));
 		return link;
 	}

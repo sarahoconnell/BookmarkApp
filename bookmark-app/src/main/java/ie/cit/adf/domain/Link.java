@@ -24,6 +24,8 @@ public class Link  {
 	@Basic
 	private String description;
 	@Basic
+	private String name;
+	@Basic
 	private String boardId;
 	
 
@@ -31,15 +33,23 @@ public class Link  {
 		this("");
 	}
 	public Link(String url){
-		this(UUID.randomUUID().toString(), url, "", "");
+		this(UUID.randomUUID().toString(), url, "", "", "");
 	}
-	public Link(String id, String url, String description, String boardId){
+	public Link(String id, String url, String name, String description, String boardId){
 		this.id = id;
 		this.url = url;
+		this.name = name; 
 		this.description = description; 
 		this.boardId = boardId;
 	}
 
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getId() {
 		return id;
 	}
@@ -60,7 +70,7 @@ public class Link  {
 		return description;
 	}
 
-	public void setDescrption(String description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 

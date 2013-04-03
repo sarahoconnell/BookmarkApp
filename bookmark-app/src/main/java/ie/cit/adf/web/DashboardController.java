@@ -41,8 +41,55 @@ public class DashboardController extends BaseController{
  
 	}
 	
+	@RequestMapping(value="viewBoard")
+	public String viewBoard(@RequestParam String boardid, ModelMap model) {
+
+		if (loggedIn()) // ROLE?
+		{	
+			Board board = boardService.findById(boardid);
+			Collection<Link> allLinks = linkService.findAllByBoardId(boardid);
+			model.addAttribute("links", allLinks);
+			model.addAttribute("board", board);
+			return "board.jsp";
+		}
+		else
+		    return "index.jsp";			
+ 
+	}
+	
+
+	@RequestMapping(value="deleteBoard")
+	public String deleteBoard(@RequestParam String boardid, ModelMap model) {
+
+		if (loggedIn()) // ROLE?
+		{	
+			Board board = boardService.findById(boardid);
+			boardService.delete(board);
+			return "redirect:/dashboard";
+		}
+		else
+		    return "redirect:index.jsp";			
+ 
+	}
+	
+
+
+	@RequestMapping(value="deleteLink")
+	public String deleteLink(@RequestParam String linkid, ModelMap model) {
+
+		if (loggedIn()) // ROLE?
+		{	
+			Link link = linkService.findById(linkid);
+			linkService.delete(link);
+			return "redirect:viewBoard?boardid="+link.getBoardId();
+		}
+		else
+		    return "redirect:index.jsp";			
+ 
+	}
+	
 	@RequestMapping("createLink")
-	public String create(@RequestParam String url, @RequestParam String description, @RequestParam String boardId, Model model) {
+	public String createLink(@RequestParam String id, @RequestParam String url, @RequestParam String name, @RequestParam String description, @RequestParam String boardId, @RequestParam String gotolink, Model model) {
 	
 		if (loggedIn()) // ROLE?
 		{	
@@ -53,21 +100,22 @@ public class DashboardController extends BaseController{
 				return "addLink.jsp";			
 			}
 			
-			if(boardId.isEmpty())
-			{
-				// get default boardID
-			}
+			if(!id.isEmpty()) 		
+				linkService.update(id, url, name, description, boardId);
+			else 
+				linkService.create(url, name, description, boardId);
 			
-			Link newLink = linkService.create(url, description, boardId);
-			model.addAttribute("link", newLink);
-			return "/dashboard";
+			if(gotolink.equalsIgnoreCase("dashboard"))
+				return "redirect:/dashboard";
+			else
+				return "redirect:viewBoard?boardid="+boardId;
 		}
 		else
-		   return "index.jsp";	
+		   return "redirect:index.jsp";	
 	}
 	
 	@RequestMapping("createBoard")
-	public String create(@RequestParam String name, @RequestParam String description, Model model) {
+	public String createBoard(@RequestParam String id, @RequestParam String name, @RequestParam String description, Model model) {
 
 		if (loggedIn()) // ROLE?
 		{
@@ -75,16 +123,20 @@ public class DashboardController extends BaseController{
 			if(name.isEmpty())
 			{
 				model.addAttribute("error", "Name is mandatory!!");
-				return "/dashboard";
-			}		
-		
-			Board newBoard = boardService.create(name, description, loggedInUser.getId());
+				return "redirect:/dashboard";
+			}
+			
+			if(!id.isEmpty()) 		
+				boardService.update(id, name, description);
+			else 
+				boardService.create(name, description, loggedInUser.getId());	
+
 			Collection<Board> allBoards = boardService.findAllByUserId(loggedInUser.getId());
-			model.addAttribute("boards", allBoards);
-			return "/dashboard";
+			model.addAttribute("boards", allBoards);	  
+			return "redirect:/dashboard";
 	   }
 	   else
-		 return "index.jsp";	
+		 return "redirect:index.jsp";	
 	}
 
 

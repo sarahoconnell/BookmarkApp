@@ -22,24 +22,30 @@ public class LinkServiceImpl implements LinkService {
 		return repo.findById(id);
 	}
 
+	public Collection<Link> findAllByBoardId(String boardId) {
+		return repo.findAllByBoardId(boardId);
+	}
+
 	
 	public Collection<Link> findAll() {
 		return repo.findAll();
 	}
 
-	public Link create(String url, String description, String boardId) {
+	public Link create(String url, String name, String description, String boardId) {
 		Link link = new Link();
 		link.setUrl(url);
-		link.setDescrption(description);
+		link.setName(name);
+		link.setDescription(description);
 		link.setBoardId(boardId);
 		repo.create(link);
 		return link;
 	}
 
-	public Link update(String id, String url, String description, String boardId) {
+	public Link update(String id, String url, String name, String description, String boardId) {
 		Link link = repo.findById(id);
 		link.setUrl(url);
-		link.setDescrption(description);
+		link.setName(name);
+		link.setDescription(description);
 		link.setBoardId(boardId);
 		repo.update(link);
 		return link;

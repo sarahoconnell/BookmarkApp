@@ -1,83 +1,65 @@
 <jsp:include page="includes/header.jsp"/>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-  <h1>Bookmark Application</h1>
+<a href="#boardModal" 
+   role="button" 
+   class="btn btn-success btn-large" 
+   data-toggle="modal">
+   <i class="icon-folder-close icon-white"></i> Create Board</a>
  
-   <a href="#linkModal" role="button" class="btn" data-toggle="modal">Add Link</a>&nbsp;
-   <a href="#boardModal" role="button" class="btn" data-toggle="modal">Create Board</a>
+<br>
+<br>
 
-  <h4>Boards</h4>
-  <c:forEach items="${boards}" var="board" varStatus="row">
-		${board.name} - ${board.description}	
-  </c:forEach>
-
-
-<!-- Link Modal -->
-<div id="linkModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-    <h3 id="myModalLabel">Add Link</h3>
+  <div class="row-fluid">
+    <ul class="thumbnails">
+    <c:forEach items="${boards}" var="board" varStatus="row">
+      
+	  <li class="span3">	  
+	  <div class="thumbnail">	  
+         <div class="btn-group">
+         
+		  <a class="btn btn-inverse" 
+		     href="viewBoard?boardid=${board.id}">
+		     <i class="icon-folder-open icon-white"></i> ${board.name}</a>
+		     
+		  <a class="btn btn-inverse dropdown-toggle" 
+		     data-toggle="dropdown" 
+		     href="#"><span class="caret"></span></a>
+		       
+		  <ul class="dropdown-menu">
+		    <li>
+		       <a href="#boardModal" 
+		          data-id="${board.id}" 
+		          data-name="${board.name}" 
+		          data-desc="${board.description}" 
+		          data-toggle="modal" 
+		          class="open-boardModal">
+		          <i class="icon-pencil"></i> Edit</a>
+		    </li>
+		    <li>
+		       <a href="deleteBoard?boardid=${board.id}">
+		          <i class="icon-trash"></i> Delete</a>
+		    </li>
+		    <li class="divider"></li>
+		    <li>
+		       <a href="#linkModal" 
+		          data-gotolink="dashboard" 
+		          data-boardid="${board.id}" 
+		          data-toggle="modal" 
+		          class="open-linkModal">
+		          <i class="icon-heart"></i> Add Link</a>
+		    </li>
+		  </ul>
+		  
+		</div>     
+         <div class="caption">
+           <p>${board.description}</p>    
+        </div> 
+      </div>
+      </li>
+  	 </c:forEach>
+    </ul> 
   </div>
-  <form class="form-horizontal" action="createLink" method="post">
-  <div class="modal-body">    
-	  <div class="control-group">
-	    <label class="control-label" for="url">URL</label>
-	    <div class="controls">
-	      <input type="text" id="url" name="url" placeholder="http://awsomelink.here">
-	    </div>
-	  </div>
-	  <div class="control-group">
-	    <label class="control-label" for="description">Description</label>
-	    <div class="controls">
-	      <input type="text" id="description" name="description" placeholder="Description">
-	    </div>
-	  </div>	
-	  <div class="control-group">
-	    <label class="control-label" for="boardId">Board</label>
-	    <div class="controls">
-	     <select id="boardId" name="boardId">
-	        <c:forEach items="${boards}" var="board" varStatus="row">
-		 		<option value="${board.id}">${board.name}</option>	
-  			</c:forEach>
-		</select>
-	    </div>
-	  </div>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary">Save changes</button>
-  </div>
-	</form>
-</div>
-
-<!-- Board Modal -->
-<div id="boardModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-    <h3 id="myModalLabel">Create Board</h3>
-  </div>
-  <form class="form-horizontal" action="createBoard" method="post">
-  <div class="modal-body">    
-	  <div class="control-group">
-	    <label class="control-label" for="name">Name</label>
-	    <div class="controls">
-	      <input type="text" id="name" name="name" placeholder="Name">
-	      <input type="hidden" id="userId" name="userId" value="${user.id}">
-	    </div>
-	  </div>
-	  <div class="control-group">
-	    <label class="control-label" for="description">Description</label>
-	    <div class="controls">
-	      <input type="text" id="description" name="description" placeholder="Description">
-	    </div>
-	  </div>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    <button class="btn btn-primary">Save changes</button>
-  </div>
-	</form>
-</div>
 
 <jsp:include page="includes/footer.jsp"/>
 

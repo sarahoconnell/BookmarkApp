@@ -4,6 +4,7 @@ import ie.cit.adf.domain.Link;
 
 import java.util.Collection;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,13 @@ public class HibernateLinkRepository implements LinkRepository {
 		return get(id);
 	}
 
+	@Override
+	public Collection<Link> findAllByBoardId(String boardId) {
+		Query query = session().createQuery("from Link where boardid = :boardid ");
+		query.setParameter("boardid", boardId);
+		return query.list();
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
     public Collection<Link> findAll() {
