@@ -1,6 +1,9 @@
 .user-header{
-	color:white;
+	color:gray;
+	text-decoration:none;	
 }
+a.user-header:hover {color: red; text-decoration: none; }
+
 .error{
 	color:red;
 }

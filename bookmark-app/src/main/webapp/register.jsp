@@ -1,7 +1,21 @@
 <jsp:include page="includes/header.jsp"/>
-	   
-	   ${error} 
-	   ${message} 
+ <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+	    <c:if test="${not empty error}">
+	   	<div class="alert alert-block alert-error fade in">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+           <p>${error}</p>
+        </div>
+        </c:if>
+	 	
+	 	
+	 	 <c:if test="${not empty message}">
+	   	<div class="alert alert-block  alert-success fade in">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <p>${message}</p>
+        </div>
+        </c:if>
+	
 	   
       <form class="form-horizontal" action="createUser" method="post">
 	  <div class="control-group">

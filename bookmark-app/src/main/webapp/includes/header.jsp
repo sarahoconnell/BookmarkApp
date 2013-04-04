@@ -30,32 +30,17 @@
           <a class="brand" href="dashboard">Dashboard</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li class="divider"></li>
-                  <li class="nav-header">Nav header</li>
-                  <li><a href="#">Separated link</a></li>
-                  <li><a href="#">One more separated link</a></li>
-                </ul>
-              </li>
+          
+		     <li><a href="#">About</a></li>
+         		      
+              
             </ul>
-            <c:if test="${not empty error}">
-				<div class="pull-right error">
-					Your login attempt was not successful, try again.   
-			              ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}<br>
-				</div>
-			</c:if>
+      
 			<security:authorize access="isAuthenticated()">
-			   <div class="pull-right user-header">Hello, <security:authentication property="principal.username" />!
-			   	   <a href="<c:url value="/j_spring_security_logout" />" class="user-header"> Logout</a>
-			   </div>
+			<p class="navbar-text pull-right">
+             Hello, <a href="#" class="navbar-link"><security:authentication property="principal.username" /></a>
+            | <a href="<c:url value="/j_spring_security_logout" />" class="user-header"> Logout</a>
+			</p>
 			</security:authorize>
 			
 			<security:authorize access="! isAuthenticated()">
