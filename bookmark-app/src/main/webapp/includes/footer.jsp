@@ -107,8 +107,7 @@
 	  <div class="control-group">
 	    <label class="control-label" for="description">Description</label>
 	    <div class="controls">
-	      <input type="text" id="description" name="description" placeholder="Description">
-	    </div>
+	      <textarea id="description" name="description" placeholder="Description" rows="3"></textarea>	    </div>
 	  </div>	
   </div>
   <div class="modal-footer">
@@ -136,7 +135,7 @@
 	  <div class="control-group">
 	    <label class="control-label" for="description">Description</label>
 	    <div class="controls">
-	      <input type="text" id="description" name="description" placeholder="Description">
+	      <textarea id="description" name="description" placeholder="Description" rows="3"></textarea>
 	    </div>
 	  </div>
   </div>
