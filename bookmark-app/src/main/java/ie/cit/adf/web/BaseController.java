@@ -7,17 +7,18 @@ import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
 @Controller
 public class BaseController {  
-
+	
+	private static final String ADMIN_USER = "ROLE_ADMIN";
 	@Autowired
 	private UserService userService;
 	
 	public User loggedInUser;
-	public Collection role;
 	
 	public boolean loggedIn()
 	{
@@ -26,11 +27,22 @@ public class BaseController {
 		if (auth.isAuthenticated()) // ROLE?
 		{
 			String userName = auth.getName();
+			
 			loggedInUser = userService.findByName(userName);
 			if(loggedInUser==null)
 				return false;
-			role = auth.getAuthorities();
+			//role = auth.getAuthorities();
+			
+			for(GrantedAuthority authority : auth.getAuthorities())
+			{
+				if(authority.getAuthority().equalsIgnoreCase(ADMIN_USER))
+				{
+		//			isAdmin = true;
+				}
+			}
+			
 			return true;
+			
 		}
 		return false;
 	}

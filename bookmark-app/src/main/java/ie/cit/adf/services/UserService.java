@@ -19,7 +19,7 @@ public interface UserService {
 	void createRole(User user, String role);
 	
 	// PUT
-	User update(String userId, String name, String password, String twitterId);
+	User update(User user);
 	
 	// DELETE {id}
 	void delete(User user);

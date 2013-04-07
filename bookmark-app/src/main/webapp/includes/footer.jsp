@@ -1,4 +1,86 @@
 
+<!--  Delete User Modal -->
+<div id="userBoardsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    	<h3 id="myModalLabel">User Details</h3>
+  	</div>
+  	<div id="userboards" class="modal-body">
+      
+    </div>
+    <div class="modal-footer">
+      <a href="javascript:$('#userBoardsModal').modal('hide')" class="btn secondary">Close</a>
+    </div>
+</div>
+
+
+<!--  Delete User Modal -->
+<div id="deleteUserModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<form id="modal-form" action="removeUser">
+  	
+	<div class="modal-header">
+    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    	<h3 id="myModalLabel">Delete User</h3>
+  	</div>
+  	
+  	<div class="modal-body">
+      <p>You are about to delete a user, this procedure is irreversible.</p>
+      <p>Do you want to proceed?</p>
+      <input type="hidden" id="userId" name="userId"/>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger">Yes</button>
+      <a href="javascript:$('#deleteUserModal').modal('hide')" class="btn secondary">No</a>
+    </div>
+    </form>
+</div>
+
+
+<!--  Lockout User Modal -->
+<div id="lockoutUserModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    	<h3 id="myModalLabel">Lockout User</h3>
+  	</div>
+  	
+  	<form action="toggleUserEnable">
+  	<div class="modal-body">
+      <p>You are about to lockout this user.</p>
+      <p>Do you want to proceed?</p>
+      <input type="hidden" id="userId" name="userId"/>
+      <input type="hidden" id="enabled" name="enabled"/>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-warning">Yes</button>
+      <a href="javascript:$('#lockoutUserModal').modal('hide')" class="btn secondary">No</a>
+    </div>
+    </form>
+</div>
+
+
+
+<!--  Enable User Modal -->
+<div id="enableUserModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    	<h3 id="myModalLabel">Enable User</h3>
+  	</div>
+  	
+  	<form action="toggleUserEnable">
+  	<div class="modal-body">
+      <p>You are about to re-enable this user.</p>
+      <p>Do you want to proceed?</p>
+      <input type="hidden" id="userId" name="userId"/>
+      <input type="hidden" id="enabled" name="enabled"/>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-warning">Yes</button>
+      <a href="javascript:$('#enableUserModal').modal('hide')" class="btn secondary">No</a>
+    </div>
+    </form>
+</div>
+
+
 <!-- Link Modal -->
 <div id="linkModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
@@ -101,6 +183,29 @@ $(document).on("click", ".open-linkModal", function () {
     
     $('#linkModal').modal('show');
 });
+
+
+
+
+$(document).on("click", ".open-deleteUserModal", function () {
+     var userId = $(this).data('userid');
+     $(".modal-body #userId").val( userId );
+});
+
+$(document).on("click", ".open-lockoutUserModal", function () {
+    var userId = $(this).data('userid');
+    var enabled = $(this).data('enabled');
+    $(".modal-body #userId").val( userId );
+    $(".modal-body #enabled").val( enabled );
+});
+
+$(document).on("click", ".open-enableUserModal", function () {
+    var userId = $(this).data('userid');
+    var enabled = $(this).data('enabled');
+    $(".modal-body #userId").val( userId );
+    $(".modal-body #enabled").val( enabled );
+});
+
 
 $(document).on("click", ".open-boardModal", function () {
     var id = $(this).data('id');

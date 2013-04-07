@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.access.annotation.Secured;
 
 @Service
 @Transactional
@@ -27,6 +28,8 @@ public class UserServiceImpl implements UserService {
 		return repo.findByName(name);
 	}
 	
+	//SECURET THIS FOR ADMIN USERS ONLY 
+	@Secured("ROLE_ADMIN")
 	public Collection<User> findAll() {
 		return repo.findAll();
 	}
@@ -48,11 +51,12 @@ public class UserServiceImpl implements UserService {
 		repo.createRole(userRole);
 	}
 	
-	public User update(String userId, String name, String password, String twitterId) {
-		User user = repo.findById(userId);
+	public User update(User user) {
+		/*User user = repo.findById(userId);
 		user.setName(name);
 		user.setPassword(password);
 		user.setTwitterId(twitterId);
+		user.setEnabled(enabled);*/
 		repo.update(user);
 		return user;
 		

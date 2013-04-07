@@ -7,3 +7,11 @@ a.user-header:hover {color: red; text-decoration: none; }
 .error{
 	color:red;
 }
+
+.modal-form {
+  margin-bottom: 0;
+}
+
+.modal {
+  margin-bottom: 0;
+}

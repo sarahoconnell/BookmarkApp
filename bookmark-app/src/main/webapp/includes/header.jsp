@@ -30,18 +30,20 @@
           <a class="brand" href="dashboard">Dashboard</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-          
-		     <li><a href="#">About</a></li>
-         		      
-              
+          	 <security:authorize ifAnyGranted="ROLE_ADMIN">
+      		 <li><a href="admin">Manage Users</a></li>
+      		 </security:authorize> 
+      		 
+		     <li><a href="manageUsers">About</a></li>
+         	
             </ul>
-      
-			<security:authorize access="isAuthenticated()">
+      		<security:authorize access="isAuthenticated()">
 			<p class="navbar-text pull-right">
              Hello, <a href="#" class="navbar-link"><security:authentication property="principal.username" /></a>
             | <a href="<c:url value="/j_spring_security_logout" />" class="user-header"> Logout</a>
 			</p>
 			</security:authorize>
+			
 			
 			<security:authorize access="! isAuthenticated()">
 			    <form class="navbar-form pull-right" action="<c:url value='j_spring_security_check' />" method='POST'>
@@ -50,7 +52,8 @@
 	              <button type="submit" name="submit"  class="btn">Sign in</button>
 	            </form>
 			</security:authorize>
-            
+			
+		
           </div><!--/.nav-collapse -->
         </div>
       </div>

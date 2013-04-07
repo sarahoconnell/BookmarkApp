@@ -1,5 +1,6 @@
 package ie.cit.adf.domain;
 
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Basic;
@@ -11,6 +12,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
 
 
 @Entity
