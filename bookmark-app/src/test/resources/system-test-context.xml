@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:cloud="http://schema.cloudfoundry.org/spring"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- scan for all classes within the package, but IGNORE all annotated with 
+		@Controller (they are configured in dispatcher context) -->
+	<context:component-scan base-package="ie.cit">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+		
+		    <jdbc:embedded-database id="dataSource" type="H2" />
+             
+            
+	         <jdbc:initialize-database data-source="dataSource" ignore-failures="NONE">
+					<jdbc:script location="classpath:test-db-schema.sql" />
+					<jdbc:script location="classpath:test-data.sql" />
+			 </jdbc:initialize-database>
+			 
+			 
+			<bean id="org.h2.tools.Server-WebServer" class="org.h2.tools.Server"
+				factory-method="createWebServer" depends-on="dataSource" init-method="start"
+				lazy-init="false" destroy-method="stop">
+				<constructor-arg value="-web,-webPort,8082" />
+			</bean>
+
+	
+	 <bean 
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	     <property name="location">
+		      <value>properties/database.properties</value>
+	     </property>
+     </bean>
+        
+    
+
+    <!-- configure all beans for aspects -->
+	<aop:aspectj-autoproxy />
+	
+    <!-- configure all beans for transactions -->
+	<tx:annotation-driven />
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>ie.cit.adf.domain.Board</value>
+				<value>ie.cit.adf.domain.Link</value>
+				<value>ie.cit.adf.domain.User</value>
+				<value>ie.cit.adf.domain.UserRole</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	
+	 <security:global-method-security
+		secured-annotations="enabled" />
+		
+	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/welcome*"/>
+		<security:intercept-url pattern="/admin*" access="hasRole('ROLE_ADMIN')"/>
+		<security:access-denied-handler error-page="/accessDenied.jsp"/>
+		
+		<security:form-login login-page="/login" default-target-url="/welcome"
+			authentication-failure-url="/loginfailed" />
+		<security:logout logout-success-url="/logout" />
+	</security:http>
+
+	<!-- <security:authentication-manager>
+		<security:authentication-provider>
+			<security:password-encoder hash="md5" />
+			<security:user-service properties="classpath:users.properties" />
+		</security:authentication-provider>
+	</security:authentication-manager> -->
+	
+	<security:authentication-manager>
+	   <security:authentication-provider>
+		<security:jdbc-user-service data-source-ref="dataSource"
+ 
+		   users-by-username-query="
+		      select name,password, enabled 
+		      from users where name=?" 
+ 
+		   authorities-by-username-query="
+		      select u.name, ur.authority from users u, user_roles ur 
+		      where u.id = ur.userid and u.name =?  " 
+ 
+		/>
+	   </security:authentication-provider>
+	</security:authentication-manager>
+	
+  
+	
+</beans>

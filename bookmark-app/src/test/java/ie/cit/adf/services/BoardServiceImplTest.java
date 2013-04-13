@@ -1,20 +1,12 @@
 package ie.cit.adf.services;
 
-import ie.cit.adf.domain.Board;
-import ie.cit.adf.domain.dao.BoardRepository;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import ie.cit.adf.domain.User;
-import ie.cit.adf.domain.dao.UserRepository;
+import ie.cit.adf.domain.Board;
+import ie.cit.adf.domain.dao.BoardRepository;
 
 import java.util.ArrayList;
-import java.util.Collection;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
 
 import org.junit.Before;
 import org.junit.Test;
