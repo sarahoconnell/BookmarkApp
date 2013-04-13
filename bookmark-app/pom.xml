@@ -111,7 +111,12 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.12</version>
 		</dependency>
-		 
+		 <dependency>
+	        <groupId>org.cloudfoundry</groupId>
+        	<artifactId>cloudfoundry-runtime</artifactId>
+        	<version>0.8.1</version>
+    	</dependency>
+    	
  
         <!-- MySQL database driver -->
 		<dependency>
@@ -139,6 +144,15 @@
 		</dependency>
  
 	</dependencies>
+	<repositories>
+	    <repository>
+	        <id>org.springframework.maven.milestone</id>
+	        <name>Spring Framework Maven Milestone Repository</name>
+	        <url>http://maven.springframework.org/milestone</url>
+	    </repository>
+	    <!-- additional repository declarations -->
+	</repositories>
+	
 	<build>
 		<plugins>
 			<plugin>

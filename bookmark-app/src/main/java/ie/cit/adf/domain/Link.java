@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity
-@Table(name="LINK")
+@Table(name="link")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Link  {
 	@Id

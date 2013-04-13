@@ -21,10 +21,9 @@
 	
 	<bean
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-
-		<!--
+		
+			<!--
 		    <jdbc:embedded-database id="dataSource" type="H2" />
-            <cloud:data-source id="dataSource" /> 
             
 	         <jdbc:initialize-database data-source="dataSource" ignore-failures="NONE">
 					<jdbc:script location="classpath:db-schema.sql" />
@@ -54,6 +53,14 @@
 		<property name="password" value="password" />
 	 </bean>
 
+
+    <jdbc:initialize-database data-source="dataSource" ignore-failures="NONE">
+			<jdbc:script location="classpath:mysql-schema.sql" />
+	 </jdbc:initialize-database>
+	 
+<!-- 	 <cloud:data-source id="dataSource" /> 
+     -->       
+	
     <!-- configure all beans for aspects -->
 	<aop:aspectj-autoproxy />
 	

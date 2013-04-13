@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 
 @Entity
-@Table(name="USER_ROLES")
+@Table(name="user_roles")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class UserRole {
 	@Id
