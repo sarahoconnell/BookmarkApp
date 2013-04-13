@@ -50,9 +50,9 @@ public class DashboardController extends BaseController{
 	@Secured("ROLE-ADMIN")
 	public String showAdmin(ModelMap model) {
  
-		Collection<User> allUsers = userService.findAll();
-		model.addAttribute("users", allUsers);
 		if(loggedIn()){
+			Collection<User> allUsers = userService.findAll();
+			model.addAttribute("users", allUsers);
 			model.addAttribute("currentUser", loggedInUser);
 		}
 		return "admin.jsp";

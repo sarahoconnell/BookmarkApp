@@ -54,7 +54,10 @@
 		<property name="password" value="password" />
 	 </bean>
 
+    <!-- configure all beans for aspects -->
 	<aop:aspectj-autoproxy />
+	
+    <!-- configure all beans for transactions -->
 	<tx:annotation-driven />
 
 	<bean id="transactionManager"

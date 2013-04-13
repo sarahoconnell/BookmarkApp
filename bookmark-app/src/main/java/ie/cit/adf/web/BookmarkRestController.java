@@ -63,7 +63,7 @@ public class BookmarkRestController {
 */
 }
 
-@ResponseStatus(HttpStatus.NOT_FOUND)
-class NotFoundException extends RuntimeException {
-	private static final long serialVersionUID = 1L;
-}
+//@ResponseStatus(HttpStatus.NOT_FOUND)
+//class NotFoundException extends RuntimeException {
+//	private static final long serialVersionUID = 1L;
+//}

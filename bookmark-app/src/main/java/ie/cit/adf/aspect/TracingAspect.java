@@ -12,11 +12,11 @@ import org.springframework.stereotype.Component;
 public class TracingAspect {
 
     Log log = LogFactory.getLog(TracingAspect.class);
-
-    @Before("execution(* (@org.springframework.stereotype.Repository ie.cit..*).*(..)) && target(repo)")
-    public void trace(JoinPoint jp, Object repo) {
-	String clazz = repo.getClass().getName();
+  
+    @Before("execution(* ie.cit.adf.domain.dao..*.*(..))")
+    public void trace(JoinPoint jp) {
+	String clazz = jp.getTarget().getClass().getName();
 	String method = jp.getSignature().getName();
-	log.trace("method invoked:" + clazz + "#" + method);
+	log.trace("DAO method invoked:" + clazz + "#" + method);
     }
 }
