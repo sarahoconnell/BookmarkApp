@@ -6,6 +6,7 @@ import java.util.Collection;
 
 public interface UserService {
 
+   
    // GET {id}
    User findById(String userId);
    

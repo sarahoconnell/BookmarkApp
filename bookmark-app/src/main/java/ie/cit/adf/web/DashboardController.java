@@ -47,7 +47,7 @@ public class DashboardController extends BaseController{
 	}
 	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	@Secured("ROLE-ADMIN")
+	@Secured("ROLE_ADMIN")
 	public String showAdmin(ModelMap model) {
  
 		if(loggedIn()){
@@ -62,7 +62,7 @@ public class DashboardController extends BaseController{
 
 
 	@RequestMapping(value="removeUser")
-	@Secured("ROLE-ADMIN")
+	@Secured("ROLE_ADMIN")
 	public String removeUser(@RequestParam String userId, ModelMap model) {
 
 		System.out.println("About to remove user" + userId);
@@ -78,7 +78,7 @@ public class DashboardController extends BaseController{
 	}
 	
 	@RequestMapping(value="toggleUserEnable")
-	@Secured("ROLE-ADMIN")
+	@Secured("ROLE_ADMIN")
 	public String toggleUserEnable(@RequestParam String userId, @RequestParam boolean enabled, ModelMap model) {
 
 		System.out.println("About to remove user" + userId);

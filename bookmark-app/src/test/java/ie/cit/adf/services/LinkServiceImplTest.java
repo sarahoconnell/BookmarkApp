@@ -31,7 +31,7 @@ public class LinkServiceImplTest {
 		String id = link.getId();
 		Mockito.verify(linkRepository).create(link);
 		
-		assertThat(link.getName(), equalTo("http://google.com"));
+		assertThat(link.getUrl(), equalTo("http://google.com"));
 		assertThat(link.getName(), equalTo("Google"));
 		assertThat(link.getDescription(), equalTo("Search Engine"));
 		assertThat(link.getId(), equalTo(id));
@@ -86,7 +86,7 @@ public class LinkServiceImplTest {
 		
 		assertEquals(linkService.findAllByBoardId(google.getBoardId()), board1Links);
 		assertEquals(linkService.findAllByBoardId(microsoft.getBoardId()), board2Links);
-		assertThat(linkService.findAllByBoardId(notIncluded.getBoardId()).size(), equalTo(0));
+		assertThat(linkService.findAllByBoardId(notIncluded.getBoardId()), equalTo(null));
 		assertThat(linkService.findAllByBoardId("random").size(), equalTo(0));
 		
 	

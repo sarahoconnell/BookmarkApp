@@ -24,7 +24,7 @@ public class BaseController {
 	{
 		// logged in user
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth.isAuthenticated()) // ROLE?
+		if (auth != null && auth.isAuthenticated()) // ROLE?
 		{
 			String userName = auth.getName();
 			

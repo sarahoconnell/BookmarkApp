@@ -1,5 +1,8 @@
 package ie.cit.adf.integration;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -18,12 +21,20 @@ public class AuthenticationHelper {
 	/**
 	 * Logs in as the admin user
 	 */
-	protected void login(Object principal, Object credentials ){
+	protected void login(Object principal, Object credentials, String userRole){
 		SecurityContext securityContext = new SecurityContextImpl();
 		UsernamePasswordAuthenticationToken authentication;
-		authentication = new UsernamePasswordAuthenticationToken(principal, credentials);
+		if(userRole != null){
+			Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+			GrantedAuthority authority = new GrantedAuthorityImpl(userRole);
+			authorities.add(authority);
+			authentication = new UsernamePasswordAuthenticationToken(principal, credentials, authorities);
+		}
+		else{
+			authentication = new UsernamePasswordAuthenticationToken(principal, credentials);
+		}
+		
 		securityContext.setAuthentication(authentication);
-		authentication.setAuthenticated(false);
 		provider.authenticate(authentication);
 		SecurityContextHolder.setContext(securityContext);
 	}
