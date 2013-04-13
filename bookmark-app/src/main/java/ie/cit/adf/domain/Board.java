@@ -35,7 +35,7 @@ public class Board {
 		this(UUID.randomUUID().toString(), name, "", "");
 	}
 	public Board(String id, String name, String description, String userId){
-		this.id = id;
+		setId(id);
 		this.name = name;
 		this.description = description;
 		this.userId = userId;
