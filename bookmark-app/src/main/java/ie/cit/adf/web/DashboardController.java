@@ -7,13 +7,18 @@ import ie.cit.adf.services.BoardService;
 import ie.cit.adf.services.LinkService;
 import ie.cit.adf.services.UserService;
 
-import java.security.Principal;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.Collection;
+
+import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -23,7 +28,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 @Controller
-public class DashboardController extends BaseController{  
+public class DashboardController extends BaseController {  
+		
+	@Autowired 
+	private RestTemplate restTemplate;
 	@Autowired
 	private BoardService boardService;
 	@Autowired  
@@ -141,12 +149,52 @@ public class DashboardController extends BaseController{
 		    return "redirect:index.jsp";			
  
 	}
+	/**
+	 * Get a snapshot using a RESTful service.
+	 * 
+	 * @param boardId
+	 * @param url
+	 * @param name
+	 * @return
+	 */
+	private byte[] generateSnapshot(String boardId, String url, String name){
+			//TODO: Refactor out to a utility class?
+			//TODO: Buy credits so we can generate bigger images :) 
+		
+			//get the image for this URL using the W3Snapshot service
+			String apikey = "e8c2173d19e93d234627817c039dea6d";
+			//http://images.w3snapshot.com/?size=[size]&key=[key]&url=[url]&format=[format]&quality=[quality]
+			 
+			String service = "http://images.w3snapshot.com/?size=S&key="+apikey+"&url="+url;//"&format=[format]&quality=[quality]";
+			System.out.println(service);
+			BufferedImage image = restTemplate.getForObject( service, BufferedImage.class);
+			if(image != null){
+				try {
+					ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+					ImageIO.write(image, "jpg", byteStream);				    
+					byteStream.flush();
+					
+					//save the image to the file system
+				    //File outputfile = new File(imagesDir, boardId+"_"+name+".jpg");
+				    //ImageIO.write(image, "jpg", outputfile);
+				    //System.out.println("Absolute Path is " + outputfile.getAbsolutePath());
+				    //return outputfile.getName();
+					return byteStream.toByteArray();
+				} catch (IOException e) {
+				    e.printStackTrace();
+				}
+			}
+			return null;
+	}
+	
+	
 	
 	@RequestMapping("createLink")
 	public String createLink(@RequestParam String id, @RequestParam String url, @RequestParam String name, @RequestParam String description, @RequestParam String boardId, @RequestParam String gotolink, Model model) {
 	
 		if (loggedIn()) // ROLE?
 		{	
+			
 			// validation
 			if(url.isEmpty())
 			{
@@ -154,10 +202,25 @@ public class DashboardController extends BaseController{
 				return "addLink.jsp";			
 			}
 			
-			if(!id.isEmpty()) 		
-				linkService.update(id, url, name, description, boardId);
-			else 
-				linkService.create(url, name, description, boardId);
+			byte[] thumbnailData = null; 
+			
+			if(!id.isEmpty()){
+				Link link = linkService.findById(id);
+				
+				if(!link.getUrl().equals(url)){
+					thumbnailData = generateSnapshot(boardId, url, name);
+					link.setImage(thumbnailData);
+					//defer the update so we only have one call going through
+				}
+				linkService.update(id, url, name, description, boardId, link.getImage());
+				
+			}
+			else{ 
+				linkService.create(url, name, description, boardId, generateSnapshot(boardId, url, name));
+				
+			}
+			
+			
 			
 			if(gotolink.equalsIgnoreCase("dashboard"))
 				return "redirect:/dashboard";

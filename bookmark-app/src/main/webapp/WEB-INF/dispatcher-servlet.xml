@@ -9,5 +9,4 @@
 
 	<context:component-scan base-package="ie.cit.adf.web" />  
 	<mvc:annotation-driven/>
-
 </beans>

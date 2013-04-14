@@ -17,6 +17,7 @@ CREATE TABLE `link` (
   `DESCRIPTION` varchar(255) DEFAULT NULL,
   `BOARDID` varchar(255) NOT NULL,
   `NAME` varchar(255) NOT NULL,
+  `IMAGE` blob,
   PRIMARY KEY (`ID`)
 );
 CREATE TABLE `user_roles` (

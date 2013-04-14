@@ -31,22 +31,24 @@ public class LinkServiceImpl implements LinkService {
 		return repo.findAll();
 	}
 
-	public Link create(String url, String name, String description, String boardId) {
+	public Link create(String url, String name, String description, String boardId, byte[] image) {
 		Link link = new Link();
 		link.setUrl(url);
 		link.setName(name);
 		link.setDescription(description);
 		link.setBoardId(boardId);
+		link.setImage(image);
 		repo.create(link);
 		return link;
 	}
 
-	public Link update(String id, String url, String name, String description, String boardId) {
+	public Link update(String id, String url, String name, String description, String boardId, byte[] image) {
 		Link link = repo.findById(id);
 		link.setUrl(url);
 		link.setName(name);
 		link.setDescription(description);
 		link.setBoardId(boardId);
+		link.setImage(image);
 		repo.update(link);
 		return link;
 		

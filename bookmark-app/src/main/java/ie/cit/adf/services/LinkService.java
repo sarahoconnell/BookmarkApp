@@ -15,10 +15,10 @@ public interface LinkService {
 	Collection<Link> findAll();
 
 	// POST
-	Link create(String url, String name, String description, String boardId);
+	Link create(String url, String name, String description, String boardId, byte[] image);
 
 	// PUT
-	Link update(String id, String url, String name, String description, String boardId);
+	Link update(String id, String url, String name, String description, String boardId, byte[] image);
 
 	// DELETE {id}
 	void delete(Link link);

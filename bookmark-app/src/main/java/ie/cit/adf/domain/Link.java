@@ -10,6 +10,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.security.crypto.codec.Base64;
 
 
 @Entity
@@ -28,6 +29,8 @@ public class Link  {
 	@Basic
 	private String boardId;
 	
+	@Basic 
+	private byte[] image;
 
 	public Link() {
 		this("");
@@ -41,6 +44,7 @@ public class Link  {
 		this.name = name; 
 		this.description = description; 
 		this.boardId = boardId;
+		this.image = null;
 	}
 
 	
@@ -81,6 +85,18 @@ public class Link  {
 	public void setBoardId(String boardId) {
 		this.boardId = boardId;
 	}
-
+	
+	public void setImage(byte[] image){
+		this.image = image;
+	}
+	
+	public byte[] getImage(){
+		return image;
+	}
+	
+	public String getImageData(){
+		return  new String(Base64.encode(this.image));
+		   //return new String(this.image);
+	}
 	
 }

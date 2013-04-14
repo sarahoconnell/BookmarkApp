@@ -34,7 +34,7 @@
       		 <li><a href="admin">Manage Users</a></li>
       		 </security:authorize> 
       		 
-		     <li><a href="manageUsers">About</a></li>
+		     <li><a href="#">About</a></li>
          	
             </ul>
       		<security:authorize access="isAuthenticated()">

@@ -19,6 +19,9 @@
 			expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 	
+	<!-- Handles HTTP GET requests for /images/** by efficiently serving up static resources in the ${webappRoot}/images directory -->
+	<!--  <context:resources mapping="/images/**" location="/images/" />-->    
+	
 	<bean
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
 		
@@ -53,7 +56,7 @@
 		<property name="password" value="password" />
 	 </bean>
 
-
+	<!-- DON'T INIT ON LOCALHOST FOR NOW -->
     <jdbc:initialize-database data-source="dataSource" ignore-failures="NONE">
 			<jdbc:script location="classpath:mysql-schema.sql" />
 	 </jdbc:initialize-database>
@@ -81,6 +84,17 @@
 				<value>ie.cit.adf.domain.Link</value>
 				<value>ie.cit.adf.domain.User</value>
 				<value>ie.cit.adf.domain.UserRole</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!--  for dealing with image requests -->
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+		<property name="messageConverters">
+			<list>
+				<!-- We only have one message converter for the RestTemplate, namely the XStream Marshller -->
+				<bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter">
+				</bean>
 			</list>
 		</property>
 	</bean>

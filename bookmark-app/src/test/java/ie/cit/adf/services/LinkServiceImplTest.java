@@ -27,7 +27,7 @@ public class LinkServiceImplTest {
 	
 	@Test
 	public void testCreateLink(){
-		Link link = linkService.create("http://google.com", "Google", "Search Engine", "board1");
+		Link link = linkService.create("http://google.com", "Google", "Search Engine", "board1", new byte[1]);
 		String id = link.getId();
 		Mockito.verify(linkRepository).create(link);
 		
@@ -42,10 +42,10 @@ public class LinkServiceImplTest {
 	
 	@Test
 	public void testFindAll() {  
-		Link google = linkService.create("http://google.com", "Google", "Search Engine", "board1");
-		Link apple = linkService.create("http://apple.com", "Apple", "Technology Giant", "board1");
-		Link microsoft = linkService.create("http://microsoft.com", "Microsoft", "Another Technology Giant", "board2");
-		Link notIncluded = linkService.create("http://nowhere.com", "Not Included", "", "");
+		Link google = linkService.create("http://google.com", "Google", "Search Engine", "board1", new byte[1]);
+		Link apple = linkService.create("http://apple.com", "Apple", "Technology Giant", "board1", new byte[1]);
+		Link microsoft = linkService.create("http://microsoft.com", "Microsoft", "Another Technology Giant", "board2", new byte[1]);
+		Link notIncluded = linkService.create("http://nowhere.com", "Not Included", "", "", new byte[1]);
 		
 		ArrayList<Link> links = new ArrayList<Link>();
 		links.add(google); 
@@ -68,10 +68,10 @@ public class LinkServiceImplTest {
 
 	@Test
 	public void testFindByBoardId() {  
-		Link google = linkService.create("http://google.com", "Google", "Search Engine", "board1");
-		Link apple = linkService.create("http://apple.com", "Apple", "Technology Giant", "board1");
-		Link microsoft = linkService.create("http://microsoft.com", "Microsoft", "Another Technology Giant", "board2");
-		Link notIncluded = linkService.create("http://nowhere.com", "Not Included", "", "");
+		Link google = linkService.create("http://google.com", "Google", "Search Engine", "board1", new byte[1]);
+		Link apple = linkService.create("http://apple.com", "Apple", "Technology Giant", "board1", new byte[1]);
+		Link microsoft = linkService.create("http://microsoft.com", "Microsoft", "Another Technology Giant", "board2", new byte[1]);
+		Link notIncluded = linkService.create("http://nowhere.com", "Not Included", "", "", new byte[1]);
 		
 		ArrayList<Link> board1Links = new ArrayList<Link>();
 		board1Links.add(google); 
@@ -101,10 +101,10 @@ public class LinkServiceImplTest {
 	
 	@Test
 	public void testFindById() {  
-		Link google = linkService.create("http://google.com", "Google", "Search Engine", "board1");
-		Link apple = linkService.create("http://apple.com", "Apple", "Technology Giant", "board1");
-		Link microsoft = linkService.create("http://microsoft.com", "Microsoft", "Another Technology Giant", "board2");
-		Link notIncluded = linkService.create("http://nowhere.com", "Not Included", "", "");
+		Link google = linkService.create("http://google.com", "Google", "Search Engine", "board1", new byte[1]);
+		Link apple = linkService.create("http://apple.com", "Apple", "Technology Giant", "board1", new byte[1]);
+		Link microsoft = linkService.create("http://microsoft.com", "Microsoft", "Another Technology Giant", "board2", new byte[1]);
+		Link notIncluded = linkService.create("http://nowhere.com", "Not Included", "", "", new byte[1]);
 		
 		Mockito.when(linkService.findById(google.getId())).thenReturn(google);
 		Mockito.when(linkService.findById(apple.getId())).thenReturn(apple);
@@ -130,20 +130,20 @@ public class LinkServiceImplTest {
 	@Test
 	public void testUpdate() {  
 		
-		Link google = linkService.create("http://google.com", "Google", "Search Engine", "board1");
-		Link apple = linkService.create("http://apple.com", "Apple", "Technology Giant", "board1");
+		Link google = linkService.create("http://google.com", "Google", "Search Engine", "board1", new byte[1]);
+		Link apple = linkService.create("http://apple.com", "Apple", "Technology Giant", "board1", new byte[1]);
 		
 		Mockito.when(linkRepository.findById(google.getId())).thenReturn(google);
 		Mockito.when(linkRepository.findById(apple.getId())).thenReturn(apple);
 		
 		
 		google.setName("Google Search");
-		linkService.update(google.getId(),  google.getUrl(), google.getName(), google.getDescription(),  google.getBoardId());
+		linkService.update(google.getId(),  google.getUrl(), google.getName(), google.getDescription(),  google.getBoardId(), new byte[1]);
 		Mockito.verify(linkRepository, Mockito.times(1)).update(google);
 		assertEquals(google.getName().equals("Google Search"), true);
 		
 		apple.setDescription("iEverything");
-		linkService.update(apple.getId(),  apple.getUrl(), apple.getName(), apple.getDescription(),  apple.getBoardId());
+		linkService.update(apple.getId(),  apple.getUrl(), apple.getName(), apple.getDescription(),  apple.getBoardId(), new byte[1]);
 		Mockito.verify(linkRepository, Mockito.times(1)).update(apple);
 		assertEquals(apple.getDescription().equals("iEverything"), true);
 		
@@ -155,7 +155,7 @@ public class LinkServiceImplTest {
 
 	@Test
 	public void testDelete() {  
-		Link google = linkService.create("http://google.com", "Google", "Search Engine", "board1");
+		Link google = linkService.create("http://google.com", "Google", "Search Engine", "board1", new byte[1]);
 		linkService.delete(google);
 		Mockito.verify(linkRepository).delete(google);        
         
