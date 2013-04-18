@@ -27,18 +27,21 @@ public class Board {
 	private String description;
 	@Basic 
 	private String userId;
+	@Basic 
+	private String img;
 	
 	public Board(){
 		this("");
 	}
 	public Board(String name){
-		this(UUID.randomUUID().toString(), name, "", "");
+		this(UUID.randomUUID().toString(), name, "", "", "");
 	}
-	public Board(String id, String name, String description, String userId){
+	public Board(String id, String name, String description, String userId, String img){
 		setId(id);
 		this.name = name;
 		this.description = description;
 		this.userId = userId;
+		this.img = img;
 	}
 	
 	public String getUserId() {
@@ -73,6 +76,12 @@ public class Board {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 }

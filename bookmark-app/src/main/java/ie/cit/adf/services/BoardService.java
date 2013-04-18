@@ -16,10 +16,10 @@ public interface BoardService {
 	Collection<Board> findAllByUserId(String userId);
 	
 	// POST
-	Board create(String name, String description, String userId);
+	Board create(String name, String description, String userId, String img);
 
 	// PUT
-	Board update(String id, String name, String description);
+	Board update(String id, String name, String description, String img);
 
 	// DELETE {id}
 	void delete(Board board);

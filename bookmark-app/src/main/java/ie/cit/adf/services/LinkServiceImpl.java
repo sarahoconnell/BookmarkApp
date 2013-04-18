@@ -41,7 +41,8 @@ public class LinkServiceImpl implements LinkService {
 		repo.create(link);
 		return link;
 	}
-
+	
+	@Transactional
 	public Link update(String id, String url, String name, String description, String boardId, byte[] image) {
 		Link link = repo.findById(id);
 		link.setUrl(url);

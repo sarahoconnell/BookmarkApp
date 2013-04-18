@@ -32,6 +32,7 @@
 		          data-id="${board.id}" 
 		          data-name="${board.name}" 
 		          data-desc="${board.description}" 
+		          data-img="${board.img}" 
 		          data-toggle="modal" 
 		          class="open-boardModal">
 		          <i class="icon-pencil"></i> Edit</a>
@@ -53,7 +54,7 @@
 		  
 		</div>     
          <div class="caption">
-           <p>${board.description}</p>    
+           <img class="img_thumbnailx2" src="/bookmark-app/static/images/${board.img}"/>    
         </div> 
       </div>
       </li>

@@ -232,7 +232,7 @@ public class DashboardController extends BaseController {
 	}
 	
 	@RequestMapping("createBoard")
-	public String createBoard(@RequestParam String id, @RequestParam String name, @RequestParam String description, Model model) {
+	public String createBoard(@RequestParam String id, @RequestParam String name, @RequestParam String description, @RequestParam String img, Model model) {
 
 		if (loggedIn()) // ROLE?
 		{
@@ -244,9 +244,9 @@ public class DashboardController extends BaseController {
 			}
 			
 			if(!id.isEmpty()) 		
-				boardService.update(id, name, description);
+				boardService.update(id, name, description, img);
 			else 
-				boardService.create(name, description, loggedInUser.getId());	
+				boardService.create(name, description, loggedInUser.getId(), img);	
 
 			Collection<Board> allBoards = boardService.findAllByUserId(loggedInUser.getId());
 			model.addAttribute("boards", allBoards);	  

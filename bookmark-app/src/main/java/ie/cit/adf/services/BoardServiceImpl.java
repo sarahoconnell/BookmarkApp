@@ -32,19 +32,22 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 
-	public Board create(String name, String description, String userId) {
+	public Board create(String name, String description, String userId, String img) {
 		Board board = new Board();
 		board.setName(name);
 		board.setDescription(description);
 		board.setUserId(userId);
+		board.setImg(img);
 		repo.create(board);
 		return board;
 	}
 
-	public Board update(String boardId, String name, String description) {
+	@Transactional
+	public Board update(String boardId, String name, String description, String img) {
 		Board board = repo.findById(boardId);
 		board.setName(name);
 		board.setDescription(description);
+		board.setImg(img);
 		repo.update(board);
 		return board;
 		

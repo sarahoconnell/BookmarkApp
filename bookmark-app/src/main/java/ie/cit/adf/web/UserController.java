@@ -48,7 +48,7 @@ public class UserController {
 					
 		User newUser = userService.create(name, password, twitterId);
 		userService.createRole(newUser, "ROLE_USER");		
-		Board newBoard = boardService.create("default", "default", newUser.getId());
+		boardService.create("default", "default", newUser.getId(), "fav.png");
 
 		model.addAttribute("message", "Registration successful! Please login.....");
 		return "register.jsp";

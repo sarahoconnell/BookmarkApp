@@ -130,6 +130,7 @@
 	    <div class="controls">
 	      <input type="text" id="name" name="name" placeholder="Name">
 	      <input type="hidden" id="id" name="id" >
+	      <input type="hidden" id="img" name="img" value="fav.png">
 	    </div>
 	  </div>
 	  <div class="control-group">
@@ -137,6 +138,24 @@
 	    <div class="controls">
 	      <textarea id="description" name="description" placeholder="Description" rows="3"></textarea>
 	    </div>
+	  </div>
+	  <div align="center">
+	  <table role="presentation">
+	  <tr>
+		  <td>
+		  	<img class="img_thumbnail selected" src="/bookmark-app/static/images/fav.png"/>
+		  </td>
+		  <td>
+		  	<img class="img_thumbnail" src="/bookmark-app/static/images/news.jpg"/>
+		  </td>
+		  <td> 
+		  	<img class="img_thumbnail" src="/bookmark-app/static/images/tech.jpg"/>
+		  </td>
+		  <td>
+			<img class="img_thumbnail" src="/bookmark-app/static/images/social.jpg"/>
+		  </td>
+	  </tr>
+	  </table>
 	  </div>
   </div>
   <div class="modal-footer">
@@ -161,64 +180,8 @@
 	
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
-<script>
-$(document).on("click", ".open-linkModal", function () {
-    var boardId = $(this).data('boardid');
-    $(".modal-body #boardId").val( boardId );
+<script src="/bookmark-app/static/js/jquery.isotope.min.js"></script>
+<script src="/bookmark-app/static/js/script.js"></script>
 
-    var id = $(this).data('id');
-    $(".modal-body #id").val( id );
-    
-    var name = $(this).data('name');
-    $(".modal-body #name").val( name );
-    
-    var description = $(this).data('desc');
-    $(".modal-body #description").val( description );
-    
-    var url = $(this).data('url');
-    $(".modal-body #url").val( url );
-    
-    var gotolink = $(this).data('gotolink');
-    $(".modal-body #gotolink").val( gotolink );
-    
-    $('#linkModal').modal('show');
-});
-
-
-
-
-$(document).on("click", ".open-deleteUserModal", function () {
-     var userId = $(this).data('userid');
-     $(".modal-body #userId").val( userId );
-});
-
-$(document).on("click", ".open-lockoutUserModal", function () {
-    var userId = $(this).data('userid');
-    var enabled = $(this).data('enabled');
-    $(".modal-body #userId").val( userId );
-    $(".modal-body #enabled").val( enabled );
-});
-
-$(document).on("click", ".open-enableUserModal", function () {
-    var userId = $(this).data('userid');
-    var enabled = $(this).data('enabled');
-    $(".modal-body #userId").val( userId );
-    $(".modal-body #enabled").val( enabled );
-});
-
-
-$(document).on("click", ".open-boardModal", function () {
-    var id = $(this).data('id');
-    $(".modal-body #id").val( id );
-   
-    var name = $(this).data('name');
-    $(".modal-body #name").val( name );
-    
-    var description = $(this).data('desc');
-    $(".modal-body #description").val( description );
-    
-    $('#boardModal').modal('show');
-});
-</script>
 </body>
 </html>
