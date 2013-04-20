@@ -4,6 +4,7 @@ import java.util.UUID;
 
 
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -29,21 +30,32 @@ public class Board {
 	private String userId;
 	@Basic 
 	private String img;
+
+	@Basic
+	@Column(nullable=false, columnDefinition="TINYINT(1)")
+	private boolean isPublic;
 	
 	public Board(){
 		this("");
 	}
 	public Board(String name){
-		this(UUID.randomUUID().toString(), name, "", "", "");
+		this(UUID.randomUUID().toString(), name, "", "", "", false);
 	}
-	public Board(String id, String name, String description, String userId, String img){
+	public Board(String id, String name, String description, String userId, String img, boolean isPublic){
 		setId(id);
 		this.name = name;
 		this.description = description;
 		this.userId = userId;
 		this.img = img;
+		this.isPublic = isPublic;
 	}
 	
+	public boolean getIsPublic() {
+		return isPublic;
+	}
+	public void setIsPublic(boolean isPublic) {
+		this.isPublic = isPublic;
+	}
 	public String getUserId() {
 		return userId;
 	}
@@ -83,5 +95,6 @@ public class Board {
 	public void setImg(String img) {
 		this.img = img;
 	}
+	
 
 }

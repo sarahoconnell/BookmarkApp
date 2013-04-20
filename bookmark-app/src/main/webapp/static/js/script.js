@@ -8,7 +8,20 @@ $(document).on("click", ".img_thumbnail", function () {
 
 
 $(document).on("click", ".open-boardModal", function () {
-    var id = $(this).data('id');
+	var id = $(this).data('id');
+	
+	if(id=="NEW"){
+		// clear any values
+	    $(".modal-body #id").val("");
+	    $(".modal-body #name").val("");
+	    $(".modal-body #description").val("");
+	    $(".modal-body #img").val("");
+	    $(".modal-body #ispublic").val(false);
+    	$('input:radio[name=ispublicRadio]:nth(0)').attr('checked',false);
+	    $('#boardModal').modal('show');
+	    return;
+	}
+	
     $(".modal-body #id").val( id );
    
     var name = $(this).data('name');
@@ -20,6 +33,16 @@ $(document).on("click", ".open-boardModal", function () {
     var img = $(this).data('img');
     $(".modal-body #img").val( img );
     
+    var isPublic = $(this).data('ispublic');
+    if(isPublic){
+    	$('input:checkbox[name=ispublicRadio]:nth(0)').attr('checked',true);
+	    $(".modal-body #ispublic").val(true);
+    }
+    else{
+    	$('input:checkbox[name=ispublicRadio]:nth(0)').attr('checked',false);
+	    $(".modal-body #ispublic").val(false);
+    }
+    
     $('.img_thumbnail').each(
             function(){
             	if((this.src).indexOf(img) !== -1)
@@ -30,6 +53,17 @@ $(document).on("click", ".open-boardModal", function () {
     
     $('#boardModal').modal('show');
 });
+
+function toggleIsPublic(){
+	
+	 var selected = $('input:checkbox[name=ispublicRadio]:checked').val();
+	 if(selected){
+		    $(".modal-body #ispublic").val(true);
+	 }
+	 else{
+		    $(".modal-body #ispublic").val(false);
+	 }
+}
 
 $(document).on("click", ".open-linkModal", function () {
     var boardId = $(this).data('boardid');

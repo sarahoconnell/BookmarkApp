@@ -112,7 +112,7 @@ public class DashboardIntegrationTests extends AuthenticationHelper{
 		login("user", "password", "ROLE_USER");
 		Model model = new ExtendedModelMap();
 		
-		dashboardController.createBoard("", "New Board", "DEscription", "fav.png", model);
+		dashboardController.createBoard("", "New Board", "DEscription", "fav.png", false, model);
 		//ensure the board exists for this user
 		Collection<Board> boards = boardService.findAllByUserId(userService.findByName("user").getId());
 		boolean foundBoard = false;
@@ -126,7 +126,7 @@ public class DashboardIntegrationTests extends AuthenticationHelper{
 		assertTrue(foundBoard);
 		
 		//test updating the board 
-		dashboardController.createBoard(boardId, "A Better Name", "New Description", "fav.png",  model);
+		dashboardController.createBoard(boardId, "A Better Name", "New Description", "fav.png",false,   model);
 		//make sure the board settings were saved 
 		Board board = boardService.findById(boardId);
 		assertTrue(board.getName().equals("A Better Name"));
@@ -148,7 +148,7 @@ public class DashboardIntegrationTests extends AuthenticationHelper{
 		
 		
 		//create a board for this 
-		dashboardController.createBoard("", "LinkBoard", "Tests", "fav.png", model);
+		dashboardController.createBoard("", "LinkBoard", "Tests", "fav.png",false,  model);
 		//Get one of the boards 
 		Collection<Board> boards = boardService.findAllByUserId(userService.findByName("user").getId());
 		Board board = boards.iterator().next();

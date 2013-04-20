@@ -224,7 +224,7 @@ public class DashboardController extends BaseController {
 	}
 	
 	@RequestMapping(value="/createBoard", method = RequestMethod.POST)
-	public String createBoard(@RequestParam String id, @RequestParam String name, @RequestParam String description, @RequestParam String img, Model model) {
+	public String createBoard(@RequestParam String id, @RequestParam String name, @RequestParam String description, @RequestParam String img,  @RequestParam boolean ispublic, Model model) {
 
 		if (loggedIn()) // ROLE?
 		{
@@ -236,9 +236,9 @@ public class DashboardController extends BaseController {
 			}
 			
 			if(!id.isEmpty()) 		
-				boardService.update(id, name, description, img);
+				boardService.update(id, name, description, img, ispublic);
 			else 
-				boardService.create(name, description, loggedInUser.getId(), img);	
+				boardService.create(name, description, loggedInUser.getId(), img, ispublic);	
 
 			Collection<Board> allBoards = boardService.findAllByUserId(loggedInUser.getId());
 			model.addAttribute("boards", allBoards);	  

@@ -3,8 +3,9 @@
 
 <a href="#boardModal" 
    role="button" 
-   class="btn btn-success btn-large" 
-   data-toggle="modal">
+   class="btn btn-success btn-large open-boardModal" 
+   data-toggle="modal"
+   data-id="NEW" >
    <i class="icon-folder-close icon-white"></i> Create Board</a>
  
 <br>
@@ -33,6 +34,7 @@
 		          data-name="${board.name}" 
 		          data-desc="${board.description}" 
 		          data-img="${board.img}" 
+		          data-ispublic="${board.isPublic}" 
 		          data-toggle="modal" 
 		          class="open-boardModal">
 		          <i class="icon-pencil"></i> Edit</a>
@@ -50,11 +52,10 @@
 		          class="open-linkModal">
 		          <i class="icon-heart"></i> Add Link</a>
 		    </li>
-		  </ul>
-		  
+		  </ul>		  
 		</div>     
          <div class="caption">
-           <img class="img_thumbnailx2" src="/bookmark-app/static/images/${board.img}"/>    
+          <a href="viewBoard?boardid=${board.id}"><img class="img_thumbnailx2" src="/bookmark-app/static/images/${board.img}"/></a>   
         </div> 
       </div>
       </li>

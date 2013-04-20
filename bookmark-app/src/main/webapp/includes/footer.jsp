@@ -131,6 +131,13 @@
 	      <input type="text" id="name" name="name" placeholder="Name">
 	      <input type="hidden" id="id" name="id" >
 	      <input type="hidden" id="img" name="img" value="fav.png">
+	      <input type="hidden" id="ispublic" name="ispublic" value="false">
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <label class="control-label" for="ispublic">Public</label>
+	    <div class="controls">
+           <input type="checkbox" name="ispublicRadio" id="ispublicRadio" onclick="toggleIsPublic()">
 	    </div>
 	  </div>
 	  <div class="control-group">

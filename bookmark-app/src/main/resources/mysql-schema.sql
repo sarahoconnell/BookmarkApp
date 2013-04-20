@@ -10,6 +10,7 @@ CREATE TABLE `board` (
   `DESCRIPTION` varchar(255) DEFAULT NULL,
   `USERID` varchar(255) DEFAULT NULL,
   `IMG` varchar(255) DEFAULT NULL,
+  `ISPUBLIC` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`)
 );
 CREATE TABLE `link` (

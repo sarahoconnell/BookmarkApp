@@ -34,7 +34,6 @@ public class DashboardRestController extends BaseController {
 	@Autowired  
 	private LinkService linkService;
 	
-
 	// curl -X GET -i http://localhost:8080/bookmark-app/api/boards/
 	@RequestMapping(value = "/boards", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
@@ -78,7 +77,7 @@ public class DashboardRestController extends BaseController {
 	}
 	
 	// curl -X POST -i http://localhost:8080/bookmark-app/api/boards/ -d
-	// '{"name":"some name","description":"some text","img":"some.jpg"}'
+	//{"name":"NEW BOARD","description":"My Favourite Websites","userId":"001","img":"fav.png", "isPublic":true}
 	@RequestMapping(value = "/boards", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@ResponseBody
@@ -91,6 +90,7 @@ public class DashboardRestController extends BaseController {
 		newBoard.setImg(board.getImg());
 		newBoard.setName(board.getName());
 		newBoard.setUserId(board.getUserId());
+		newBoard.setIsPublic(board.getIsPublic());
 		boardService.create(newBoard);
 
 		StringBuffer url = req.getRequestURL().append("/{id}");
@@ -107,7 +107,7 @@ public class DashboardRestController extends BaseController {
 	} 
 
 	// curl -X PUT -i http://localhost:8080/bookmark-app/api/boards/{id} -d
-	// '{"name":"some name","description":"some text","img":"some.jpg"}'
+	// {"name":"NEW BOARD","description":"My Favourite Websites","userId":"001","img":"fav.png", "isPublic":true}
 	@RequestMapping(value = "/boards/{id}", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@ResponseBody
@@ -122,8 +122,8 @@ public class DashboardRestController extends BaseController {
 		existing.setDescription(board.getDescription());
 		existing.setImg(board.getImg());
 		existing.setName(board.getName());
+		existing.setIsPublic(board.getIsPublic());
 		boardService.update(existing);
-
 	} 
 	
 	// TODO DEFECT WITH BYTE[]
