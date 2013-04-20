@@ -9,4 +9,5 @@
 
 	<context:component-scan base-package="ie.cit.adf.web" />  
 	<mvc:annotation-driven/>
+	<mvc:default-servlet-handler />
 </beans>

@@ -30,7 +30,11 @@ public class BoardServiceImpl implements BoardService {
 	public  Collection<Board> findAllByUserId(String userId) {
 		return repo.findAllByUserId(userId);
 	}
-	
+
+	public Board create(Board board) {
+		repo.create(board);
+		return board;
+	}
 
 	public Board create(String name, String description, String userId, String img) {
 		Board board = new Board();
@@ -53,8 +57,23 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 
+	@Transactional
+	public Board update(Board board) {
+		repo.update(board);
+		return board;
+		
+	}
+
 	@Override
 	public void delete(Board board) {
+		repo.delete(board);
+	}
+	
+
+
+	@Override
+	public void delete(String boardId) {
+		Board board = repo.findById(boardId);
 		repo.delete(board);
 	}
 

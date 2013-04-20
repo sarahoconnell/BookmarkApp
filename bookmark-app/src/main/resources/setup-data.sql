@@ -1,5 +1,5 @@
 INSERT INTO `users`(ID, NAME, PASSWORD, TWITTERID, ENABLED) VALUES('007', 'admin', 'password', '@admin', 1);
-INSERT INTO `users`(ID, NAME, PASSWORD, TWITTERID, ENABLED) VALUES('001', 'user', 'password', '@user', 1);
+INSERT INTO `users`(ID, NAME, PASSWORD, TWITTERID, ENABLED) VALUES('001', 'sample', 'sample', '@sample', 1);
 INSERT INTO `user_roles`(ID, USERID, AUTHORITY) VALUES('100007','007','ROLE_ADMIN');
 INSERT INTO `user_roles`(ID, USERID, AUTHORITY) VALUES('100001','001','ROLE_USER');
 INSERT INTO `board`(ID, NAME, DESCRIPTION, USERID, IMG) VALUES('b01', 'Favourite Sites', 'My Favourite Websites', '001', 'fav.png');

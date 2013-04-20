@@ -41,8 +41,7 @@ public class BaseController {
 				}
 			}
 			
-			return true;
-			
+			return true;			
 		}
 		return false;
 	}

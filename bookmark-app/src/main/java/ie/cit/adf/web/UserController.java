@@ -1,17 +1,14 @@
 package ie.cit.adf.web;
 
-import ie.cit.adf.domain.Board;
 import ie.cit.adf.domain.User;
 import ie.cit.adf.services.BoardService;
 import ie.cit.adf.services.UserService;
-
-import java.util.Collection;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -22,12 +19,12 @@ public class UserController {
 	@Autowired
 	private BoardService boardService;
 
-	@RequestMapping("registerUser")
+	@RequestMapping(value="registerUser", method = RequestMethod.GET)
 	public String register() {
 		return "register.jsp";
 	}
 
-	@RequestMapping("createUser")
+	@RequestMapping(value="createUser", method = RequestMethod.GET)
 	public String create(@RequestParam String name, @RequestParam String password, @RequestParam String password2, @RequestParam String twitterId, Model model) {
 		// validation
 		if(name.isEmpty() || password.isEmpty())

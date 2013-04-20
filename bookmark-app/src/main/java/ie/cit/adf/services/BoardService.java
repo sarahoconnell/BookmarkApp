@@ -17,11 +17,15 @@ public interface BoardService {
 	
 	// POST
 	Board create(String name, String description, String userId, String img);
+	Board create(Board board);
 
 	// PUT
 	Board update(String id, String name, String description, String img);
+	Board update(Board board);
 
-	// DELETE {id}
 	void delete(Board board);
+	
+	// DELETE {id}
+	void delete(String id);
 
 }

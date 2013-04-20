@@ -89,31 +89,34 @@
 			</list>
 		</property>
 	</bean>
-	
-	<!--  for dealing with image requests -->
+			
+    <!-- REST -->
 	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
 		<property name="messageConverters">
 			<list>
-				<!-- We only have one message converter for the RestTemplate, namely the XStream Marshller -->
-				<bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter">
-				</bean>
+			   <!-- We only have one message converter for the RestTemplate, namely the XStream Marshller -->
+               <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>       
+			   <bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
 			</list>
 		</property>
 	</bean>
-	
-	
-	
+		
+
 	 <security:global-method-security
 		secured-annotations="enabled" />
 		
 	<security:http auto-config="true" use-expressions="true">
 		<security:intercept-url pattern="/welcome*"/>
-		<security:intercept-url pattern="/admin*" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/admin*" 
+		                        access="hasRole('ROLE_ADMIN')"/>
 		<security:access-denied-handler error-page="/accessDenied.jsp"/>
 		
-		<security:form-login login-page="/login" default-target-url="/welcome"
-			authentication-failure-url="/loginfailed" />
+		<security:form-login login-page="/login" 
+		                     default-target-url="/welcome"
+							 authentication-failure-url="/loginfailed" />
+							 
 		<security:logout logout-success-url="/logout" />
+		
 	</security:http>
 
 	<!-- <security:authentication-manager>
@@ -139,6 +142,11 @@
 	   </security:authentication-provider>
 	</security:authentication-manager>
 	
-  
+    <!-- View Resolver -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
 	
 </beans>

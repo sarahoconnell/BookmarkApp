@@ -1,5 +1,7 @@
 package ie.cit.adf.domain;
 
+import ie.cit.adf.aspect.TracingAspect;
+
 import java.util.UUID;
 
 import javax.persistence.Basic;
@@ -9,6 +11,10 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.codehaus.jackson.annotate.JsonAnySetter;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.crypto.codec.Base64;
 
@@ -29,9 +35,18 @@ public class Link  {
 	@Basic
 	private String boardId;
 	
+	@JsonIgnore
 	@Basic 
 	private byte[] image;
 
+	  @JsonAnySetter
+	  public void handleUnknown(String key, Object value) {
+	    // do something: put to a Map; log a warning, whatever
+	    Log log = LogFactory.getLog(Link.class);
+		log.trace("handleUnknown key: "+key);
+		log.trace("handleUnknown value: "+value);
+	  }
+	
 	public Link() {
 		this("");
 	}

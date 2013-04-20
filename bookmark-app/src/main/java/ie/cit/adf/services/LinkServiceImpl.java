@@ -60,4 +60,9 @@ public class LinkServiceImpl implements LinkService {
 		repo.delete(link);
 	}
 
+	@Transactional
+	public void delete(String id) {
+		Link link = repo.findById(id);
+		repo.delete(link);
+	}
 }

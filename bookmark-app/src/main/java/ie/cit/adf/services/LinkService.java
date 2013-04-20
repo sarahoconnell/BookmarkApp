@@ -21,6 +21,7 @@ public interface LinkService {
 	Link update(String id, String url, String name, String description, String boardId, byte[] image);
 
 	// DELETE {id}
+	void delete(String id);
 	void delete(Link link);
 
 }
