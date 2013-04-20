@@ -1,4 +1,4 @@
-<jsp:include page="WEB-INF/views/includes/header.jsp"/>
+<jsp:include page="includes/header.jsp"/>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 	    <c:if test="${not empty error}">
@@ -19,5 +19,5 @@
         <p><a href="registerUser" class="btn btn-primary btn-large">Register »</a>&nbsp; <a href="#" class="btn btn-primary btn-large">Learn More »</a></p>
       </div>
       
- <jsp:include page="WEB-INF/views/includes/footer.jsp"/>
+ <jsp:include page="includes/footer.jsp"/>
    

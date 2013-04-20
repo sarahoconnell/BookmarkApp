@@ -33,9 +33,7 @@
           	 <security:authorize ifAnyGranted="ROLE_ADMIN">
       		 <li><a href="admin">Manage Users</a></li>
       		 </security:authorize> 
-      		 
-		     <li><a href="#">About</a></li>
-         	
+      		          	
             </ul>
       		<security:authorize access="isAuthenticated()">
 			<p class="navbar-text pull-right">

@@ -50,6 +50,21 @@ public class DashboardRestController extends BaseController {
 	}
 	
 
+	// curl -X GET -i http://localhost:8080/bookmark-app/api/boards/user/{id}
+	@RequestMapping(value = "/boards/user/{id}", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	@ResponseBody
+	public Boards findAllBoardsForUser(@PathVariable String id) {
+		
+			Collection<Board> boardsColl = boardService.findAllByUserId(id);
+			if (boardsColl == null)
+				throw new NotFoundException();
+			Boards boards = new Boards();
+			boards.setBoards(new ArrayList<Board>(boardsColl));
+			return boards;		
+	}
+	
+
 	// curl -X GET -i http://localhost:8080/bookmark-app/api/boards/{id}
 	@RequestMapping(value = "/boards/{id}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)

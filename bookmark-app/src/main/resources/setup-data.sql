@@ -1,4 +1,4 @@
-INSERT INTO `users`(ID, NAME, PASSWORD, TWITTERID, ENABLED) VALUES('007', 'admin', 'password', '@admin', 1);
+INSERT INTO `users`(ID, NAME, PASSWORD, TWITTERID, ENABLED) VALUES('007', 'admin', 'admin', '@admin', 1);
 INSERT INTO `users`(ID, NAME, PASSWORD, TWITTERID, ENABLED) VALUES('001', 'sample', 'sample', '@sample', 1);
 INSERT INTO `user_roles`(ID, USERID, AUTHORITY) VALUES('100007','007','ROLE_ADMIN');
 INSERT INTO `user_roles`(ID, USERID, AUTHORITY) VALUES('100001','001','ROLE_USER');

@@ -45,4 +45,23 @@ public class BaseController {
 		}
 		return false;
 	}
+	
+	public boolean isAdmin()
+	{
+		// logged in user
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null && auth.isAuthenticated()) // ROLE?
+		{
+						
+			for(GrantedAuthority authority : auth.getAuthorities())
+			{
+				if(authority.getAuthority().equalsIgnoreCase(ADMIN_USER))
+				{
+					return true;		
+				}
+			}
+				
+		}
+		return false;
+	}
 }

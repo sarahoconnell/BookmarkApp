@@ -19,12 +19,12 @@ public class UserController {
 	@Autowired
 	private BoardService boardService;
 
-	@RequestMapping(value="registerUser", method = RequestMethod.GET)
+	@RequestMapping(value="/registerUser", method = RequestMethod.GET)
 	public String register() {
 		return "register.jsp";
 	}
 
-	@RequestMapping(value="createUser", method = RequestMethod.GET)
+	@RequestMapping(value="/createUser", method = RequestMethod.POST)
 	public String create(@RequestParam String name, @RequestParam String password, @RequestParam String password2, @RequestParam String twitterId, Model model) {
 		// validation
 		if(name.isEmpty() || password.isEmpty())

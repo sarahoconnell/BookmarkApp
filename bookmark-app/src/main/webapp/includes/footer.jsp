@@ -16,7 +16,7 @@
 
 <!--  Delete User Modal -->
 <div id="deleteUserModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<form id="modal-form" action="removeUser">
+	<form id="modal-form" action="removeUser" method="POST">
   	
 	<div class="modal-header">
     	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -43,7 +43,7 @@
     	<h3 id="myModalLabel">Lockout User</h3>
   	</div>
   	
-  	<form action="toggleUserEnable">
+  	<form action="toggleUserEnable"  method="POST">
   	<div class="modal-body">
       <p>You are about to lockout this user.</p>
       <p>Do you want to proceed?</p>
@@ -66,7 +66,7 @@
     	<h3 id="myModalLabel">Enable User</h3>
   	</div>
   	
-  	<form action="toggleUserEnable">
+  	<form action="toggleUserEnable" method="POST">
   	<div class="modal-body">
       <p>You are about to re-enable this user.</p>
       <p>Do you want to proceed?</p>

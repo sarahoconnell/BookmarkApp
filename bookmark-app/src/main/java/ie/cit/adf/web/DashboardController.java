@@ -47,10 +47,10 @@ public class DashboardController extends BaseController {
 			Collection<Board> allBoards = boardService.findAllByUserId(loggedInUser.getId());
 			model.addAttribute("boards", allBoards);
 		
-			return "dashboard";
+			return "dashboard.jsp";
 		}
 		else
-		    return "index";			
+		    return "/index";			
  
 	}
 	
@@ -63,47 +63,43 @@ public class DashboardController extends BaseController {
 			model.addAttribute("users", allUsers);
 			model.addAttribute("currentUser", loggedInUser);
 		}
-		return "admin";
+		return "admin.jsp";
 	}
-	
-	
 
 
-	@RequestMapping(value="removeUser", method = RequestMethod.POST)
+	@RequestMapping(value="/removeUser", method = RequestMethod.POST)
 	@Secured("ROLE_ADMIN")
 	public String removeUser(@RequestParam String userId, ModelMap model) {
 
-		System.out.println("About to remove user" + userId);
 		if (loggedIn()) // ROLE?
 		{	
 			User user = userService.findById(userId);
 		    userService.delete(user);
-			return "redirect:admin";
+			return "redirect:/admin";
 		}
 		else
-		    return "redirect:index";			
+		    return "redirect:/index";			
  
 	}
 	
-	@RequestMapping(value="toggleUserEnable", method = RequestMethod.POST)
+	@RequestMapping(value="/toggleUserEnable", method = RequestMethod.POST)
 	@Secured("ROLE_ADMIN")
 	public String toggleUserEnable(@RequestParam String userId, @RequestParam boolean enabled, ModelMap model) {
 
-		System.out.println("About to remove user" + userId);
 		if (loggedIn()) // ROLE?
 		{	
 			User user = userService.findById(userId);
 		    user.setEnabled(enabled);
 		    userService.update(user);
-			return "redirect:admin";
+			return "redirect:/admin";
 		}
 		else
-		    return "redirect:index";			
+		    return "redirect:/index";			
  
 	}
  
 	
-	@RequestMapping(value="viewBoard", method = RequestMethod.GET)
+	@RequestMapping(value="/viewBoard", method = RequestMethod.GET)
 	public String viewBoard(@RequestParam String boardid, ModelMap model) {
 
 		if (loggedIn()) // ROLE?
@@ -112,15 +108,15 @@ public class DashboardController extends BaseController {
 			Collection<Link> allLinks = linkService.findAllByBoardId(boardid);
 			model.addAttribute("links", allLinks);
 			model.addAttribute("board", board);
-			return "board";
+			return "board.jsp";
 		}
 		else
-		    return "index";			
+		    return "/index";			
  
 	}
 	
 
-	@RequestMapping(value="deleteBoard", method = RequestMethod.POST)
+	@RequestMapping(value="/deleteBoard", method = RequestMethod.POST)
 	public String deleteBoard(@RequestParam String boardid, ModelMap model) {
 
 		if (loggedIn()) // ROLE?
@@ -130,23 +126,23 @@ public class DashboardController extends BaseController {
 			return "redirect:/dashboard";
 		}
 		else
-		    return "redirect:index";			
+		    return "redirect:/index";			
  
 	}
 	
 
 
-	@RequestMapping(value="deleteLink", method = RequestMethod.POST)
+	@RequestMapping(value="/deleteLink", method = RequestMethod.POST)
 	public String deleteLink(@RequestParam String linkid, ModelMap model) {
 
 		if (loggedIn()) // ROLE?
 		{	
 			Link link = linkService.findById(linkid);
 			linkService.delete(link);
-			return "redirect:viewBoard?boardid="+link.getBoardId();
+			return "redirect:/viewBoard?boardid="+link.getBoardId();
 		}
 		else
-		    return "redirect:index";			
+		    return "redirect:/index";			
  
 	}
 	/**
@@ -188,12 +184,11 @@ public class DashboardController extends BaseController {
 	}
 	
 	
-	@RequestMapping(value="createLink", method = RequestMethod.POST)
+	@RequestMapping(value="/createLink", method = RequestMethod.POST)
 	public String createLink(@RequestParam String id, @RequestParam String url, @RequestParam String name, @RequestParam String description, @RequestParam String boardId, @RequestParam String gotolink, Model model) {
 	
 		if (loggedIn()) // ROLE?
-		{	
-			
+		{				
 			// validation
 			if(url.isEmpty())
 			{
@@ -222,13 +217,13 @@ public class DashboardController extends BaseController {
 			if(gotolink.equalsIgnoreCase("dashboard"))
 				return "redirect:/dashboard";
 			else
-				return "redirect:viewBoard?boardid="+boardId;
+				return "redirect:/viewBoard?boardid="+boardId;
 		}
 		else
-		   return "redirect:index";	
+		   return "redirect:/index";	
 	}
 	
-	@RequestMapping(value="createBoard", method = RequestMethod.POST)
+	@RequestMapping(value="/createBoard", method = RequestMethod.POST)
 	public String createBoard(@RequestParam String id, @RequestParam String name, @RequestParam String description, @RequestParam String img, Model model) {
 
 		if (loggedIn()) // ROLE?
@@ -250,7 +245,7 @@ public class DashboardController extends BaseController {
 			return "redirect:/dashboard";
 	   }
 	   else
-		 return "redirect:index";	
+		 return "redirect:/index";	
 	}
 
 
