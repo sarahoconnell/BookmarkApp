@@ -1,4 +1,13 @@
 
+.required_marker:before { 
+	content:"* "; 
+	color: red;
+}
+
+#loading-indicator {
+
+ }
+ 
 .img_thumbnailx2{
 	width: 150px;
 	height: 150px;

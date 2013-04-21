@@ -129,12 +129,20 @@
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
     <h3 id="myModalLabel">Add Link</h3>
   </div>
-  <form class="form-horizontal" action="createLink" method="post">
-  <div class="modal-body">    
+  <form id="saveLinkForm" class="form-horizontal" action="createLink" method="post">
+  <div class="modal-body">   
+  		<div class="alert alert-block alert-error fade in" id="formErrorsDiv" style="display:none">   
+        </div> 
 	  <div class="control-group">
-	    <label class="control-label" for="url">URL</label>
+	    <label class="control-label required_marker" for="url">URL</label>
 	    <div class="controls">
-	      <input type="text" id="url" name="url" placeholder="http://awsomelink.here">
+	      <input type="text" 
+	             id="url" 
+	             name="url" 
+	             placeholder="http://awsomelink.here"
+	             required="true"
+	             />	
+	             
 	      <input type="hidden" id="boardId" name="boardId">
 	      <input type="hidden" id="id" name="id" >
 	      <input type="hidden" id="gotolink" name="gotolink">
@@ -143,7 +151,11 @@
 	  <div class="control-group">
 	    <label class="control-label" for="name">Name</label>
 	    <div class="controls">
-	      <input type="text" id="name" name="name" placeholder="Name">
+	      <input type="text" 
+	             id="name" 
+	             name="name" 
+	             placeholder="Name" 
+	             maxlength="20">
 	    </div>
 	  </div>
 	  <div class="control-group">
@@ -153,7 +165,11 @@
 	  </div>	
   </div>
   <div class="modal-footer">
-    <button class="btn btn-primary">Save changes</button>
+   <img src="/bookmark-app/static/images/loading.gif" id="loading-indicator" style="display:none" />
+    <button type="button"
+            class="saveLink btn btn-primary" 
+            id="saveLink" 
+            name="saveLink">Save changes</button>
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
   </div>
 	</form>

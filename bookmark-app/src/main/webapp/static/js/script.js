@@ -1,10 +1,55 @@
 
+function checkURL(urlField){
+
+	var url = urlField.val();
+	if(/^([a-z]([a-z]|\d|\+|-|\.)*):(\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?((\[(|(v[\da-f]{1,}\.(([a-z]|\d|-|\.|_|~)|[!\$&'\(\)\*\+,;=]|:)+))\])|((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=])*)(:\d*)?)(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*|(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)|((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)|((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)){0})(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url)) {
+	  return true;
+	} else {
+	  return false;
+	}
+}
+
+
 $(document).on("click", ".img_thumbnail", function () {	  
 	    var image = this.src.substr(this.src.lastIndexOf('/') + 1);
 	    $(".modal-body #img").val(image);
 	    $(".img_thumbnail").removeClass("selected");
 	    $(this).addClass("selected");
 });
+
+$(document).on("click", ".saveLink", function () {	 
+
+	var errors = false;
+	var errorText = "";
+	var urlField =  $(".modal-body #url");
+	
+	 // Don't have the fields mandatory for now.
+	 //$('#saveLinkForm input').each(
+	 //           function(){
+	 //           	if( !$(this).val() && $(this).attr('type')=="text" ) {
+	 //           		errors = true;
+	 //           		errorText += "<li>"+$(this).attr('name')+" is mandatory!</li>";
+	 //             }
+	 //           });  
+	
+	if (!checkURL(urlField)){
+    	errors = true;
+		errorText += "<li>Invalid URL! Try: http://google.com</li>";
+	}
+	
+	if(errors){		
+	    $('#formErrorsDiv').html(errorText);
+	    $('#formErrorsDiv').show();
+		return;
+	}
+	else{
+		$(this).addClass("disabled");
+	    $('#loading-indicator').show();
+	    document.getElementById("saveLinkForm").submit();
+	}
+	
+});
+
 
 
 $(document).on("click", ".open-boardModal", function () {
@@ -66,6 +111,9 @@ function toggleIsPublic(){
 }
 
 $(document).on("click", ".open-linkModal", function () {
+
+	$(".modal-footer #saveLink").removeClass("disabled");
+    
     var boardId = $(this).data('boardid');
     $(".modal-body #boardId").val( boardId );
 
