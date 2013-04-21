@@ -37,7 +37,7 @@
             <a href="#deleteUserModal" 
                data-userid="${user.id}" 
                role="button"
-               class="open-deleteUserModal"
+               class="open-deleteUserModal  btn btn-danger"
                data-toggle="modal">Delete</a>
             <c:choose>
 				<c:when test="${user.enabled == true}">
