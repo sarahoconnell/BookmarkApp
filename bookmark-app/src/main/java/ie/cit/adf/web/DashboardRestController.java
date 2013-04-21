@@ -174,28 +174,30 @@ public class DashboardRestController extends BaseController {
 	}
 	
 
-	// curl -X POST -i http://localhost:8080/bookmark-app/api/boards/{id}/links?name=name&description=description&url=url
+	// curl -X POST -i http://localhost:8080/bookmark-app/api/boards/{id}/links
+	// {"name":"Facebook","description":"SARAH","url":"http://www.facebook.com"}
 	@RequestMapping(value = "/boards/{id}/links", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	@ResponseBody
 	public void createLink(@PathVariable String id,
-						   @RequestParam String name, 
-						   @RequestParam String description, 
-			               @RequestParam String url, 
+						   @RequestBody Link link, 
 						   HttpServletRequest req,
 						   HttpServletResponse resp) {
 		
-		// TODO userid
-		// TODO get thumbnail from URL
-		Link link  = linkService.create(url, name, description, id, null);
-								
-		StringBuffer linkUrl = req.getRequestURL().append("/{id}");
-		UriTemplate uriTemplate = new UriTemplate(linkUrl.toString());
-		resp.addHeader("location", uriTemplate.expand(link.getId()).toASCIIString());
+		Link newLink = new Link(); // generate id
+		newLink.setDescription(link.getDescription());
+		newLink.setBoardId(id);
+		newLink.setName(link.getName());
+		newLink.setUrl(link.getUrl());
+		linkService.create(newLink);
+							
+		String newUrl = req.getRequestURL().substring(0, req.getRequestURL().indexOf("boards"));
+		UriTemplate uriTemplate = new UriTemplate( newUrl+"links/{id}");
+		resp.addHeader("location", uriTemplate.expand(newLink.getId()).toASCIIString());
 	}
 
 
-	// curl -X DELETE -i http://localhost:8080/bookmark-app/api/boards/links/{id}
+	// curl -X DELETE -i http://localhost:8080/bookmark-app/api/links/{id}
 	@RequestMapping(value = "/links/{id}", method = RequestMethod.DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@ResponseBody
@@ -203,8 +205,8 @@ public class DashboardRestController extends BaseController {
 		linkService.delete(id);
 	} 
 
-	// curl -X PUT -i http://localhost:8080/bookmark-app/api/boards/links/{id} -d
-	// '{"name":"some name","description":"some text","url":"url"}'
+	// curl -X PUT -i http://localhost:8080/bookmark-app/api/links/{id} -d
+	// {"name":"Facebook","description":"SARAH","url":"http://www.facebook.com"}
 	@RequestMapping(value = "/links/{id}", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@ResponseBody
@@ -216,9 +218,8 @@ public class DashboardRestController extends BaseController {
 		existing.setDescription(link.getDescription());
 		existing.setName(link.getName());
 		existing.setUrl(link.getUrl());
-		// TODO get image thumbnail from url (if different)
-	} 
-	
+		linkService.update(existing);
+	} 	
 }
 
 @ResponseStatus(HttpStatus.NOT_FOUND)

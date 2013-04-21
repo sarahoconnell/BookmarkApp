@@ -110,6 +110,10 @@ public class Link  {
 	}
 	
 	public String getImageData(){
+		if(this.image==null)
+		{
+			return "";
+		}
 		return  new String(Base64.encode(this.image));
 		   //return new String(this.image);
 	}

@@ -16,9 +16,11 @@ public interface LinkService {
 
 	// POST
 	Link create(String url, String name, String description, String boardId, byte[] image);
+	Link create(Link link);
 
 	// PUT
 	Link update(String id, String url, String name, String description, String boardId, byte[] image);
+	Link update(Link link);
 
 	// DELETE {id}
 	void delete(String id);

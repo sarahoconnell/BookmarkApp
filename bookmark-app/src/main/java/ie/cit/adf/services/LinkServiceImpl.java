@@ -41,6 +41,11 @@ public class LinkServiceImpl implements LinkService {
 		repo.create(link);
 		return link;
 	}
+
+	public Link create(Link link) {
+		repo.create(link);
+		return link;
+	}
 	
 	@Transactional
 	public Link update(String id, String url, String name, String description, String boardId, byte[] image) {
@@ -54,6 +59,14 @@ public class LinkServiceImpl implements LinkService {
 		return link;
 		
 	}
+
+	@Transactional
+	public Link update(Link link) {
+		repo.update(link);
+		return link;
+		
+	}
+
 
 	@Override
 	public void delete(Link link) {
