@@ -1,3 +1,19 @@
+.long{
+  
+	width: 210px;
+}
+
+.zoomed{
+  font-size:150px;
+  text-decoration: none;  
+	color: #555555;
+}
+
+.the-icons {
+  list-style-type: none;
+  margin: 0;
+}
+
 
 .required_marker:before { 
 	content:"* "; 
@@ -13,8 +29,6 @@
 	height: 150px;
 }
 .img_thumbnail{
-	width: 90px;
-	height: 90px;
 }
 .selected{	
    border:2px solid red;

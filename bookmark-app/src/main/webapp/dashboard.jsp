@@ -17,9 +17,8 @@
       
 	  <li class="span3">	  
 	  <div class="thumbnail">	  
-         <div class="btn-group">
-         
-		  <a class="btn btn-inverse" 
+         <div class="btn-group">         
+		  <a class="btn btn-inverse long" 
 		     href="viewBoard?boardid=${board.id}">
 		     <i class="icon-folder-open icon-white"></i> ${board.name}</a>
 		     
@@ -58,7 +57,7 @@
 		  </ul>		  
 		</div>     
          <div class="caption">
-          <a href="viewBoard?boardid=${board.id}"><img class="img_thumbnailx2" src="/bookmark-app/static/images/${board.img}"/></a>   
+          <a href="viewBoard?boardid=${board.id}"><i class="${board.img} zoomed"></i></a>   
         </div> 
       </div>
       </li>

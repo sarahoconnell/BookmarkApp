@@ -19,7 +19,7 @@
 	  <div class="thumbnail">
 	  		<div class="btn-group">
          
-		  <a class="btn btn-inverse" 
+		  <a class="btn btn-inverse long" 
 		     href="${link.url}" 
 		     target="window">
 		     <i class="icon-heart icon-white"></i> ${link.name}</a>

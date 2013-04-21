@@ -131,8 +131,8 @@
   </div>
   <form id="saveLinkForm" class="form-horizontal" action="createLink" method="post">
   <div class="modal-body">   
-  		<div class="alert alert-block alert-error fade in" id="formErrorsDiv" style="display:none">   
-        </div> 
+  	  <div class="alert alert-block alert-error fade in" id="formErrorsDivLink" style="display:none">   
+      </div> 
 	  <div class="control-group">
 	    <label class="control-label required_marker" for="url">URL</label>
 	    <div class="controls">
@@ -181,14 +181,16 @@
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
     <h3 id="myModalLabel">Create Board</h3>
   </div>
-  <form class="form-horizontal" action="createBoard" method="post">
-  <div class="modal-body">    
+  <form id="saveBoardForm" class="form-horizontal" action="createBoard" method="post">
+  <div class="modal-body">  
+  	  <div class="alert alert-block alert-error fade in" id="formErrorsDivBoard" style="display:none">   
+      </div>   
 	  <div class="control-group">
 	    <label class="control-label" for="name">Name</label>
 	    <div class="controls">
-	      <input type="text" id="name" name="name" placeholder="Name">
+	      <input type="text" id="name" name="name" placeholder="Name" maxlength="20">
 	      <input type="hidden" id="id" name="id" >
-	      <input type="hidden" id="img" name="img" value="fav.png">
+	      <input type="text" id="img" name="img" value="icon-star">
 	      <input type="hidden" id="ispublic" name="ispublic" value="false">
 	    </div>
 	  </div>
@@ -205,26 +207,92 @@
 	    </div>
 	  </div>
 	  <div align="center">
-	  <table role="presentation">
-	  <tr>
-		  <td>
-		  	<img class="img_thumbnail selected" src="/bookmark-app/static/images/fav.png"/>
-		  </td>
-		  <td>
-		  	<img class="img_thumbnail" src="/bookmark-app/static/images/news.jpg"/>
-		  </td>
-		  <td> 
-		  	<img class="img_thumbnail" src="/bookmark-app/static/images/tech.jpg"/>
-		  </td>
-		  <td>
-			<img class="img_thumbnail" src="/bookmark-app/static/images/social.jpg"/>
-		  </td>
-	  </tr>
-	  </table>
+	  <section id="icons-web-app" class="row">
+	 	
+	 	<div class="span1">
+		 	 <ul class="the-icons">
+			 <li><i class="icon-star img_thumbnail selected" id="icon-star"></i></li>
+		      <li><i class="icon-tag img_thumbnail" id="icon-tag"></i></li>
+		      <li><i class="icon-tasks img_thumbnail" id="icon-thumbnail"></i></li>
+		      <li><i class="icon-lightbulb img_thumbnail" id="icon-lightbulb"></i></li>
+		      <li><i class="icon-stethoscope img_thumbnail" id="icon-stethoscope"></i></li>
+		      <li><i class="icon-suitcase img_thumbnail" id="icon-suitcase"></i></li>
+		      <li><i class="icon-bell-alt img_thumbnail" id="icon-bell-alt"></i></li>
+		      <li><i class="icon-food img_thumbnail" id="icon-food""></i></li>
+		      <li><i class="icon-fighter-jet img_thumbnail" id="icon-fighter-jet"></i></li>
+		      <li><i class="icon-building img_thumbnail" id="icon-building"></i></li>
+		      
+			 </ul>
+	 	</div>
+	 	<div class="span1">
+		 	 <ul class="the-icons">
+		 	 <li><i class="icon-medkit img_thumbnail" id="icon-medkit"></i></li>
+		      <li><i class="icon-bell-alt img_thumbnail" id="icon-bell-alt"></i></li>
+		      <li><i class="icon-bolt img_thumbnail" id="icon-bolt"></i> </li>
+		      <li><i class="icon-book img_thumbnail" id="icon-book"></i></li>
+		      <li><i class="icon-desktop img_thumbnail" id="icon-desktop"></i> </li>
+		       <li><i class="icon-mobile-phone img_thumbnail" id="icon-mobile-phone"></i> </li>
+		      <li><i class="icon-github img_thumbnail" id="icon-github"></i> </li>
+		      <li><i class="icon-bar-chart img_thumbnail" id="icon-bar-chart"></i> </li>
+		      <li><i class="icon-calendar img_thumbnail" id="icon-calendar"></i></li>
+		      <li><i class="icon-camera img_thumbnail" id="icon-camera"></i> </li>
+		     
+			 </ul>
+	 	</div>
+  		<div class="span1">
+		    <ul class="the-icons">
+		       <li><i class="icon-camera-retro img_thumbnail" id="icon-camera-retro"></i></li>
+		      <li><i class="icon-certificate img_thumbnail" id="icon-certificate"></i></li>
+		      <li><i class="icon-cloud img_thumbnail" id="icon-cloud"></i> </li>
+		      <li><i class="icon-comment img_thumbnail" id="icon-comment"></i></li>
+		      <li><i class="icon-inbox img_thumbnail" id="icon-inbox"></i> </li>
+		      <li><i class="icon-home img_thumbnail" id="icon-home"></i> </li>
+		      <li><i class="icon-globe img_thumbnail" id="icon-globe"></i> </li>
+		      <li><i class="icon-flag img_thumbnail" id="icon-flag"></i></li>
+		      <li><i class="icon-picture img_thumbnail" id="icon-picture"></i></li>
+		      <li><i class="icon-pushpin img_thumbnail" id="icon-pushpin"></i></li>
+		      
+		    </ul>
+		  </div>
+		  <div class="span1">
+		  <ul class="the-icons">
+		      <li><i class="icon-cog img_thumbnail" id="icon-cog"></i></li>
+		      <li><i class="icon-cogs img_thumbnail" id="icon-cogs"></i></li>
+		      <li><i class="icon-comment img_thumbnail" id="icon-comment"></i></li>
+		      <li><i class="icon-trophy img_thumbnail" id="icon-trophy"></i></li>
+		      <li><i class="icon-question-sign img_thumbnail" id="icon-question-sign"></i></li>
+		      <li><i class="icon-random img_thumbnail" id="icon-random"></i></li>
+		      <li><i class="icon-credit-card img_thumbnail" id="icon-credit-card"></i></li>
+		      <li><i class="icon-download img_thumbnail" id="icon-download"></i></li>
+		      <li><i class="icon-key img_thumbnail" id="icon-key"></i></li>
+		      <li><i class="icon-road img_thumbnail" id="icon-road"></i></li>
+		      
+			     
+		  </ul></div>
+		  <div class="span1">
+		    <ul class="the-icons">
+		     <li><i class="icon-google-plus img_thumbnail" id="icon-google-plus"></i></li>
+		      <li><i class="icon-beaker img_thumbnail" id="icon-beaker"></i></li>
+		      <li><i class="icon-film img_thumbnail" id="icon-film"></i></li>
+		      <li><i class="icon-fire img_thumbnail" id="icon-fire"></i></li>
+		      <li><i class="icon-gift img_thumbnail" id="icon-gift"></i></li>
+		      <li><i class="icon-glass img_thumbnail" id="icon-glass"></i></li>
+		      <li><i class="icon-group img_thumbnail" id="icon-group"></i></li>
+		      <li><i class="icon-headphones img_thumbnail" id="icon-headphones"></i></li>
+		      <li><i class="icon-heart img_thumbnail" id="icon-heart"></i></li>
+		      <li><i class="icon-home img_thumbnail" id="icon-home"></i></li>
+		      
+		          </ul>
+		  </div>
+		  
+		</section>
 	  </div>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-primary">Save changes</button>
+     <button type="button"
+             class="saveBoard btn btn-primary" 
+             id="saveBoard" 
+             name="saveBoard">Save changes</button>
     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
     
   </div>

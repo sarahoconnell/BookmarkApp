@@ -1,4 +1,6 @@
 
+
+
 function checkURL(urlField){
 
 	var url = urlField.val();
@@ -9,19 +11,38 @@ function checkURL(urlField){
 	}
 }
 
+$(document).on("click", ".img_thumbnail", function () {
+	//var image = this.src.substr(this.src.lastIndexOf('/') + 1);
+	var image = this.id;
+	$(".modal-body #img").val(image);
+	$(".img_thumbnail").removeClass("selected");
+	$(this).addClass("selected");
+});
 
-$(document).on("click", ".img_thumbnail", function () {	  
-	    var image = this.src.substr(this.src.lastIndexOf('/') + 1);
-	    $(".modal-body #img").val(image);
-	    $(".img_thumbnail").removeClass("selected");
-	    $(this).addClass("selected");
+$(document).on("click", ".saveBoard", function () {
+
+	var errors = false;
+	var errorText = "";
+	if( !$("#saveBoardForm .modal-body #name").val()) {
+		 errors = true;
+		 errorText += "<li>Name is mandatory!</li>";
+	 }
+	if(errors){		
+	    $('#formErrorsDivBoard').html(errorText);
+	    $('#formErrorsDivBoard').show();
+		return;
+	}
+	else{
+		$(this).addClass("disabled");
+	    document.getElementById("saveBoardForm").submit();
+	}
 });
 
 $(document).on("click", ".saveLink", function () {	 
 
 	var errors = false;
 	var errorText = "";
-	var urlField =  $(".modal-body #url");
+	var urlField =  $("#saveLinkForm .modal-body #url");
 	
 	 // Don't have the fields mandatory for now.
 	 //$('#saveLinkForm input').each(
@@ -38,8 +59,8 @@ $(document).on("click", ".saveLink", function () {
 	}
 	
 	if(errors){		
-	    $('#formErrorsDiv').html(errorText);
-	    $('#formErrorsDiv').show();
+	    $('#formErrorsDivLink').html(errorText);
+	    $('#formErrorsDivLink').show();
 		return;
 	}
 	else{
@@ -60,7 +81,7 @@ $(document).on("click", ".open-boardModal", function () {
 	    $(".modal-body #id").val("");
 	    $(".modal-body #name").val("");
 	    $(".modal-body #description").val("");
-	    $(".modal-body #img").val("");
+	    $(".modal-body #img").val("icon-star");
 	    $(".modal-body #ispublic").val(false);
     	$('input:radio[name=ispublicRadio]:nth(0)').attr('checked',false);
 	    $('#boardModal').modal('show');
