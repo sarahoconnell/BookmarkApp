@@ -190,7 +190,7 @@
 	    <div class="controls">
 	      <input type="text" id="name" name="name" placeholder="Name" maxlength="20">
 	      <input type="hidden" id="id" name="id" >
-	      <input type="text" id="img" name="img" value="icon-star">
+	      <input type="hidden" id="img" name="img" value="icon-star">
 	      <input type="hidden" id="ispublic" name="ispublic" value="false">
 	    </div>
 	  </div>
