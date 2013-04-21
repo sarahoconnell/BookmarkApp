@@ -17,6 +17,7 @@ public interface BoardService {
 
 	// PUBLIC / PRIVATE lists
 	Collection<Board> findAllPublicByUserId(String userId, boolean ispublic);
+	Collection<Board> findAllPublic();
 	
 	// POST
 	Board create(String name, String description, String userId, String img, boolean ispublic);

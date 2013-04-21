@@ -34,7 +34,10 @@ public class BoardServiceImpl implements BoardService {
 	public  Collection<Board> findAllPublicByUserId(String userId, boolean ispublic) {
 		return repo.findAllPublicByUserId(userId, ispublic);
 	}
-	
+
+	public  Collection<Board> findAllPublic() {
+		return repo.findAllPublic();
+	}
 	
 	public Board create(Board board) {
 		repo.create(board);

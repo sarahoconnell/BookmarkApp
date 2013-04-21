@@ -11,6 +11,7 @@
 <br>
 <br>
 
+<h3>Your Public Boards</h3>
   <div class="row-fluid">
     <ul class="thumbnails">
     <c:forEach items="${publicBoards}" var="board" varStatus="row">
@@ -18,11 +19,11 @@
 	  <li class="span3">	  
 	  <div class="thumbnail">	  
          <div class="btn-group">         
-		  <a class="btn btn-inverse long" 
+		  <a class="btn btn-info long" 
 		     href="viewBoard?boardid=${board.id}">
 		     <i class="icon-folder-open icon-white"></i> ${board.name}</a>
 		     
-		  <a class="btn btn-inverse dropdown-toggle" 
+		  <a class="btn btn-info dropdown-toggle" 
 		     data-toggle="dropdown" 
 		     href="#"><span class="caret"></span></a>
 		       
@@ -66,9 +67,9 @@
   </div>
   
   
-<br>
-<br>
+<hr>
 
+<h3>Your Private Boards</h3>
   <div class="row-fluid">
     <ul class="thumbnails">
     <c:forEach items="${privateBoards}" var="board" varStatus="row">
@@ -76,11 +77,11 @@
 	  <li class="span3">	  
 	  <div class="thumbnail">	  
          <div class="btn-group">         
-		  <a class="btn btn-info long" 
+		  <a class="btn btn-warning long" 
 		     href="viewBoard?boardid=${board.id}">
 		     <i class="icon-folder-open icon-white"></i> ${board.name}</a>
 		     
-		  <a class="btn btn-info dropdown-toggle" 
+		  <a class="btn btn-warning dropdown-toggle" 
 		     data-toggle="dropdown" 
 		     href="#"><span class="caret"></span></a>
 		       

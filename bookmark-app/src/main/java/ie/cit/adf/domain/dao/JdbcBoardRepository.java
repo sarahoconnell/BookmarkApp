@@ -59,6 +59,12 @@ public class JdbcBoardRepository implements BoardRepository {
 		return jdbcTemplate
 				.query("SELECT ID, NAME, DESCRIPTION FROM board WHERE USERID=? AND ISPUBLIC=?", mapper, userId, ispublic);
 	}
+
+	@Override
+	public List<Board> findAllPublic(){
+		return jdbcTemplate
+				.query("SELECT ID, NAME, DESCRIPTION FROM board WHERE ISPUBLIC=?", mapper,  true);
+	}
 	
 	@Override
 	public void create(Board board) {

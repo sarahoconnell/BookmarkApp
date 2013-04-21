@@ -72,6 +72,16 @@ public class HibernateBoardRepository implements BoardRepository {
 		query.setParameter("ispublic", ispublic);
 		return query.list();
 	}
+	
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Collection<Board> findAllPublic() {
+		Query query = session().createQuery("from Board where ispublic = :ispublic ");
+		query.setParameter("ispublic", true);
+		return query.list();
+	}
+	
 	 private Session session() {
 			return sf.getCurrentSession();
 		    }

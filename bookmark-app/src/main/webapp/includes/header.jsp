@@ -28,13 +28,15 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="dashboard">Dashboard</a>
+          <a class="brand" href="dashboard"><i class="icon-folder-open icon-white"></i>&nbsp;Dashboard</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
           	 <security:authorize ifAnyGranted="ROLE_ADMIN">
       		 <li><a href="admin">Manage Users</a></li>
       		 </security:authorize> 
-      		          	
+      		 
+		     <li><a href="showPublicBoards">Public Boards</a></li>
+         	
             </ul>
       		<security:authorize access="isAuthenticated()">
 			<p class="navbar-text pull-right">

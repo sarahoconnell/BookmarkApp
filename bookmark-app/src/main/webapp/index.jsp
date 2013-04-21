@@ -14,9 +14,9 @@
 			
 			
        <div class="hero-unit">
-        <h1>Hello, world!</h1>
-        <p>About..........</p>
-        <p><a href="registerUser" class="btn btn-primary btn-large">Register »</a>&nbsp; <a href="#" class="btn btn-primary btn-large">Learn More »</a></p>
+        <h1>Bookmark App!</h1>  
+        <p>This application allows you to manage your favourite bookmarks.</p>
+        <p><a href="registerUser" class="btn btn-primary btn-large">Register »</a>&nbsp; <a href="showPublicBoards" class="btn btn-primary btn-large">Public Boards »</a></p>
       </div>
       
  <jsp:include page="includes/footer.jsp"/>

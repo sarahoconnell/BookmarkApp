@@ -39,6 +39,27 @@ public class DashboardController extends BaseController {
 	@Autowired
 	private UserService userService;
 	
+	// NOT SECURED - VISIBLE TO ALL
+	@RequestMapping(value="/showPublicBoards", method = RequestMethod.GET)
+	public String showPublicBoards(ModelMap model) {
+
+		Collection<Board> allPublicBoards = boardService.findAllPublic();
+		model.addAttribute("publicBoards", allPublicBoards);
+		return "publicBoards.jsp";			 
+	}
+	
+
+	@RequestMapping(value="/viewPublicBoard", method = RequestMethod.GET)
+	public String viewPublicBoard(@RequestParam String boardid, ModelMap model) {
+
+		Board board = boardService.findById(boardid);
+		Collection<Link> allLinks = linkService.findAllByBoardId(boardid);
+		model.addAttribute("links", allLinks);
+		model.addAttribute("board", board);
+		return "publicBoard.jsp";
+	}
+
+	@Secured("ROLE_USER")
 	@RequestMapping(value="/dashboard", method = RequestMethod.GET)
 	public String dashboard(ModelMap model) {
 
@@ -100,7 +121,8 @@ public class DashboardController extends BaseController {
  
 	}
  
-	
+
+	@Secured("ROLE_USER")
 	@RequestMapping(value="/viewBoard", method = RequestMethod.GET)
 	public String viewBoard(@RequestParam String boardid, ModelMap model) {
 
@@ -118,6 +140,8 @@ public class DashboardController extends BaseController {
 	}
 	
 
+
+	@Secured("ROLE_USER")
 	@RequestMapping(value="/deleteBoard", method = RequestMethod.POST)
 	public String deleteBoard(@RequestParam String boardid, ModelMap model) {
 
@@ -134,6 +158,7 @@ public class DashboardController extends BaseController {
 	
 
 
+	@Secured("ROLE_USER")
 	@RequestMapping(value="/deleteLink", method = RequestMethod.POST)
 	public String deleteLink(@RequestParam String linkid, ModelMap model) {
 
@@ -185,7 +210,8 @@ public class DashboardController extends BaseController {
 			return null;
 	}
 	
-	
+
+	@Secured("ROLE_USER")
 	@RequestMapping(value="/createLink", method = RequestMethod.POST)
 	public String createLink(@RequestParam String id, @RequestParam String url, @RequestParam String name, @RequestParam String description, @RequestParam String boardId, @RequestParam String gotolink, Model model) {
 	
@@ -224,7 +250,8 @@ public class DashboardController extends BaseController {
 		else
 		   return "redirect:/index";	
 	}
-	
+
+	@Secured("ROLE_USER")
 	@RequestMapping(value="/createBoard", method = RequestMethod.POST)
 	public String createBoard(@RequestParam String id, @RequestParam String name, @RequestParam String description, @RequestParam String img,  @RequestParam boolean ispublic, Model model) {
 
