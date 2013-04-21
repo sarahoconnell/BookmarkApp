@@ -19,12 +19,12 @@
 	  <div class="thumbnail">
 	  		<div class="btn-group">
          
-		  <a class="btn btn-inverse long" 
+		  <a class="btn btn-info long" 
 		     href="${link.url}" 
 		     target="window">
 		     <i class="icon-heart icon-white"></i> ${link.name}</a>
 
-		  <a class="btn btn-inverse dropdown-toggle" 
+		  <a class="btn btn-info dropdown-toggle" 
 		     data-toggle="dropdown" 
 		     href="#"><span class="caret"></span></a>
 
