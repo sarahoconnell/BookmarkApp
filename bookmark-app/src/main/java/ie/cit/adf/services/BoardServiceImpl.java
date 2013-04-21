@@ -30,7 +30,12 @@ public class BoardServiceImpl implements BoardService {
 	public  Collection<Board> findAllByUserId(String userId) {
 		return repo.findAllByUserId(userId);
 	}
-
+	
+	public  Collection<Board> findAllPublicByUserId(String userId, boolean ispublic) {
+		return repo.findAllPublicByUserId(userId, ispublic);
+	}
+	
+	
 	public Board create(Board board) {
 		repo.create(board);
 		return board;

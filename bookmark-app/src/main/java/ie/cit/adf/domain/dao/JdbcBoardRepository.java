@@ -55,6 +55,12 @@ public class JdbcBoardRepository implements BoardRepository {
 	}
 
 	@Override
+	public List<Board> findAllPublicByUserId(String userId, boolean ispublic){
+		return jdbcTemplate
+				.query("SELECT ID, NAME, DESCRIPTION FROM board WHERE USERID=? AND ISPUBLIC=?", mapper, userId, ispublic);
+	}
+	
+	@Override
 	public void create(Board board) {
 		jdbcTemplate.update("INSERT INTO board VALUES(?,?,?, ?)", 
 				board.getId(), board.getName(), board.getDescription(), board.getUserId());

@@ -17,5 +17,6 @@ public interface BoardRepository {
     Board findById(String id);
     Collection<Board> findAll();
     Collection<Board> findAllByUserId(String userId);
+    Collection<Board> findAllPublicByUserId(String userId, boolean ispublic);
 
 }

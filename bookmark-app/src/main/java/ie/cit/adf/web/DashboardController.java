@@ -44,8 +44,10 @@ public class DashboardController extends BaseController {
 
 		if (loggedIn()) // ROLE?
 		{	
-			Collection<Board> allBoards = boardService.findAllByUserId(loggedInUser.getId());
-			model.addAttribute("boards", allBoards);
+			Collection<Board> allPublicBoards = boardService.findAllPublicByUserId(loggedInUser.getId(), true);
+			model.addAttribute("publicBoards", allPublicBoards);
+			Collection<Board> allPrivateBoards = boardService.findAllPublicByUserId(loggedInUser.getId(), false);
+			model.addAttribute("privateBoards", allPrivateBoards);
 		
 			return "dashboard.jsp";
 		}
