@@ -1,5 +1,47 @@
 
-<!--  Delete User Modal -->
+<!--  Delete Board Modal -->
+<div id="deleteBoardModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<form id="modal-form" action="deleteBoard" method="POST">
+  	
+	<div class="modal-header">
+    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    	<h3 id="myModalLabel">Delete Board</h3>
+  	</div>
+  	
+  	<div class="modal-body">
+      <p>You are about to delete a board, this procedure is irreversible.</p>
+      <p>Do you want to proceed?</p>
+      <input type="hidden" id="boardid" name="boardid"/>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger">Yes</button>
+      <a href="javascript:$('#deleteBoardModal').modal('hide')" class="btn secondary">No</a>
+    </div>
+    </form>
+</div>
+
+<!--  Delete Link Modal -->
+<div id="deleteLinkModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<form id="modal-form" action="deleteLink" method="POST">
+  	
+	<div class="modal-header">
+    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    	<h3 id="myModalLabel">Delete Link</h3>
+  	</div>
+  	
+  	<div class="modal-body">
+      <p>You are about to delete a link, this procedure is irreversible.</p>
+      <p>Do you want to proceed?</p>
+      <input type="hidden" id="linkid" name="linkid"/>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger">Yes</button>
+      <a href="javascript:$('#deleteLinkModal').modal('hide')" class="btn secondary">No</a>
+    </div>
+    </form>
+</div>
+
+<!--   User Details  Modal -->
 <div id="userBoardsModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
     	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>

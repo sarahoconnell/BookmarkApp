@@ -89,6 +89,15 @@ $(document).on("click", ".open-linkModal", function () {
 
 
 
+$(document).on("click", ".open-deleteBoardModal", function () {
+     var boardid = $(this).data('boardid');
+     $(".modal-body #boardid").val( boardid );
+});
+
+$(document).on("click", ".open-deleteLinkModal", function () {
+     var linkid = $(this).data('linkid');
+     $(".modal-body #linkid").val( linkid );
+});
 
 $(document).on("click", ".open-deleteUserModal", function () {
      var userId = $(this).data('userid');

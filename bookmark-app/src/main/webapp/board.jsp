@@ -43,8 +43,11 @@
 		    </li>
 
 		    <li>
-		       <a href="deleteLink?linkid=${link.id}">
-		          <i class="icon-trash"></i> Delete</a>
+		     <a href="#deleteLinkModal" 
+               data-linkid="${link.id}" 
+               role="button"
+               class="open-deleteLinkModal"
+               data-toggle="modal"><i class="icon-trash"></i> Delete</a>               
 		    </li>
 
 		  </ul>

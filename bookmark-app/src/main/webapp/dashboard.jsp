@@ -39,9 +39,12 @@
 		          class="open-boardModal">
 		          <i class="icon-pencil"></i> Edit</a>
 		    </li>
-		    <li>
-		       <a href="deleteBoard?boardid=${board.id}">
-		          <i class="icon-trash"></i> Delete</a>
+		     <li>
+		     <a href="#deleteBoardModal" 
+               data-boardid="${board.id}" 
+               role="button"
+               class="open-deleteBoardModal"
+               data-toggle="modal"><i class="icon-trash"></i> Delete</a>               
 		    </li>
 		    <li class="divider"></li>
 		    <li>

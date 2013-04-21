@@ -1,10 +1,5 @@
 
-DROP TABLE IF EXISTS `users`; 
-DROP TABLE IF EXISTS `link`; 
-DROP TABLE IF EXISTS `board`; 
-DROP TABLE IF EXISTS `user_roles`; 
-
-CREATE TABLE `board` (
+CREATE TABLE IF NOT EXISTS `board` (
   `ID` varchar(255) NOT NULL,
   `NAME` varchar(255) DEFAULT NULL,
   `DESCRIPTION` varchar(255) DEFAULT NULL,
@@ -13,7 +8,8 @@ CREATE TABLE `board` (
   `ISPUBLIC` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`)
 );
-CREATE TABLE `link` (
+
+CREATE TABLE IF NOT EXISTS `link` (
   `ID` varchar(255) NOT NULL,
   `URL` varchar(255) NOT NULL,
   `DESCRIPTION` varchar(255) DEFAULT NULL,
@@ -22,13 +18,15 @@ CREATE TABLE `link` (
   `IMAGE` blob,
   PRIMARY KEY (`ID`)
 );
-CREATE TABLE `user_roles` (
+
+CREATE TABLE IF NOT EXISTS `user_roles` (
   `ID` varchar(255) NOT NULL,
   `USERID` varchar(255) NOT NULL,
   `AUTHORITY` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`)
 );
-CREATE TABLE `users` (
+
+CREATE TABLE IF NOT EXISTS `users` (
   `ID` varchar(255) NOT NULL,
   `NAME` varchar(255) NOT NULL,
   `PASSWORD` varchar(255) NOT NULL,
