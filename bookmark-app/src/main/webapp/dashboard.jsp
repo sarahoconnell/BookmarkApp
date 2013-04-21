@@ -76,11 +76,11 @@
 	  <li class="span3">	  
 	  <div class="thumbnail">	  
          <div class="btn-group">         
-		  <a class="btn btn-inverse long" 
+		  <a class="btn btn-info long" 
 		     href="viewBoard?boardid=${board.id}">
 		     <i class="icon-folder-open icon-white"></i> ${board.name}</a>
 		     
-		  <a class="btn btn-inverse dropdown-toggle" 
+		  <a class="btn btn-info dropdown-toggle" 
 		     data-toggle="dropdown" 
 		     href="#"><span class="caret"></span></a>
 		       
