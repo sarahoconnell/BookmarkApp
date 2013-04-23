@@ -85,8 +85,10 @@ public class DashboardController extends BaseController {
 			Collection<User> allUsers = userService.findAll();
 			model.addAttribute("users", allUsers);
 			model.addAttribute("currentUser", loggedInUser);
+			return "admin.jsp";
 		}
-		return "admin.jsp";
+		else
+		    return "/index";	
 	}
 
 

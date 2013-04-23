@@ -45,17 +45,28 @@ public class DashboardIntegrationTests extends AuthenticationHelper{
 	
 	@Test
 	public void testViewDashboard(){
-		logout();
 		ModelMap model = new ExtendedModelMap();
-		String page = dashboardController.dashboard(model);
-		assertTrue(page.equals("index.jsp"));
 		//login and check that you are directed to dashboard.jsp 
 		login("user", "password", "ROLE_USER");
-		page = dashboardController.dashboard(model);
+		String page = dashboardController.dashboard(model);
 		assertTrue(page.equals("dashboard.jsp"));
-		//check that the boards attribute is set 
-		Collection<Board> boards = (Collection<Board>)model.get("boards");
-		assertTrue(boards != null);
+		//check that the private/public Boards attribute is set 
+		Collection<Board> publicBoards = (Collection<Board>)model.get("publicBoards");
+		assertTrue(publicBoards != null);
+		Collection<Board> privateBoards = (Collection<Board>)model.get("privateBoards");
+		assertTrue(privateBoards != null);
+	}
+	
+	@Test
+	public void testViewAdmin(){
+		ModelMap model = new ExtendedModelMap();
+		//login and check that you are directed to admin.jsp 
+		login("admin", "password", "ROLE_ADMIN");
+		String page = dashboardController.showAdmin(model);
+		assertTrue(page.equals("admin.jsp"));
+		//check that the private/public Boards attribute is set 
+		Collection<Board> users = (Collection<Board>)model.get("users");
+		assertTrue(users != null);
 	}
 	
 	@Test(expected = AccessDeniedException.class)

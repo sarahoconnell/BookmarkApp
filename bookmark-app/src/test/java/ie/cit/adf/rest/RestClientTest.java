@@ -5,6 +5,7 @@ import ie.cit.adf.domain.Boards;
 import ie.cit.adf.domain.Link;
 import ie.cit.adf.domain.Links;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -24,6 +25,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -34,35 +37,55 @@ public class RestClientTest  {
 	 @Qualifier("restTemplate")
 	 private RestTemplate restTemplate;
 	 
-	 String name;
-	 String description;
-	 String userId; 
-	 String img;
-	 String url;
-	 String sampleBoardId; 
-	 String sampleLinkId; 
+	 String name = "Test Rest";
+	 String description = "Test Rest";
+	 String userId = "001"; 
+	 String img = "icon-star";
+	 String url = "www.google.com";     
+	 String sampleBoardId = "b01";  
+	 String sampleLinkId = "l02"; 
 	 
 	 @org.junit.Before
 	 public void setUp() throws Exception
-	 { 
-	     name = UUID.randomUUID().toString();
-	     description = "Test Rest";
-	     userId = ""; // GET FROM REST
-	     img = "news.jpg";
-	     url = "www.google.com";   
-
-	     // use the content from setup-data.sql since the rest calls go through the main app
-	     userId = "001";	   
-	     sampleBoardId = "b01";
-	     sampleLinkId = "l01";  
+	 { 	     
 	 }
-
 
 	 @org.junit.After
 	 public void tearDown() throws Exception
 	 {	     
 	     // clean down
 		 // nothing to do
+	 }
+	 
+	 @Test(expected = HttpClientErrorException.class)
+	 public void getNotExistingBoardTest() {	
+		 getBoard("INVALID");	 
+	 }
+
+	 @Test(expected = HttpClientErrorException.class)
+	 public void getNotExistingLinkTest() {	
+		 getLink("INVALID");	 
+	 }
+
+	 @Test(expected = HttpClientErrorException.class)
+	 public void updateNotExistingBoardTest() {	
+		 updateBoard(new Board());	 
+	 }
+
+	 @Test(expected = HttpClientErrorException.class)
+	 public void updateNotExistingLinkTest() {	
+		 updateLink(new Link());	 
+	 }
+	 
+
+	 @Test(expected = HttpServerErrorException.class)
+	 public void deleteNotExistingBoardTest() {	
+		 deleteBoard(new Board().getId());	 
+	 }
+
+	 @Test(expected = HttpServerErrorException.class)
+	 public void deleteNotExistingLinkTest() {	
+		 deleteLink(new Link().getId());	 
 	 }
 	 
 	 @Test 
@@ -91,8 +114,7 @@ public class RestClientTest  {
 		 Assert.assertNotNull(board);
 		 Assert.assertTrue(board.getId().equals(sampleBoardId));		 
 	 }
-	 
-	
+	 	
 	 @Test
 	 // curl -X GET -i http://localhost:8080/bookmark-app/api/links/{id}
 	 public void getLinkTest() {
@@ -113,42 +135,74 @@ public class RestClientTest  {
 	 
 	
 	 @Test
-	 //curl -X POST -i http://localhost:8080/bookmark-app/api/boards?name=name&description=description&userid=userid&img=img
+	 // curl -X POST -i http://localhost:8080/bookmark-app/api/boards?name=name&description=description&userid=userid&img=img
 	 // curl -X DELETE -i http://localhost:8080/bookmark-app/api/boards/{id}
+	 // {"name":"NEW BOARD","description":"My Favourite Websites","userId":"001","img":"fav.png", "isPublic":true}
 	 public void createBoardTest() {
-		 	 
-		 Board board = createBoard(name, description, userId, img);
-		 Assert.assertNotNull(board);
-		 Assert.assertNotNull(board.getId());
-		 Assert.assertTrue(board.getName() == name);
-		 Assert.assertTrue(board.getDescription() == description);
-		 Assert.assertTrue(board.getUserId() == userId);
-		 Assert.assertTrue(board.getImg() == img);
-		 
-		 // clean up
-		 deleteBoard(board.getId());
 
-		 Board board2 = getBoard(board.getId());
-		 Assert.assertNull(board2);
+		Board newBoard = new Board();
+		newBoard.setDescription(description);
+		newBoard.setImg(img);
+		newBoard.setName(name);
+		newBoard.setUserId(userId);
+		newBoard.setIsPublic(true);
+		
+		URI boardLink = createBoard(newBoard);
+		Assert.assertNotNull(boardLink);
+		
+		// test the location returned
+		newBoard = restTemplate.getForObject(boardLink, Board.class);
+		
+		Assert.assertNotNull(newBoard);
+		Assert.assertNotNull(newBoard.getId());
+		Assert.assertTrue(newBoard.getName().equals(name));
+		Assert.assertTrue(newBoard.getDescription().equals(description));
+		Assert.assertTrue(newBoard.getUserId().equals(userId));
+		Assert.assertTrue(newBoard.getImg().equals(img));
+		 
+		// clean up
+		deleteBoard(newBoard.getId());
 	 }
 	 
 		
 	 @Test
-	 //curl -X POST -i http://localhost:8080/bookmark-app/api/boards/{id}/links?name=name&description=description&url=url
+	 // curl -X POST -i http://localhost:8080/bookmark-app/api/boards/{id}/links?name=name&description=description&url=url
 	 // curl -X DELETE -i http://localhost:8080/bookmark-app/api/boards/links/{id}
 	 public void createLinkForBoardTest() {
 		 		 
-		 Link link = createLink(sampleBoardId, name, description, url);
-		 Assert.assertNotNull(link);
-		 Assert.assertNotNull(link.getId());
-		 Assert.assertTrue(link.getName() == name);
-		 Assert.assertTrue(link.getDescription() == description);
-		 Assert.assertTrue(link.getUrl() == url);
+		 // create a board
+		 Board testBoard = new Board(); 
+		 testBoard.setDescription(description);
+		 testBoard.setImg(img);
+		 testBoard.setName(name);
+		 testBoard.setUserId(userId);
+		 testBoard.setIsPublic(true);	
+		 
+		 URI boardLink = createBoard(testBoard);
+		 Assert.assertNotNull(boardLink);
+		 testBoard = restTemplate.getForObject(boardLink, Board.class); // get the right ID
+		 
+		 //create a link
+		 Link newLink = new Link(); // generate id
+		 newLink.setDescription(description);
+		 newLink.setName(name);
+		 newLink.setUrl(url);			
+			
+		 URI linkLocation = createLink(testBoard.getId(), newLink);
+		 Assert.assertNotNull(linkLocation);
+		
+		 // test the location returned
+		 newLink = restTemplate.getForObject(linkLocation, Link.class);
+			
+		 Assert.assertNotNull(newLink);
+		 Assert.assertNotNull(newLink.getId());
+		 Assert.assertTrue(newLink.getName().equals(name));
+		 Assert.assertTrue(newLink.getDescription().equals(description));
+		 Assert.assertTrue(newLink.getUrl().equals(url));
 		  
 		 //clean up
-		 deleteLink(link.getId());
-		 Link link2 = getLink(link.getId());
-		 Assert.assertNull(link2);
+		 deleteBoard(testBoard.getId());			
+		 deleteLink(newLink.getId());
 	 }
 	
 			
@@ -158,60 +212,106 @@ public class RestClientTest  {
 	 // curl -X PUT -i http://localhost:8080/bookmark-app/api/boards/{id} -d
 	 public void updateBoardTest() {
 
-		 Board board = createBoard(name, description, userId, img);
-		 String oldId = board.getId();
-		 String oldName = board.getName();
-		 String oldDesc = board.getDescription();
-		 String oldImg = board.getImg();
+		 Board testBoard = new Board(); // generate id
+		 testBoard.setDescription(description);
+		 testBoard.setImg(img);
+		 testBoard.setName(name);
+		 testBoard.setUserId(userId);
+		 testBoard.setIsPublic(true);			
+			
+		 URI boardLink = createBoard(testBoard);
+		 Assert.assertNotNull(boardLink);
+
+		 // test the location returned
+		 testBoard = restTemplate.getForObject(boardLink, Board.class);
+
+		 // save original values to test after update
+		 String oldId = testBoard.getId();
+		 String oldName = testBoard.getName();
+		 String oldDesc = testBoard.getDescription();
+		 String oldImg = testBoard.getImg();
 		 	 
-		 board.setName("Updated test");
-		 board.setDescription("Updated test");
-		 board.setImg("social.jpg");
+		 testBoard.setName("Updated test");
+		 testBoard.setDescription("Updated test");
+		 testBoard.setImg("icon-new");
 		 
-		 updateBoard(board);
+		 updateBoard(testBoard);
 	
-		 Board updatedBoard = getBoard(oldId);
-		 Assert.assertNotNull(updatedBoard);
+		 testBoard = getBoard(oldId);
+		 Assert.assertNotNull(testBoard);
 		 // id should be the same
-		 Assert.assertEquals(updatedBoard.getId(), oldId);
+		 Assert.assertEquals(testBoard.getId(), oldId);
 		 
 		 // updated board vales should not be the same as the old
-		 Assert.assertNotEquals(updatedBoard.getName(), oldName);
-		 Assert.assertNotEquals(updatedBoard.getDescription(), oldDesc);
-		 Assert.assertNotEquals(updatedBoard.getImg(), oldImg);
-		 Assert.assertEquals(updatedBoard.getName(), board.getName());
-		 Assert.assertEquals(updatedBoard.getDescription(), board.getDescription());
-		 Assert.assertEquals(updatedBoard.getImg(), board.getImg());
+		 Assert.assertNotEquals(testBoard.getName(), oldName);
+		 Assert.assertNotEquals(testBoard.getDescription(), oldDesc);
+		 Assert.assertNotEquals(testBoard.getImg(), oldImg);
+		 Assert.assertEquals(testBoard.getName(), "Updated test");
+		 Assert.assertEquals(testBoard.getDescription(), "Updated test");
+		 Assert.assertEquals(testBoard.getImg(), "icon-new");
+		 
+		 //clean up
+		 deleteBoard(testBoard.getId());
 	 }
 	
 	 @Test 
 	 //curl -X PUT -i http://localhost:8080/bookmark-app/api/boards/links/{id} -d
 	 public void updateLinkTest() {
 
-		 Link link = createLink(sampleBoardId, name, description, url);
-		 String oldId = link.getId();
-		 String oldName = link.getName();
-		 String oldDesc = link.getDescription();
-		 String oldUrl = link.getUrl();
-		 	 
-		 link.setName("Updated test");
-		 link.setDescription("Updated test");
-		 link.setUrl("yahoo.co.uk");
+		 // create a board
+		 Board testBoard = new Board(); // generate id
+		 testBoard.setDescription(description);
+		 testBoard.setImg(img);
+		 testBoard.setName(name);
+		 testBoard.setUserId(userId);
+		 testBoard.setIsPublic(true);			
+			
+		 URI boardLink = createBoard(testBoard);
+		 Assert.assertNotNull(boardLink);
+
+		 // test the location returned
+		 testBoard = restTemplate.getForObject(boardLink, Board.class);
 		 
-		 updateLink(link);
+		 //create a link
+		 Link testLink = new Link(); // generate id
+		 testLink.setDescription(description);
+		 testLink.setName(name);
+		 testLink.setUrl(url);			
+			
+		 URI linkLocation = createLink(testBoard.getId(), testLink);
+		 Assert.assertNotNull(linkLocation);
+
+		 // test the location returned
+		 testLink = restTemplate.getForObject(linkLocation, Link.class);
+		 
+		 // save original values to test after update
+		 String oldId = testLink.getId();
+		 String oldName = testLink.getName();
+		 String oldDesc = testLink.getDescription();
+		 String oldUrl = testLink.getUrl();
+		 	 
+		 testLink.setName("Updated test");
+		 testLink.setDescription("Updated test");
+		 testLink.setUrl("yahoo.co.uk");
+		 
+		 updateLink(testLink);
 	
-		 Link updatedLink = getLink(oldId);
-		 Assert.assertNotNull(updatedLink);
+		 testLink = getLink(oldId);
+		 Assert.assertNotNull(testLink);
 		 // id should be the same
-		 Assert.assertEquals(updatedLink.getId(), oldId);
+		 Assert.assertEquals(testLink.getId(), oldId);
 		 
 		 // updated Link vales should not be the same as the old
-		 Assert.assertNotEquals(updatedLink.getName(), oldName);
-		 Assert.assertNotEquals(updatedLink.getDescription(), oldDesc);
-		 Assert.assertNotEquals(updatedLink.getUrl(), oldUrl);
-		 Assert.assertEquals(updatedLink.getName(), link.getName());
-		 Assert.assertEquals(updatedLink.getDescription(), link.getDescription());
-		 Assert.assertEquals(updatedLink.getUrl(), link.getUrl());
+		 Assert.assertNotEquals(testLink.getName(), oldName);
+		 Assert.assertNotEquals(testLink.getDescription(), oldDesc);
+		 Assert.assertNotEquals(testLink.getUrl(), oldUrl);
+		 Assert.assertEquals(testLink.getName(), testLink.getName());
+		 Assert.assertEquals(testLink.getDescription(), testLink.getDescription());
+		 Assert.assertEquals(testLink.getUrl(), testLink.getUrl());
+		 
+		 //clean up
+		 deleteBoard(testBoard.getId());
+		 deleteLink(testLink.getId());
 	 }
 	
 	 
@@ -245,29 +345,14 @@ public class RestClientTest  {
 		 return links;
 	 }
 	 
-	 public Board createBoard(String name, String description, String userId, String img) {
-		 MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
-		 parameters.add("name", name);
-//		 parameters.add("description", description);
-//		 parameters.add("userId", userId);
-//		 parameters.add("img", img);
-		 
-		 HttpHeaders headers = new HttpHeaders();
-		 headers.setContentType(MediaType.APPLICATION_JSON);      
-
-		 HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(parameters, headers);
-//		 
-		 Board board = restTemplate.postForObject("http://localhost:8080/bookmark-app/api/boards", request, Board.class);		
-		 return board;
+	 public URI createBoard(Board board) {
+		URI boardLink = restTemplate.postForLocation("http://localhost:8080/bookmark-app/api/boards", board);
+		return boardLink;
 	 }
 	
-	 public Link createLink(String boardId, String name, String description, String url) {
-		 MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
-		 parameters.add("name", name);
-		 parameters.add("description", description);
-		 parameters.add("url", url);
-		 Link link = restTemplate.postForObject("http://localhost:8080/bookmark-app/api/boards/"+boardId+"/links", parameters, Link.class);		
-		 return link;
+	 public URI createLink(String boardId, Link link) {
+		 URI linkLink = restTemplate.postForLocation("http://localhost:8080/bookmark-app/api/boards/"+boardId+"/links", link);
+		 return linkLink;
 	 }
 	 
 	 public void deleteBoard(String boardId) {
@@ -279,22 +364,10 @@ public class RestClientTest  {
 	 } 
 	
 	 public void updateBoard(Board board) {
-		 MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
-		 parameters.add("name", board.getName());
-		 parameters.add("description", board.getDescription());
-		 parameters.add("userId", board.getUserId());
-		 parameters.add("img", board.getImg());
-		 			 
-		 restTemplate.put("http://localhost:8080/bookmark-app/api/boards/"+board.getId(), Board.class, parameters);	
-	 }
-	 
+		restTemplate.put("http://localhost:8080/bookmark-app/api/boards/"+board.getId(), board);
+	 }	 
 	
 	 public void updateLink(Link link) {
-		 MultiValueMap<String, String> parameters = new LinkedMultiValueMap<String, String>();
-		 parameters.add("name", link.getName());
-		 parameters.add("description", link.getDescription());
-		 parameters.add("url", link.getUrl());
-		 			 
-		 restTemplate.put("http://localhost:8080/bookmark-app/api/links/"+link.getId(), Link.class, parameters);	
+		 restTemplate.put("http://localhost:8080/bookmark-app/api/links/"+link.getId(), link);	
 	 }
 }
