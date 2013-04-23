@@ -218,14 +218,7 @@ public class DashboardController extends BaseController {
 	public String createLink(@RequestParam String id, @RequestParam String url, @RequestParam String name, @RequestParam String description, @RequestParam String boardId, @RequestParam String gotolink, Model model) {
 	
 		if (loggedIn()) // ROLE?
-		{				
-			// validation
-			if(url.isEmpty())
-			{
-				model.addAttribute("error", "URL is mandatory!!");
-				return "addLink";			
-			}
-			
+		{			
 			byte[] thumbnailData = null; 
 			
 			if(!id.isEmpty()){
