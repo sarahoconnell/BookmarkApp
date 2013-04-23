@@ -8,7 +8,6 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 
@@ -19,10 +18,6 @@ public class HibernateBoardRepository implements BoardRepository {
     @Autowired
     private SessionFactory sf;
 
-    private String getLoggedInUserId() {
-	return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
-    
     public Board get(String id) {
     	return (Board) session().get(Board.class, id);
     }

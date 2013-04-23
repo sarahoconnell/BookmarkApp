@@ -9,7 +9,6 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 
 @Repository("hibernateUserRepository")
@@ -19,10 +18,6 @@ public class HibernateUserRepository implements UserRepository {
     @Autowired
     private SessionFactory sf;
 
-    private String getLoggedInUser() {
-	return SecurityContextHolder.getContext().getAuthentication().getName();
-    }
-    
     public User get(String id) {
     	return (User) session().get(User.class, id);
     }
