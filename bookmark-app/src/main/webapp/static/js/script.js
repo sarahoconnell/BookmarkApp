@@ -72,7 +72,7 @@ $(document).on("click", ".saveLink", function () {
 	var errorText = "";
 	var urlField =  $("#saveLinkForm .modal-body #url");
 	
-	 // Don't have the fields mandatory for now.
+	 // Don't check the fields mandatory for now.
 	 //$('#saveLinkForm input').each(
 	 //           function(){
 	 //           	if( !$(this).val() && $(this).attr('type')=="text" ) {
@@ -95,10 +95,8 @@ $(document).on("click", ".saveLink", function () {
 		$(this).addClass("disabled");
 	    $('#loading-indicator').show();
 	    document.getElementById("saveLinkForm").submit();
-	}
-	
+	}	
 });
-
 
 
 $(document).on("click", ".open-boardModal", function () {
@@ -137,9 +135,11 @@ $(document).on("click", ".open-boardModal", function () {
 	    $(".modal-body #ispublic").val(false);
     }
     
+    console.log("img: "+img);
     $('.img_thumbnail').each(
             function(){
-            	if((this.src).indexOf(img) !== -1)
+                console.log("this.id: "+this.id);
+            	if((this.id).indexOf(img) !== -1)
             	    $(this).addClass("selected");
                 else
                 	 $(this).removeClass("selected");
@@ -183,8 +183,6 @@ $(document).on("click", ".open-linkModal", function () {
     
     $('#linkModal').modal('show');
 });
-
-
 
 $(document).on("click", ".open-deleteBoardModal", function () {
      var boardid = $(this).data('boardid');

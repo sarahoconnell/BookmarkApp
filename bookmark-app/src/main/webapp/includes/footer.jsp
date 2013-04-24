@@ -218,7 +218,7 @@
 		      <li><i class="icon-stethoscope img_thumbnail" id="icon-stethoscope"></i></li>
 		      <li><i class="icon-suitcase img_thumbnail" id="icon-suitcase"></i></li>
 		      <li><i class="icon-bell-alt img_thumbnail" id="icon-bell-alt"></i></li>
-		      <li><i class="icon-food img_thumbnail" id="icon-food""></i></li>
+		      <li><i class="icon-food img_thumbnail" id="icon-food"></i></li>
 		      <li><i class="icon-fighter-jet img_thumbnail" id="icon-fighter-jet"></i></li>
 		      <li><i class="icon-building img_thumbnail" id="icon-building"></i></li>
 		      
@@ -281,8 +281,7 @@
 		      <li><i class="icon-headphones img_thumbnail" id="icon-headphones"></i></li>
 		      <li><i class="icon-heart img_thumbnail" id="icon-heart"></i></li>
 		      <li><i class="icon-home img_thumbnail" id="icon-home"></i></li>
-		      
-		          </ul>
+		    </ul>
 		  </div>
 		  
 		</section>
