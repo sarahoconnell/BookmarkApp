@@ -1,4 +1,4 @@
-package ie.cit.adf.web;
+package ie.cit.adf.rest;
 
 import ie.cit.adf.domain.Board;
 import ie.cit.adf.domain.Boards;
@@ -6,6 +6,7 @@ import ie.cit.adf.domain.Link;
 import ie.cit.adf.domain.Links;
 import ie.cit.adf.services.BoardService;
 import ie.cit.adf.services.LinkService;
+import ie.cit.adf.web.BaseController;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,8 +27,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.util.UriTemplate;
 
+@Secured("ROLE_USER")
 @Controller
-@RequestMapping("/api")  
+@RequestMapping("/api") 
 public class DashboardRestController extends BaseController {
 	
 	@Autowired
@@ -40,7 +43,7 @@ public class DashboardRestController extends BaseController {
 	@ResponseBody
 	public Boards findAllBoards() {
 		
-			Collection<Board> boardsColl = boardService.findAll();
+			Collection<Board> boardsColl = boardService.findAllPublic();
 			if (boardsColl == null)
 				throw new NotFoundException();
 			Boards boards = new Boards();
@@ -232,3 +235,4 @@ class NotFoundException extends RuntimeException {
 class AuthenticationRequiredException extends RuntimeException{
 	private static final long serialVersionUID = 2L;
 }
+

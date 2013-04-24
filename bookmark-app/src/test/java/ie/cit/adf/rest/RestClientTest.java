@@ -6,9 +6,8 @@ import ie.cit.adf.domain.Link;
 import ie.cit.adf.domain.Links;
 
 import java.net.URI;
-import java.util.ArrayList;
+import java.nio.charset.Charset;
 import java.util.List;
-import java.util.UUID;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,14 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.FormHttpMessageConverter;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.codec.Base64;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -45,9 +41,20 @@ public class RestClientTest  {
 	 String sampleBoardId = "b01";  
 	 String sampleLinkId = "l02"; 
 	 
+	 HttpHeaders headers;
+	 
 	 @org.junit.Before
 	 public void setUp() throws Exception
 	 { 	     
+		 headers =  new HttpHeaders(){
+	          {
+	             String auth = "sample" + ":" + "sample";
+	             byte[] encodedAuth = Base64.encode(
+	                auth.getBytes(Charset.forName("US-ASCII")) );
+	             String authHeader = "Basic " + new String( encodedAuth );
+	             set( "Authorization", authHeader );
+	          }
+	       };
 	 }
 
 	 @org.junit.After
@@ -151,7 +158,8 @@ public class RestClientTest  {
 		Assert.assertNotNull(boardLink);
 		
 		// test the location returned
-		newBoard = restTemplate.getForObject(boardLink, Board.class);
+		ResponseEntity<Board> rboard = restCallWithHeaders(boardLink.toString(), HttpMethod.GET, Board.class);	
+		newBoard = rboard.getBody();
 		
 		Assert.assertNotNull(newBoard);
 		Assert.assertNotNull(newBoard.getId());
@@ -180,7 +188,9 @@ public class RestClientTest  {
 		 
 		 URI boardLink = createBoard(testBoard);
 		 Assert.assertNotNull(boardLink);
-		 testBoard = restTemplate.getForObject(boardLink, Board.class); // get the right ID
+
+		 ResponseEntity<Board> rboard = restCallWithHeaders(boardLink.toString(), HttpMethod.GET, Board.class);	
+		 testBoard = rboard.getBody();
 		 
 		 //create a link
 		 Link newLink = new Link(); // generate id
@@ -192,7 +202,8 @@ public class RestClientTest  {
 		 Assert.assertNotNull(linkLocation);
 		
 		 // test the location returned
-		 newLink = restTemplate.getForObject(linkLocation, Link.class);
+		 ResponseEntity<Link> rLink = restCallWithHeaders(linkLocation.toString(), HttpMethod.GET, Link.class);	
+		 newLink = rLink.getBody();
 			
 		 Assert.assertNotNull(newLink);
 		 Assert.assertNotNull(newLink.getId());
@@ -204,7 +215,6 @@ public class RestClientTest  {
 		 deleteBoard(testBoard.getId());			
 		 deleteLink(newLink.getId());
 	 }
-	
 			
 	 
 	
@@ -223,7 +233,8 @@ public class RestClientTest  {
 		 Assert.assertNotNull(boardLink);
 
 		 // test the location returned
-		 testBoard = restTemplate.getForObject(boardLink, Board.class);
+		 ResponseEntity<Board> response = restCallWithHeaders(boardLink.toString(), HttpMethod.GET, Board.class);	
+		 testBoard = response.getBody();
 
 		 // save original values to test after update
 		 String oldId = testBoard.getId();
@@ -270,7 +281,8 @@ public class RestClientTest  {
 		 Assert.assertNotNull(boardLink);
 
 		 // test the location returned
-		 testBoard = restTemplate.getForObject(boardLink, Board.class);
+		 ResponseEntity<Board> response = restCallWithHeaders(boardLink.toString(), HttpMethod.GET, Board.class);	
+		 testBoard = response.getBody();
 		 
 		 //create a link
 		 Link testLink = new Link(); // generate id
@@ -282,7 +294,8 @@ public class RestClientTest  {
 		 Assert.assertNotNull(linkLocation);
 
 		 // test the location returned
-		 testLink = restTemplate.getForObject(linkLocation, Link.class);
+		 ResponseEntity<Link> rLink = restCallWithHeaders(linkLocation.toString(), HttpMethod.GET, Link.class);	
+		 testLink = rLink.getBody();
 		 
 		 // save original values to test after update
 		 String oldId = testLink.getId();
@@ -313,61 +326,79 @@ public class RestClientTest  {
 		 deleteBoard(testBoard.getId());
 		 deleteLink(testLink.getId());
 	 }
-	
-	 
-	 // Rest Calls 
-	 public List<Board> getAllBoards() {
-		 Boards boardsList = restTemplate.getForObject("http://localhost:8080/bookmark-app/api/boards", Boards.class);
-		 List<Board> boards = boardsList.getBoards();
-		 return boards;
+
+	 @SuppressWarnings("unchecked")
+	private ResponseEntity restCallWithHeaders(String url, HttpMethod method, Class clazz){
+		 return restCallWithHeaders(url, method, new HttpEntity<Object>(headers), clazz);
 	 }
 	 
-	
+	 @SuppressWarnings("unchecked")
+		private ResponseEntity restCallWithHeaders(String url, HttpMethod method, HttpEntity entity, Class clazz){
+			 return restTemplate.exchange(url, method, entity, clazz);	
+		 }
+		 
+	 // Rest Calls 
+	 public List<Board> getAllBoards() {
+		 ResponseEntity<Boards> response = restCallWithHeaders("http://localhost:8080/bookmark-app/api/boards", HttpMethod.GET, Boards.class);			
+		 List<Board> boards = response.getBody().getBoards();
+		 return boards;
+	 }
+	 	
 	 public List<Link> getAllLinks() {
-		 Links linkList = restTemplate.getForObject("http://localhost:8080/bookmark-app/api/links", Links.class);
-		 List<Link> links = linkList.getLinks();
+		 ResponseEntity<Links> response = restCallWithHeaders("http://localhost:8080/bookmark-app/api/links", HttpMethod.GET, Links.class);	
+		 List<Link> links = response.getBody().getLinks();
 		 return links;
 	 }
 	 
 	 public Board getBoard(String boardId) {
-		 Board board = restTemplate.getForObject("http://localhost:8080/bookmark-app/api/boards/"+boardId, Board.class);
-		 return board;
+		 ResponseEntity<Board> response = restCallWithHeaders("http://localhost:8080/bookmark-app/api/boards/"+boardId, HttpMethod.GET, Board.class);	
+		 return response.getBody();
 	 } 
 	
 	 public Link getLink(String linkId) {
-		 Link link = restTemplate.getForObject("http://localhost:8080/bookmark-app/api/links/"+linkId, Link.class);
-		 return link;
+		 ResponseEntity<Link> response = restCallWithHeaders("http://localhost:8080/bookmark-app/api/links/"+linkId, HttpMethod.GET, Link.class);	
+		 return response.getBody();
 	 } 
 	
 	 public List<Link> getAllLinksForBoard(String boardId) {
-		 Links linksLink = restTemplate.getForObject("http://localhost:8080/bookmark-app/api/boards/"+boardId+"/links", Links.class);
-		 List<Link> links = linksLink.getLinks();
+		 ResponseEntity<Links> response = restCallWithHeaders("http://localhost:8080/bookmark-app/api/boards/"+boardId+"/links", HttpMethod.GET, Links.class);	
+		 List<Link> links = response.getBody().getLinks();
 		 return links;
 	 }
 	 
 	 public URI createBoard(Board board) {
-		URI boardLink = restTemplate.postForLocation("http://localhost:8080/bookmark-app/api/boards", board);
-		return boardLink;
+		 HttpEntity<Object> httpEntity = new HttpEntity<Object>(board, headers);
+		 ResponseEntity<Board> response = restCallWithHeaders("http://localhost:8080/bookmark-app/api/boards/", HttpMethod.POST, httpEntity, Board.class);
+		 //URI boardLink = restTemplate.postForLocation("http://localhost:8080/bookmark-app/api/boards", board);
+		 return response.getHeaders().getLocation();
 	 }
 	
 	 public URI createLink(String boardId, Link link) {
-		 URI linkLink = restTemplate.postForLocation("http://localhost:8080/bookmark-app/api/boards/"+boardId+"/links", link);
-		 return linkLink;
+		 HttpEntity<Object> httpEntity = new HttpEntity<Object>(link, headers);
+		 ResponseEntity<Link> response = restCallWithHeaders("http://localhost:8080/bookmark-app/api/boards/"+boardId+"/links", HttpMethod.POST, httpEntity, Link.class);
+		 // URI linkLink = restTemplate.postForLocation("http://localhost:8080/bookmark-app/api/boards/"+boardId+"/links", link);
+		 return response.getHeaders().getLocation();
 	 }
 	 
 	 public void deleteBoard(String boardId) {
-		restTemplate.delete("http://localhost:8080/bookmark-app/api/boards/"+boardId, Board.class);
+		restCallWithHeaders("http://localhost:8080/bookmark-app/api/boards/"+boardId, HttpMethod.DELETE, Board.class);	
 	 } 
 	 
 	 public void deleteLink(String linkId) {
-		restTemplate.delete("http://localhost:8080/bookmark-app/api/links/"+linkId, Link.class);
+		 restCallWithHeaders("http://localhost:8080/bookmark-app/api/links/"+linkId, HttpMethod.DELETE, Link.class);	
+		//restTemplate.delete("http://localhost:8080/bookmark-app/api/links/"+linkId, Link.class);
 	 } 
 	
-	 public void updateBoard(Board board) {
-		restTemplate.put("http://localhost:8080/bookmark-app/api/boards/"+board.getId(), board);
+	 public void updateBoard(Board board) {	
+
+		 HttpEntity<Object> httpEntity = new HttpEntity<Object>(board, headers);
+		 restCallWithHeaders("http://localhost:8080/bookmark-app/api/boards/"+board.getId(), HttpMethod.PUT, httpEntity, Board.class);
+		 //restTemplate.put("http://localhost:8080/bookmark-app/api/boards/"+board.getId(), board);
 	 }	 
 	
 	 public void updateLink(Link link) {
-		 restTemplate.put("http://localhost:8080/bookmark-app/api/links/"+link.getId(), link);	
+		 HttpEntity<Object> httpEntity = new HttpEntity<Object>(link, headers);
+		 restCallWithHeaders("http://localhost:8080/bookmark-app/api/links/"+link.getId(), HttpMethod.PUT, httpEntity, Link.class);
+		// restTemplate.put("http://localhost:8080/bookmark-app/api/links/"+link.getId(), link);	
 	 }
 }

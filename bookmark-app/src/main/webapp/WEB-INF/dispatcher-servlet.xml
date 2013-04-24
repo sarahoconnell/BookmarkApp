@@ -8,6 +8,7 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
 	<context:component-scan base-package="ie.cit.adf.web" />  
+	<context:component-scan base-package="ie.cit.adf.rest" />  
 	<mvc:annotation-driven/>
 	<mvc:default-servlet-handler />
 </beans>
