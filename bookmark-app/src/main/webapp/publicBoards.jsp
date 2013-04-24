@@ -15,7 +15,8 @@
 		     <i class="icon-folder-open icon-white"></i> ${board.name}</a>
 		</div>     
          <div class="caption">
-          <a href="viewBoard?boardid=${board.id}"><i class="${board.img} zoomed"></i></a>   
+          <a href="viewBoard?boardid=${board.id}"><i class="${board.img} zoomed"></i></a>  
+          <p>${board.description}</p>   
         </div> 
       </div>
       </li>

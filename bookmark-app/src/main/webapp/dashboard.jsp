@@ -58,7 +58,8 @@
 		  </ul>		  
 		</div>     
          <div class="caption">
-          <a href="viewBoard?boardid=${board.id}"><i class="${board.img} zoomed"></i></a>   
+          <a href="viewBoard?boardid=${board.id}"><i class="${board.img} zoomed"></i></a>    
+          <p>${board.description}</p>    
         </div> 
       </div>
       </li>
@@ -116,7 +117,8 @@
 		  </ul>		  
 		</div>     
          <div class="caption">
-          <a href="viewBoard?boardid=${board.id}"><i class="${board.img} zoomed"></i></a>   
+          <a href="viewBoard?boardid=${board.id}"><i class="${board.img} zoomed"></i></a>    
+          <p>${board.description}</p>    
         </div> 
       </div>
       </li>
