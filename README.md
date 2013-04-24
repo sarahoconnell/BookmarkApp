@@ -16,10 +16,12 @@ This user can do everything a normal user can do but also manage user accounts. 
 username: admin <br>
 password: admin <br>
  <br>
-A sample user account is available (ROLE_USER). <br>
+A sample user account is available (ROLE_USER) <br>
+Note: the boards for this user are readonly.<br>
 username: sample <br>
 password: sample <br>
  <br>
 Once logged in, create a board and add a link to it. <br>
-The admin and sample users cannot be deleted via the admin UI however other user accounts can be deleted or locked.
+The admin and sample users cannot be deleted via the admin UI however other user accounts can be deleted or locked.<br>
+The sample user's boards and links are readonly to preserve the demo material.
 
