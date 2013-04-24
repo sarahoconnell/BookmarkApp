@@ -14,7 +14,7 @@
 			
 			
        <div class="hero-unit">
-        <h1>Bookmark App!</h1>  
+        <h1>Bookmark Manager!</h1>  
         <p>This application allows you to manage your favourite bookmarks.</p>
         <p><a href="registerUser" class="btn btn-primary btn-large">Register »</a>&nbsp; <a href="showPublicBoards" class="btn btn-primary btn-large">Public Boards »</a></p>
       </div>

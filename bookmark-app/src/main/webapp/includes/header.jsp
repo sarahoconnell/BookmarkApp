@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Developer Pinterest</title>
+<title>Bookmark Manager</title>
   <style>
       body {        
         padding-top: 60px;
