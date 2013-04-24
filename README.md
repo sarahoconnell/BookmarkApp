@@ -21,5 +21,5 @@ username: sample <br>
 password: sample <br>
  <br>
 Once logged in, create a board and add a link to it. <br>
-The admin and sample users cannot be deleted via the admin UI however other user account can.
+The admin and sample users cannot be deleted via the admin UI however other user accounts can be deleted or locked.
 
