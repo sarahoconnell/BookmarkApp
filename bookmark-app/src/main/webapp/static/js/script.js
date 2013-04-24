@@ -135,7 +135,6 @@ $(document).on("click", ".open-boardModal", function () {
 	    $(".modal-body #ispublic").val(false);
     }
     
-    console.log("img: "+img);
     $('.img_thumbnail').each(
             function(){
                 console.log("this.id: "+this.id);
