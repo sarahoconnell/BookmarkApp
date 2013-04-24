@@ -33,7 +33,7 @@
        	<button class="btn btn-info" onClick="getBoards('${user.id}' , '${user.name}')">
        	   Details
 	    </button> 
-        <c:if test="${user.id != currentUser.id}">
+        <c:if test="${user.id != currentUser.id && user.id != '001'}">
             <a href="#deleteUserModal" 
                data-userid="${user.id}" 
                role="button"
