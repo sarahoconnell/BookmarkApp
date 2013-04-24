@@ -5,6 +5,7 @@ Application developed as an assignment for the Application Development Framework
 More details: http://courses.cit.ie/index.cfm/page/module/moduleId/7496
 
 ======================
+Demonstration purpose only!<br>
 Run the application here: ...cloudfoundry...
 
 ======================
@@ -20,4 +21,5 @@ username: sample <br>
 password: sample <br>
  <br>
 Once logged in, create a board and add a link to it. <br>
+The admin and sample users cannot be deleted via the admin UI however other user account can.
 
