@@ -5,7 +5,9 @@ Application developed as an assignment for the Application Development Framework
 More details: http://courses.cit.ie/index.cfm/page/module/moduleId/7496
 
 ======================
+Run the application here: ...cloudfoundry...
 
+======================
 To use the application, simply register and login (default = ROLE_USER), otherwise: <br>
 
 An admin user account is available (ROLE_ADMIN). <br>
