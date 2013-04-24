@@ -33,7 +33,8 @@ public class Constants {
 		public static final String boardPage = "board.jsp";
 		public static final String indexPage = "index.jsp";
 					
-		// Model vars & messages
+		// Model vars & messages		
+		public static final String editable = "editable";
 		public static final String error = "error";
 		public static final String message = "message";
 		public static final String users = "users";

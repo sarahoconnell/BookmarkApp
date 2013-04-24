@@ -24,6 +24,7 @@
 		     target="window">
 		     <i class="icon-heart icon-white"></i> ${link.name}</a>
 
+		 <c:if test="${editable}"> 
 		  <a class="btn btn-info dropdown-toggle" 
 		     data-toggle="dropdown" 
 		     href="#"><span class="caret"></span></a>
@@ -50,8 +51,8 @@
                data-toggle="modal"><i class="icon-trash"></i> Delete</a>               
 		    </li>
 
-		  </ul>
-
+		  </ul>	  
+        </c:if>	  
 		</div>     
 		<div class="caption">
 		

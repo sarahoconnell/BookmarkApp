@@ -18,6 +18,23 @@ public class BaseController {
 	
 	public User loggedInUser;
 	
+	public String getLoggedInUserId()
+	{
+		// logged in user
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if (auth != null && auth.isAuthenticated())
+		{
+			String userName = auth.getName();
+			
+			loggedInUser = userService.findByName(userName);
+			if(loggedInUser==null)
+				return null;
+			
+			return loggedInUser.getId();			
+		}
+		return null;
+	}
+	
 	public boolean loggedIn()
 	{
 		// logged in user

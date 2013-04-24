@@ -66,6 +66,12 @@ public class DashboardController extends BaseController {
 			model.addAttribute(Constants.publicBoards, allPublicBoards);
 			Collection<Board> allPrivateBoards = boardService.findAllPublicByUserId(loggedInUser.getId(), false);
 			model.addAttribute(Constants.privateBoards, allPrivateBoards);
+
+			// don't allow the sample user page to be editable
+			if(!getLoggedInUserId().equals("001"))
+				model.addAttribute(Constants.editable, true);
+			else
+				model.addAttribute(Constants.editable, false);
 		
 			return Constants.dashboardPage;
 		}
@@ -84,7 +90,14 @@ public class DashboardController extends BaseController {
 			Board board = boardService.findById(boardid);
 			Collection<Link> allLinks = linkService.findAllByBoardId(boardid);
 			model.addAttribute(Constants.links, allLinks);
-			model.addAttribute(Constants.board, board);
+			model.addAttribute(Constants.board, board);			
+
+			// don't allow the sample user page to be editable
+			if(!getLoggedInUserId().equals("001"))
+				model.addAttribute(Constants.editable, true);
+			else
+				model.addAttribute(Constants.editable, false);		
+			
 			return Constants.boardPage;
 		}
 		else

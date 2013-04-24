@@ -22,7 +22,8 @@
 		  <a class="btn btn-info long" 
 		     href="viewBoard?boardid=${board.id}">
 		     <i class="icon-folder-open icon-white"></i> ${board.name}</a>
-		     
+		  
+		 <c:if test="${editable}">   
 		  <a class="btn btn-info dropdown-toggle" 
 		     data-toggle="dropdown" 
 		     href="#"><span class="caret"></span></a>
@@ -55,7 +56,8 @@
 		          class="open-linkModal">
 		          <i class="icon-heart"></i> Add Link</a>
 		    </li>
-		  </ul>		  
+		  </ul>			  
+        </c:if>	  
 		</div>     
          <div class="caption">
           <a href="viewBoard?boardid=${board.id}"><i class="${board.img} zoomed"></i></a>    
@@ -81,7 +83,8 @@
 		  <a class="btn btn-warning long" 
 		     href="viewBoard?boardid=${board.id}">
 		     <i class="icon-folder-open icon-white"></i> ${board.name}</a>
-		     
+		
+		 <c:if test="${editable}">   
 		  <a class="btn btn-warning dropdown-toggle" 
 		     data-toggle="dropdown" 
 		     href="#"><span class="caret"></span></a>
@@ -114,7 +117,8 @@
 		          class="open-linkModal">
 		          <i class="icon-heart"></i> Add Link</a>
 		    </li>
-		  </ul>		  
+		  </ul>		
+        </c:if>	    
 		</div>     
          <div class="caption">
           <a href="viewBoard?boardid=${board.id}"><i class="${board.img} zoomed"></i></a>    
