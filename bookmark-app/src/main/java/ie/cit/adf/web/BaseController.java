@@ -3,8 +3,6 @@ package ie.cit.adf.web;
 import ie.cit.adf.domain.User;
 import ie.cit.adf.services.UserService;
 
-import java.util.Collection;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -51,8 +49,7 @@ public class BaseController {
 		// logged in user
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null && auth.isAuthenticated()) // ROLE?
-		{
-						
+		{						
 			for(GrantedAuthority authority : auth.getAuthorities())
 			{
 				if(authority.getAuthority().equalsIgnoreCase(ADMIN_USER))

@@ -18,7 +18,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Board {
 	
-
 	@Id
 	private String id;
 	@Basic

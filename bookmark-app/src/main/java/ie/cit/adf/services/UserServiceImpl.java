@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 		return repo.findByName(name);
 	}
 	
-	//SECURET THIS FOR ADMIN USERS ONLY 
+	//SECURE THIS FOR ADMIN USERS ONLY 
 	@Secured("ROLE_ADMIN")
 	public Collection<User> findAll() {
 		return repo.findAll();
@@ -47,21 +47,17 @@ public class UserServiceImpl implements UserService {
 	public void createRole(User user, String role) {
 		UserRole userRole = new UserRole();
 		userRole.setUserId(user.getId());
-		userRole.setAuthority(role); // TODO - other roles for USERS
+		userRole.setAuthority(role);
 		repo.createRole(userRole);
 	}
 	
 	public User update(User user) {
-		/*User user = repo.findById(userId);
-		user.setName(name);
-		user.setPassword(password);
-		user.setTwitterId(twitterId);
-		user.setEnabled(enabled);*/
 		repo.update(user);
-		return user;
-		
+		return user;		
 	}
 
+	//SECURE THIS FOR ADMIN USERS ONLY 
+	@Secured("ROLE_ADMIN")
 	@Override
 	public void delete(User user) {
 		repo.delete(user);

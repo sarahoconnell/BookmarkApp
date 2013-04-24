@@ -63,7 +63,7 @@ public class DashboardController extends BaseController {
 	@RequestMapping(value="/dashboard", method = RequestMethod.GET)
 	public String dashboard(ModelMap model) {
 
-		if (loggedIn()) // ROLE?
+		if (loggedIn()) 
 		{	
 			Collection<Board> allPublicBoards = boardService.findAllPublicByUserId(loggedInUser.getId(), true);
 			model.addAttribute("publicBoards", allPublicBoards);
@@ -76,9 +76,9 @@ public class DashboardController extends BaseController {
 		    return "/index";			
  
 	}
-	
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+
 	@Secured("ROLE_ADMIN")
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String showAdmin(ModelMap model) {
  
 		if(loggedIn()){
@@ -91,9 +91,8 @@ public class DashboardController extends BaseController {
 		    return "/index";	
 	}
 
-
-	@RequestMapping(value="/removeUser", method = RequestMethod.POST)
 	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="/removeUser", method = RequestMethod.POST)
 	public String removeUser(@RequestParam String userId, ModelMap model) {
 
 		if (loggedIn()) // ROLE?
@@ -106,9 +105,9 @@ public class DashboardController extends BaseController {
 		    return "redirect:/index";			
  
 	}
-	
-	@RequestMapping(value="/toggleUserEnable", method = RequestMethod.POST)
+
 	@Secured("ROLE_ADMIN")
+	@RequestMapping(value="/toggleUserEnable", method = RequestMethod.POST)
 	public String toggleUserEnable(@RequestParam String userId, @RequestParam boolean enabled, ModelMap model) {
 
 		if (loggedIn()) // ROLE?
@@ -120,10 +119,8 @@ public class DashboardController extends BaseController {
 		}
 		else
 		    return "redirect:/index";			
- 
 	}
  
-
 	@Secured("ROLE_USER")
 	@RequestMapping(value="/viewBoard", method = RequestMethod.GET)
 	public String viewBoard(@RequestParam String boardid, ModelMap model) {
@@ -137,11 +134,8 @@ public class DashboardController extends BaseController {
 			return "board.jsp";
 		}
 		else
-		    return "/index";			
- 
+		    return "/index";		
 	}
-	
-
 
 	@Secured("ROLE_USER")
 	@RequestMapping(value="/deleteBoard", method = RequestMethod.POST)
@@ -154,12 +148,9 @@ public class DashboardController extends BaseController {
 			return "redirect:/dashboard";
 		}
 		else
-		    return "redirect:/index";			
- 
-	}
+		    return "redirect:/index";		
+ 	}
 	
-
-
 	@Secured("ROLE_USER")
 	@RequestMapping(value="/deleteLink", method = RequestMethod.POST)
 	public String deleteLink(@RequestParam String linkid, ModelMap model) {
@@ -174,6 +165,7 @@ public class DashboardController extends BaseController {
 		    return "redirect:/index";			
  
 	}
+	
 	/**
 	 * Get a snapshot using a RESTful service.
 	 * 
@@ -210,8 +202,7 @@ public class DashboardController extends BaseController {
 				}
 			}
 			return null;
-	}
-	
+	}	
 
 	@Secured("ROLE_USER")
 	@RequestMapping(value="/createLink", method = RequestMethod.POST)
@@ -271,6 +262,4 @@ public class DashboardController extends BaseController {
 	   else
 		 return "redirect:/index";	
 	}
-
-
 }

@@ -132,13 +132,11 @@
 		<security:jdbc-user-service data-source-ref="dataSource"
  
 		   users-by-username-query="
-		      select name,password, enabled 
-		      from users where name=?" 
+		      select name, password, enabled from users where name=?" 
  
 		   authorities-by-username-query="
 		      select u.name, ur.authority from users u, user_roles ur 
-		      where u.id = ur.userid and u.name =?  " 
- 
+		      where u.id = ur.userid and u.name =?"  
 		/>
 	   </security:authentication-provider>
 	</security:authentication-manager>
