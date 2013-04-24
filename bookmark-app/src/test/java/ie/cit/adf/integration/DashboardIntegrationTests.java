@@ -62,7 +62,7 @@ public class DashboardIntegrationTests extends AuthenticationHelper{
 		ModelMap model = new ExtendedModelMap();
 		//login and check that you are directed to admin.jsp 
 		login("admin", "password", "ROLE_ADMIN");
-		String page = dashboardController.showAdmin(model);
+		String page = userController.showAdmin(model);
 		assertTrue(page.equals("admin.jsp"));
 		//check that the private/public Boards attribute is set 
 		Collection<Board> users = (Collection<Board>)model.get("users");
@@ -73,13 +73,13 @@ public class DashboardIntegrationTests extends AuthenticationHelper{
 	public void testAdminAccessDenied(){
 		login("user", "password", "ROLE_USER");
 		ModelMap model = new ExtendedModelMap();
-		String page = dashboardController.showAdmin(model);
+		String page = userController.showAdmin(model);
 	}
 	@Test
 	public void testAdminAccess(){
 		login("admin", "password", "ROLE_ADMIN");
 		ModelMap model = new ExtendedModelMap();
-		String page = dashboardController.showAdmin(model);
+		String page = userController.showAdmin(model);
 		assertTrue(page.equals("admin.jsp"));
 	}
 
@@ -92,7 +92,7 @@ public class DashboardIntegrationTests extends AuthenticationHelper{
 		String uid = userService.findByName("temp").getId();
 		login("admin", "password", "ROLE_ADMIN");
 		ModelMap modelMap = new ExtendedModelMap();
-		dashboardController.removeUser(uid, modelMap);
+		userController.removeUser(uid, modelMap);
 		
 		assertTrue(userService.findById(uid) == null);
 	}
@@ -108,13 +108,13 @@ public class DashboardIntegrationTests extends AuthenticationHelper{
 		String uid = userService.findByName("temp").getId();
 		login("admin", "password", "ROLE_ADMIN");
 		ModelMap modelMap = new ExtendedModelMap();
-		dashboardController.toggleUserEnable(uid,  false,  modelMap);
+		userController.toggleUserEnable(uid,  false,  modelMap);
 		assertFalse(userService.findById(uid).getEnabled());
 		//re-enable the user 
-		dashboardController.toggleUserEnable(uid,  true,  modelMap);
+		userController.toggleUserEnable(uid,  true,  modelMap);
 		assertTrue(userService.findById(uid).getEnabled());
 		//delete the user for cleanup 
-		dashboardController.removeUser(uid, modelMap);
+		userController.removeUser(uid, modelMap);
 	}
 	
 	

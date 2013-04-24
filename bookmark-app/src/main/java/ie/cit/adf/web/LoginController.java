@@ -1,11 +1,13 @@
 package ie.cit.adf.web;
 
+import ie.cit.adf.constants.Constants;
 import ie.cit.adf.services.BoardService;
 import ie.cit.adf.services.UserService;
 
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,41 +21,41 @@ public class LoginController extends BaseController{
 	@Autowired
 	private BoardService boardService;
 
-	@RequestMapping(value="/index", method = RequestMethod.GET)
+	@RequestMapping(value=Constants.indexMapping, method = RequestMethod.GET)
 	public String index(ModelMap model) {
-		return "index.jsp"; 
+		return Constants.indexPage; 
 	}
-	
-	@RequestMapping(value="/welcome", method = RequestMethod.GET)
+
+	@Secured("ROLE_USER, ROLE_ADMIN")
+	@RequestMapping(value=Constants.welcomeMapping, method = RequestMethod.GET)
 	public String welcome(ModelMap model, Principal principal ) {
  
-		try{
-			
+		try{			
 			if(isAdmin())
-				return "/admin";
+				return Constants.adminMapping;
 			
-			return "/dashboard";
+			return Constants.dashboardMapping;
 		}
 		catch(Exception e)
 		{
-			model.addAttribute("error", "true");
-			return "/index";
+			model.addAttribute(Constants.error, "true");
+			return Constants.indexMapping;
 		} 
 	}
   
-	@RequestMapping(value="/loginfailed", method = RequestMethod.GET)
+	@RequestMapping(value=Constants.loginfailedMapping, method = RequestMethod.GET)
 	public String loginerror(ModelMap model) { 
-		model.addAttribute("error", "true");
-		return "/index"; 
+		model.addAttribute(Constants.error, "true");
+		return Constants.indexMapping;
 	}
  
-	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	@RequestMapping(value=Constants.logoutMapping, method = RequestMethod.GET)
 	public String logout(ModelMap model) {
-		return "/index"; 
+		return Constants.indexMapping;
 	}
 
-	@RequestMapping(value="/login", method = RequestMethod.GET)
+	@RequestMapping(value=Constants.loginMapping, method = RequestMethod.GET)
 	public String login(ModelMap model) {
-		return "/index"; 
+		return Constants.indexMapping;
 	}
 }

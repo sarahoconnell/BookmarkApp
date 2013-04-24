@@ -11,7 +11,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-//@Secured("ROLE_USER")
+@Secured({"ROLE_USER", "ROLE_ADMIN"})
 @Service
 @Transactional
 public class LinkServiceImpl implements LinkService {

@@ -1,21 +1,18 @@
 package ie.cit.adf.web;
 
+import ie.cit.adf.constants.Constants;
 import ie.cit.adf.domain.Board;
 import ie.cit.adf.domain.Link;
-import ie.cit.adf.domain.User;
 import ie.cit.adf.services.BoardService;
 import ie.cit.adf.services.LinkService;
 import ie.cit.adf.services.UserService;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 
 import javax.imageio.ImageIO;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -39,173 +36,93 @@ public class DashboardController extends BaseController {
 	@Autowired
 	private UserService userService;
 	
-	// NOT SECURED - VISIBLE TO ALL
-	@RequestMapping(value="/showPublicBoards", method = RequestMethod.GET)
+	// NOT SECURED - VISIBLE TO ALL	
+	@RequestMapping(value=Constants.showPublicBoardsMapping, method = RequestMethod.GET)
 	public String showPublicBoards(ModelMap model) {
 
 		Collection<Board> allPublicBoards = boardService.findAllPublic();
-		model.addAttribute("publicBoards", allPublicBoards);
-		return "publicBoards.jsp";			 
+		model.addAttribute(Constants.publicBoards, allPublicBoards);
+		return Constants.publicBoardsPage;			 
 	}
-	
 
-	@RequestMapping(value="/viewPublicBoard", method = RequestMethod.GET)
+	// NOT SECURED - VISIBLE TO ALL	
+	@RequestMapping(value=Constants.viewPublicBoardMapping, method = RequestMethod.GET)
 	public String viewPublicBoard(@RequestParam String boardid, ModelMap model) {
 
 		Board board = boardService.findById(boardid);
 		Collection<Link> allLinks = linkService.findAllByBoardId(boardid);
-		model.addAttribute("links", allLinks);
-		model.addAttribute("board", board);
-		return "publicBoard.jsp";
+		model.addAttribute(Constants.links, allLinks);
+		model.addAttribute(Constants.board, board);
+		return Constants.publicBoardPage;
 	}
 
 	@Secured("ROLE_USER")
-	@RequestMapping(value="/dashboard", method = RequestMethod.GET)
+	@RequestMapping(value=Constants.dashboardMapping, method = RequestMethod.GET)
 	public String dashboard(ModelMap model) {
 
 		if (loggedIn()) 
 		{	
 			Collection<Board> allPublicBoards = boardService.findAllPublicByUserId(loggedInUser.getId(), true);
-			model.addAttribute("publicBoards", allPublicBoards);
+			model.addAttribute(Constants.publicBoards, allPublicBoards);
 			Collection<Board> allPrivateBoards = boardService.findAllPublicByUserId(loggedInUser.getId(), false);
-			model.addAttribute("privateBoards", allPrivateBoards);
+			model.addAttribute(Constants.privateBoards, allPrivateBoards);
 		
-			return "dashboard.jsp";
+			return Constants.dashboardPage;
 		}
 		else
-		    return "/index";			
+		    return Constants.indexMapping;			
  
 	}
 
-	@Secured("ROLE_ADMIN")
-	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public String showAdmin(ModelMap model) {
- 
-		if(loggedIn()){
-			Collection<User> allUsers = userService.findAll();
-			model.addAttribute("users", allUsers);
-			model.addAttribute("currentUser", loggedInUser);
-			return "admin.jsp";
-		}
-		else
-		    return "/index";	
-	}
-
-	@Secured("ROLE_ADMIN")
-	@RequestMapping(value="/removeUser", method = RequestMethod.POST)
-	public String removeUser(@RequestParam String userId, ModelMap model) {
-
-		if (loggedIn()) // ROLE?
-		{	
-			User user = userService.findById(userId);
-		    userService.delete(user);
-			return "redirect:/admin";
-		}
-		else
-		    return "redirect:/index";			
- 
-	}
-
-	@Secured("ROLE_ADMIN")
-	@RequestMapping(value="/toggleUserEnable", method = RequestMethod.POST)
-	public String toggleUserEnable(@RequestParam String userId, @RequestParam boolean enabled, ModelMap model) {
-
-		if (loggedIn()) // ROLE?
-		{	
-			User user = userService.findById(userId);
-		    user.setEnabled(enabled);
-		    userService.update(user);
-			return "redirect:/admin";
-		}
-		else
-		    return "redirect:/index";			
-	}
  
 	@Secured("ROLE_USER")
-	@RequestMapping(value="/viewBoard", method = RequestMethod.GET)
+	@RequestMapping(value=Constants.viewBoardMapping, method = RequestMethod.GET)
 	public String viewBoard(@RequestParam String boardid, ModelMap model) {
 
 		if (loggedIn()) // ROLE?
 		{	
 			Board board = boardService.findById(boardid);
 			Collection<Link> allLinks = linkService.findAllByBoardId(boardid);
-			model.addAttribute("links", allLinks);
-			model.addAttribute("board", board);
-			return "board.jsp";
+			model.addAttribute(Constants.links, allLinks);
+			model.addAttribute(Constants.board, board);
+			return Constants.boardPage;
 		}
 		else
-		    return "/index";		
+		    return Constants.indexMapping;		
 	}
 
 	@Secured("ROLE_USER")
-	@RequestMapping(value="/deleteBoard", method = RequestMethod.POST)
+	@RequestMapping(value=Constants.deleteBoardMapping, method = RequestMethod.POST)
 	public String deleteBoard(@RequestParam String boardid, ModelMap model) {
 
 		if (loggedIn()) // ROLE?
 		{	
 			Board board = boardService.findById(boardid);
 			boardService.delete(board);
-			return "redirect:/dashboard";
+			return Constants.redirect+Constants.dashboardMapping;
 		}
 		else
-		    return "redirect:/index";		
+			return Constants.redirect+Constants.indexMapping;
  	}
 	
 	@Secured("ROLE_USER")
-	@RequestMapping(value="/deleteLink", method = RequestMethod.POST)
+	@RequestMapping(value=Constants.deleteLinkMapping, method = RequestMethod.POST)
 	public String deleteLink(@RequestParam String linkid, ModelMap model) {
 
 		if (loggedIn()) // ROLE?
 		{	
 			Link link = linkService.findById(linkid);
 			linkService.delete(link);
-			return "redirect:/viewBoard?boardid="+link.getBoardId();
+			return Constants.redirect+Constants.viewBoardMapping+"?boardid="+link.getBoardId();
 		}
 		else
-		    return "redirect:/index";			
+			return Constants.redirect+Constants.indexMapping;		
  
 	}
 	
-	/**
-	 * Get a snapshot using a RESTful service.
-	 * 
-	 * @param boardId
-	 * @param url
-	 * @param name
-	 * @return
-	 */
-	private byte[] generateSnapshot(String boardId, String url, String name){
-			//TODO: Refactor out to a utility class?
-			//TODO: Buy credits so we can generate bigger images :) 
-		
-			//get the image for this URL using the W3Snapshot service
-			String apikey = "e8c2173d19e93d234627817c039dea6d";
-			//http://images.w3snapshot.com/?size=[size]&key=[key]&url=[url]&format=[format]&quality=[quality]
-			 
-			String service = "http://images.w3snapshot.com/?size=S&key="+apikey+"&url="+url;//"&format=[format]&quality=[quality]";
-			System.out.println(service);
-			BufferedImage image = restTemplate.getForObject( service, BufferedImage.class);
-			if(image != null){
-				try {
-					ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-					ImageIO.write(image, "jpg", byteStream);				    
-					byteStream.flush();
-					
-					//save the image to the file system
-				    //File outputfile = new File(imagesDir, boardId+"_"+name+".jpg");
-				    //ImageIO.write(image, "jpg", outputfile);
-				    //System.out.println("Absolute Path is " + outputfile.getAbsolutePath());
-				    //return outputfile.getName();
-					return byteStream.toByteArray();
-				} catch (IOException e) {
-				    e.printStackTrace();
-				}
-			}
-			return null;
-	}	
 
 	@Secured("ROLE_USER")
-	@RequestMapping(value="/createLink", method = RequestMethod.POST)
+	@RequestMapping(value=Constants.createLinkMapping, method = RequestMethod.POST)
 	public String createLink(@RequestParam String id, @RequestParam String url, @RequestParam String name, @RequestParam String description, @RequestParam String boardId, @RequestParam String gotolink, Model model) {
 	
 		if (loggedIn()) // ROLE?
@@ -228,17 +145,17 @@ public class DashboardController extends BaseController {
 				
 			}
 			
-			if(gotolink.equalsIgnoreCase("dashboard"))
-				return "redirect:/dashboard";
+			if(gotolink.equalsIgnoreCase(Constants.dashboard))
+				return Constants.redirect+Constants.dashboardMapping;
 			else
-				return "redirect:/viewBoard?boardid="+boardId;
+				return Constants.redirect+Constants.viewBoardMapping+"?boardid="+boardId;
 		}
 		else
-		   return "redirect:/index";	
+			return Constants.redirect+Constants.indexMapping;
 	}
 
 	@Secured("ROLE_USER")
-	@RequestMapping(value="/createBoard", method = RequestMethod.POST)
+	@RequestMapping(value=Constants.createBoardMapping, method = RequestMethod.POST)
 	public String createBoard(@RequestParam String id, @RequestParam String name, @RequestParam String description, @RequestParam String img,  @RequestParam boolean ispublic, Model model) {
 
 		if (loggedIn()) // ROLE?
@@ -246,8 +163,8 @@ public class DashboardController extends BaseController {
 			// validation
 			if(name.isEmpty())
 			{
-				model.addAttribute("error", "Name is mandatory!!");
-				return "redirect:/dashboard";
+				model.addAttribute(Constants.error, Constants.nameMandatory);
+				return Constants.redirect+Constants.dashboardMapping;
 			}
 			
 			if(!id.isEmpty()) 		
@@ -256,10 +173,42 @@ public class DashboardController extends BaseController {
 				boardService.create(name, description, loggedInUser.getId(), img, ispublic);	
 
 			Collection<Board> allBoards = boardService.findAllByUserId(loggedInUser.getId());
-			model.addAttribute("boards", allBoards);	  
-			return "redirect:/dashboard";
+			model.addAttribute(Constants.boards, allBoards);	
+			return Constants.redirect+Constants.dashboardMapping;
 	   }
 	   else
-		 return "redirect:/index";	
+			return Constants.redirect+Constants.indexMapping;
 	}
+	
+
+	/**
+	 * Get a snapshot using a RESTful service.
+	 * 
+	 * @param boardId
+	 * @param url
+	 * @param name
+	 * @return
+	 */
+	private byte[] generateSnapshot(String boardId, String url, String name){
+			//TODO: Refactor out to a utility class?
+			//TODO: Buy credits so we can generate bigger images :) 
+		
+			//get the image for this URL using the W3Snapshot service
+			String apikey = "e8c2173d19e93d234627817c039dea6d";
+			//http://images.w3snapshot.com/?size=[size]&key=[key]&url=[url]&format=[format]&quality=[quality]			 
+			String service = "http://images.w3snapshot.com/?size=S&key="+apikey+"&url="+url;//"&format=[format]&quality=[quality]";
+			System.out.println(service);
+			BufferedImage image = restTemplate.getForObject( service, BufferedImage.class);
+			if(image != null){
+				try {
+					ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+					ImageIO.write(image, "jpg", byteStream);				    
+					byteStream.flush();
+					return byteStream.toByteArray();
+				} catch (IOException e) {
+				    e.printStackTrace();
+				}
+			}
+			return null;
+	}	
 }

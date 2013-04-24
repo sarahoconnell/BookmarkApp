@@ -22,22 +22,13 @@ public class BaseController {
 	{
 		// logged in user
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth != null && auth.isAuthenticated()) // ROLE?
+		if (auth != null && auth.isAuthenticated())
 		{
 			String userName = auth.getName();
 			
 			loggedInUser = userService.findByName(userName);
 			if(loggedInUser==null)
 				return false;
-			//role = auth.getAuthorities();
-			
-			for(GrantedAuthority authority : auth.getAuthorities())
-			{
-				if(authority.getAuthority().equalsIgnoreCase(ADMIN_USER))
-				{
-		//			isAdmin = true;
-				}
-			}
 			
 			return true;			
 		}
@@ -48,14 +39,12 @@ public class BaseController {
 	{
 		// logged in user
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		if (auth != null && auth.isAuthenticated()) // ROLE?
+		if (auth != null && auth.isAuthenticated()) 
 		{						
 			for(GrantedAuthority authority : auth.getAuthorities())
 			{
 				if(authority.getAuthority().equalsIgnoreCase(ADMIN_USER))
-				{
-					return true;		
-				}
+					return true;	
 			}
 				
 		}

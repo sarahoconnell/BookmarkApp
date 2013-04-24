@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.access.annotation.Secured;
 
+@Secured({"ROLE_USER", "ROLE_ADMIN"})
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {

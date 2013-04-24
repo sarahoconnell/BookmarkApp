@@ -64,35 +64,3 @@
   </tbody>
 </table>
 <jsp:include page="includes/footer.jsp"/>
-
-<script>
-
-function getBoards(id, username){
-	//make the RESTful call to get the list of boards for this user
-	$.ajax( {
-		  type:'get', 
-		  url:'api/boards/user/'+id,
-		  dataType: 'json',
-		  success:function(data) {
-		     //Here you have 'data' as xml.
-		     var boardList = '<ul>';
-		     
-		     // e.g. {"boardList":[{"id":"b01","name":"Favourite Sites","description":"My Favourite Websites","userId":"001","img":"fav.png"},
-		     //                    {"id":"b02","name":"News","description":"News","userId":"001","img":"news.jpg"}]} 
-		     
-		    
-		     var boardItems = "";
-		     var boardCount = 0;
-		     $.each(data.boardList, function(i, board) 
-             {
-		    	    boardCount++;
-			        boardItems = boardItems+'<li>'+board.name+'</li>';
-	         });
-
-			 boardList = boardItems+ '</ul>';		
-			 $('#userBoardsModal').modal('show');   
-			 $('#userBoardsModal').find('#userboards').html('<p>' +  username + ' has ' + boardCount + ' boards </p>' + boardList);			 
-		  } // success
-		}); // ajax
-}
-</script>
