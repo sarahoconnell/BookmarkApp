@@ -211,76 +211,71 @@
 	 	
 	 	<div class="span1">
 		 	 <ul class="the-icons">
-			 <li><i class="icon-star img_thumbnail selected" id="icon-star"></i></li>
-		      <li><i class="icon-tag img_thumbnail" id="icon-tag"></i></li>
-		      <li><i class="icon-tasks img_thumbnail" id="icon-thumbnail"></i></li>
-		      <li><i class="icon-lightbulb img_thumbnail" id="icon-lightbulb"></i></li>
-		      <li><i class="icon-stethoscope img_thumbnail" id="icon-stethoscope"></i></li>
-		      <li><i class="icon-suitcase img_thumbnail" id="icon-suitcase"></i></li>
+		 	  <li><i class="icon-beaker img_thumbnail" id="icon-beaker"></i></li>
 		      <li><i class="icon-bell-alt img_thumbnail" id="icon-bell-alt"></i></li>
-		      <li><i class="icon-food img_thumbnail" id="icon-food"></i></li>
-		      <li><i class="icon-fighter-jet img_thumbnail" id="icon-fighter-jet"></i></li>
+		      <li><i class="icon-bolt img_thumbnail" id="icon-bolt"></i> </li>
+		      <li><i class="icon-book img_thumbnail" id="icon-book"></i></li>		  
+		      <li><i class="icon-bar-chart img_thumbnail" id="icon-bar-chart"></i> </li>
 		      <li><i class="icon-building img_thumbnail" id="icon-building"></i></li>
-		      
+		      <li><i class="icon-calendar img_thumbnail" id="icon-calendar"></i></li>
+		      <li><i class="icon-camera img_thumbnail" id="icon-camera"></i> </li>
+		      <li><i class="icon-camera-retro img_thumbnail" id="icon-camera-retro"></i></li>
+		      <li><i class="icon-certificate img_thumbnail" id="icon-certificate"></i></li>		      
 			 </ul>
 	 	</div>
 	 	<div class="span1">
-		 	 <ul class="the-icons">
-		 	 <li><i class="icon-medkit img_thumbnail" id="icon-medkit"></i></li>
-		      <li><i class="icon-bell-alt img_thumbnail" id="icon-bell-alt"></i></li>
-		      <li><i class="icon-bolt img_thumbnail" id="icon-bolt"></i> </li>
-		      <li><i class="icon-book img_thumbnail" id="icon-book"></i></li>
+		 	 <ul class="the-icons">    
+		 	  <li><i class="icon-cloud img_thumbnail" id="icon-cloud"></i> </li>	
+		      <li><i class="icon-cog img_thumbnail" id="icon-cog"></i></li>
+		      <li><i class="icon-cogs img_thumbnail" id="icon-cogs"></i></li>
+		      <li><i class="icon-comment img_thumbnail" id="icon-comment"></i></li>
+		      <li><i class="icon-credit-card img_thumbnail" id="icon-credit-card"></i></li>
 		      <li><i class="icon-desktop img_thumbnail" id="icon-desktop"></i> </li>
-		       <li><i class="icon-mobile-phone img_thumbnail" id="icon-mobile-phone"></i> </li>
-		      <li><i class="icon-github img_thumbnail" id="icon-github"></i> </li>
-		      <li><i class="icon-bar-chart img_thumbnail" id="icon-bar-chart"></i> </li>
-		      <li><i class="icon-calendar img_thumbnail" id="icon-calendar"></i></li>
-		      <li><i class="icon-camera img_thumbnail" id="icon-camera"></i> </li>
-		     
+		      <li><i class="icon-download img_thumbnail" id="icon-download"></i></li>
+		      <li><i class="icon-film img_thumbnail" id="icon-film"></i></li>
+		      <li><i class="icon-fire img_thumbnail" id="icon-fire"></i></li> 		       
+		      <li><i class="icon-fighter-jet img_thumbnail" id="icon-fighter-jet"></i></li>	  
 			 </ul>
 	 	</div>
   		<div class="span1">
-		    <ul class="the-icons">
-		       <li><i class="icon-camera-retro img_thumbnail" id="icon-camera-retro"></i></li>
-		      <li><i class="icon-certificate img_thumbnail" id="icon-certificate"></i></li>
-		      <li><i class="icon-cloud img_thumbnail" id="icon-cloud"></i> </li>
-		      <li><i class="icon-comment img_thumbnail" id="icon-comment"></i></li>
-		      <li><i class="icon-inbox img_thumbnail" id="icon-inbox"></i> </li>
-		      <li><i class="icon-home img_thumbnail" id="icon-home"></i> </li>
-		      <li><i class="icon-globe img_thumbnail" id="icon-globe"></i> </li>
-		      <li><i class="icon-flag img_thumbnail" id="icon-flag"></i></li>
-		      <li><i class="icon-picture img_thumbnail" id="icon-picture"></i></li>
-		      <li><i class="icon-pushpin img_thumbnail" id="icon-pushpin"></i></li>
-		      
+		    <ul class="the-icons">	   
+		      <li><i class="icon-flag img_thumbnail" id="icon-flag"></i></li>			      
+		      <li><i class="icon-food img_thumbnail" id="icon-food"></i></li>   
+		      <li><i class="icon-globe img_thumbnail" id="icon-globe"></i> </li>		   
+		      <li><i class="icon-github img_thumbnail" id="icon-github"></i> </li>
+		      <li><i class="icon-gift img_thumbnail" id="icon-gift"></i></li>
+		      <li><i class="icon-glass img_thumbnail" id="icon-glass"></i></li>
+		      <li><i class="icon-google-plus img_thumbnail" id="icon-google-plus"></i></li>
+		      <li><i class="icon-group img_thumbnail" id="icon-group"></i></li>
+		      <li><i class="icon-headphones img_thumbnail" id="icon-headphones"></i></li>
+		      <li><i class="icon-heart img_thumbnail" id="icon-heart"></i></li>   
 		    </ul>
 		  </div>
 		  <div class="span1">
 		  <ul class="the-icons">
-		      <li><i class="icon-cog img_thumbnail" id="icon-cog"></i></li>
-		      <li><i class="icon-cogs img_thumbnail" id="icon-cogs"></i></li>
-		      <li><i class="icon-comment img_thumbnail" id="icon-comment"></i></li>
-		      <li><i class="icon-trophy img_thumbnail" id="icon-trophy"></i></li>
-		      <li><i class="icon-question-sign img_thumbnail" id="icon-question-sign"></i></li>
-		      <li><i class="icon-random img_thumbnail" id="icon-random"></i></li>
-		      <li><i class="icon-credit-card img_thumbnail" id="icon-credit-card"></i></li>
-		      <li><i class="icon-download img_thumbnail" id="icon-download"></i></li>
+		      <li><i class="icon-home img_thumbnail" id="icon-home"></i></li>		      
+		      <li><i class="icon-home img_thumbnail" id="icon-home"></i> </li>
+		      <li><i class="icon-inbox img_thumbnail" id="icon-inbox"></i> </li>
 		      <li><i class="icon-key img_thumbnail" id="icon-key"></i></li>
-		      <li><i class="icon-road img_thumbnail" id="icon-road"></i></li>
-		      
-			     
+		      <li><i class="icon-lightbulb img_thumbnail" id="icon-lightbulb"></i></li>
+		      <li><i class="icon-mobile-phone img_thumbnail" id="icon-mobile-phone"></i> </li>
+		 	  <li><i class="icon-medkit img_thumbnail" id="icon-medkit"></i></li>		
+		 	  <li><i class="icon-picture img_thumbnail" id="icon-picture"></i></li>
+		      <li><i class="icon-pushpin img_thumbnail" id="icon-pushpin"></i></li>
+		      <li><i class="icon-question-sign img_thumbnail" id="icon-question-sign"></i></li>
 		  </ul></div>
 		  <div class="span1">
 		    <ul class="the-icons">
-		     <li><i class="icon-google-plus img_thumbnail" id="icon-google-plus"></i></li>
-		      <li><i class="icon-beaker img_thumbnail" id="icon-beaker"></i></li>
-		      <li><i class="icon-film img_thumbnail" id="icon-film"></i></li>
-		      <li><i class="icon-fire img_thumbnail" id="icon-fire"></i></li>
-		      <li><i class="icon-gift img_thumbnail" id="icon-gift"></i></li>
-		      <li><i class="icon-glass img_thumbnail" id="icon-glass"></i></li>
-		      <li><i class="icon-group img_thumbnail" id="icon-group"></i></li>
-		      <li><i class="icon-headphones img_thumbnail" id="icon-headphones"></i></li>
-		      <li><i class="icon-heart img_thumbnail" id="icon-heart"></i></li>
-		      <li><i class="icon-home img_thumbnail" id="icon-home"></i></li>
+		      <li><i class="icon-random img_thumbnail" id="icon-random"></i></li>
+		      <li><i class="icon-road img_thumbnail" id="icon-road"></i></li>
+			  <li><i class="icon-star img_thumbnail selected" id="icon-star"></i></li>
+		      <li><i class="icon-stethoscope img_thumbnail" id="icon-stethoscope"></i></li>
+		      <li><i class="icon-suitcase img_thumbnail" id="icon-suitcase"></i></li>
+		      <li><i class="icon-tag img_thumbnail" id="icon-tag"></i></li>
+		      <li><i class="icon-tasks img_thumbnail" id="icon-thumbnail"></i></li>
+		      <li><i class="icon-trophy img_thumbnail" id="icon-trophy"></i></li>
+		      <li><i class="icon-user-md img_thumbnail" id="icon-user-md"></i></li>
+		      <li><i class="icon-user img_thumbnail" id="icon-user"></i></li>
 		    </ul>
 		  </div>
 		  
@@ -292,10 +287,9 @@
              class="saveBoard btn btn-primary" 
              id="saveBoard" 
              name="saveBoard">Save changes</button>
-    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-    
+     <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>    
   </div>
-	</form>
+ </form>
 </div>
 
 
