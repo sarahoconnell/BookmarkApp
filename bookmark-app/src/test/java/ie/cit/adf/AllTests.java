@@ -1,8 +1,8 @@
 package ie.cit.adf;
 
-import ie.cit.adf.integration.DashboardIntegrationTests;
-import ie.cit.adf.integration.LoginIntegrationTests;
-import ie.cit.adf.integration.UserIntegrationTests;
+import ie.cit.adf.integration.DashboardIntegrationTest;
+import ie.cit.adf.integration.LoginIntegrationTest;
+import ie.cit.adf.integration.UserIntegrationTest;
 import ie.cit.adf.rest.RestClientTest;
 import ie.cit.adf.services.BoardServiceImplTest;
 import ie.cit.adf.services.LinkServiceImplTest;
@@ -15,7 +15,7 @@ import org.junit.runners.Suite.SuiteClasses;
 // NOTE: Localhost server is required for RestClientTest.
 
 @RunWith(Suite.class)
-@SuiteClasses({ BoardServiceImplTest.class, UserServiceImplTest.class, LinkServiceImplTest.class, UserIntegrationTests.class, DashboardIntegrationTests.class, RestClientTest.class, LoginIntegrationTests.class})
+@SuiteClasses({ BoardServiceImplTest.class, UserServiceImplTest.class, LinkServiceImplTest.class, UserIntegrationTest.class, DashboardIntegrationTest.class, RestClientTest.class, LoginIntegrationTest.class})
 public class AllTests {
 
 }

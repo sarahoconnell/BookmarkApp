@@ -25,7 +25,7 @@ import org.springframework.ui.Model;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/test/resources/system-test-context.xml")
 
-public class UserIntegrationTests extends AuthenticationHelper{
+public class UserIntegrationTest extends AuthenticationHelper{
 	
 	@Autowired
 	private UserService userService;

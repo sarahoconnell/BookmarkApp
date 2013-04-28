@@ -26,7 +26,7 @@ import org.springframework.ui.ModelMap;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/test/resources/system-test-context.xml")
 
-public class DashboardIntegrationTests extends AuthenticationHelper{
+public class DashboardIntegrationTest extends AuthenticationHelper{
 	
 	@Autowired
 	private UserService userService;

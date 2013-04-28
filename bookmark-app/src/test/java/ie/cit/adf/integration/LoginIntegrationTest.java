@@ -16,7 +16,7 @@ import org.springframework.ui.ModelMap;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/test/resources/system-test-context.xml")
 
-public class LoginIntegrationTests extends AuthenticationHelper{
+public class LoginIntegrationTest extends AuthenticationHelper{
 	
 	@Autowired 
 	private LoginController loginController;
