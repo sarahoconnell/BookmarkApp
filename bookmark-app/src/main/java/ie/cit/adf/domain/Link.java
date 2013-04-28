@@ -1,7 +1,5 @@
 package ie.cit.adf.domain;
 
-import ie.cit.adf.aspect.TracingAspect;
-
 import java.util.UUID;
 
 import javax.persistence.Basic;

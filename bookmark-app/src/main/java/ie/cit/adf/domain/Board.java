@@ -2,7 +2,6 @@ package ie.cit.adf.domain;
 
 import java.util.UUID;
 
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 

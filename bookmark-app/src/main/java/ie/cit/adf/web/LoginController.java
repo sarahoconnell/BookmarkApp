@@ -4,8 +4,6 @@ import ie.cit.adf.constants.Constants;
 import ie.cit.adf.services.BoardService;
 import ie.cit.adf.services.UserService;
 
-import java.security.Principal;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;

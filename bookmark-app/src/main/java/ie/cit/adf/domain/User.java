@@ -1,6 +1,5 @@
 package ie.cit.adf.domain;
 
-import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Basic;

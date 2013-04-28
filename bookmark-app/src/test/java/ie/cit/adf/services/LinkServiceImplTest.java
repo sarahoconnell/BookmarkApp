@@ -3,7 +3,6 @@ package ie.cit.adf.services;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
-import ie.cit.adf.domain.Board;
 import ie.cit.adf.domain.Link;
 import ie.cit.adf.domain.dao.LinkRepository;
 

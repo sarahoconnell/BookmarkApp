@@ -1,6 +1,5 @@
 package ie.cit.adf.domain.dao;
 
-import ie.cit.adf.domain.Board;
 import ie.cit.adf.domain.Link;
 
 import java.sql.ResultSet;
