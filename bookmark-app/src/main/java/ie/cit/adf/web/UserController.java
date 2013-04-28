@@ -53,7 +53,6 @@ public class UserController extends BaseController  {
 					
 		User newUser = userService.create(name, password, twitterId);
 		userService.createRole(newUser, "ROLE_USER");		
-		boardService.create("default", "default", newUser.getId(), "icon-star", false);
 		model.addAttribute(Constants.message, Constants.registrationSuccess);
 		return Constants.registerPage;
 	}
