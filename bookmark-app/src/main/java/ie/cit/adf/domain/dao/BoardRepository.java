@@ -15,6 +15,7 @@ public interface BoardRepository {
     void delete(Board board);
 
     Board findById(String id);
+    Board findPublicById(String id);
     Collection<Board> findAll();
     Collection<Board> findAllByUserId(String userId);
     Collection<Board> findAllPublicByUserId(String userId, boolean ispublic);

@@ -11,7 +11,6 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Secured({"ROLE_USER", "ROLE_ADMIN"})
 @Service
 @Transactional
 public class LinkServiceImpl implements LinkService {
@@ -20,19 +19,22 @@ public class LinkServiceImpl implements LinkService {
     @Qualifier("hibernateLinkRepository")
 	LinkRepository repo;
 
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public Link findById(String id) {
 		return repo.findById(id);
 	}
 
+	// unsecured - for public boards
 	public Collection<Link> findAllByBoardId(String boardId) {
 		return repo.findAllByBoardId(boardId);
 	}
 
-	
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public Collection<Link> findAll() {
 		return repo.findAll();
 	}
 
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public Link create(String url, String name, String description, String boardId, byte[] image) {
 		Link link = new Link();
 		link.setUrl(url);
@@ -44,12 +46,13 @@ public class LinkServiceImpl implements LinkService {
 		return link;
 	}
 
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public Link create(Link link) {
 		repo.create(link);
 		return link;
 	}
-	
-	@Transactional
+
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public Link update(String id, String url, String name, String description, String boardId, byte[] image) {
 		Link link = repo.findById(id);
 		link.setUrl(url);
@@ -61,20 +64,18 @@ public class LinkServiceImpl implements LinkService {
 		return link;		
 	}
 
-	@Transactional
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public Link update(Link link) {
 		repo.update(link);
-		return link;
-		
+		return link;		
 	}
 
-
-	@Override
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public void delete(Link link) {
 		repo.delete(link);
 	}
 
-	@Transactional
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public void delete(String id) {
 		Link link = repo.findById(id);
 		repo.delete(link);

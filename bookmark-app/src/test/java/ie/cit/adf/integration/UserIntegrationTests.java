@@ -46,13 +46,13 @@ public class UserIntegrationTests extends AuthenticationHelper{
 	
 	@Test(expected = AccessDeniedException.class)
 	public void testFindAllWithUserLogin(){
-		login("user", "password", null);
+		login("user", "password");
 		userService.findAll();
 	}
 	
 	@Test
 	public void testFindAllWithAdminLogin(){
-		login("admin", "password", null);
+		login("admin", "password");
 		assertThat(userService.findAll().size(), equalTo(2));
 		
 	}
@@ -81,19 +81,19 @@ public class UserIntegrationTests extends AuthenticationHelper{
 
 	@Test
 	public void successfulAuthentication(){
-		login("admin", "password", null);
+		login("admin", "password");
 		assertThat(SecurityContextHolder.getContext().getAuthentication().getName(), equalTo("admin"));
 	}
 	
 	@Test(expected = BadCredentialsException.class)
 	public void failureAuthentication(){
-		login("badUSer", "password", null);
+		login("badUSer", "password");
 		SecurityContextHolder.getContext().getAuthentication().getName();
 	}
 	
 	@Test
 	public void testFindUserByName(){
-		login("admin", "password", null);
+		login("admin", "password");
 		User user = userService.findByName("user");
 		assertThat(user.getName(), equalTo("user"));
 		
@@ -104,7 +104,7 @@ public class UserIntegrationTests extends AuthenticationHelper{
 	
 	@Test 
 	public void testDeleteUser(){
-		login("admin", "password", null);
+		login("admin", "password");
 		//create a new user 
 		User user = userService.create("newuser","password", "id");
 		String uid = user.getId();
@@ -121,7 +121,7 @@ public class UserIntegrationTests extends AuthenticationHelper{
 	@Test 
 	public void testBlockUser(){
 		//test the disable function 
-		login("admin", "password", null);
+		login("admin", "password");
 		//create a new user 
 		User user = userService.create("newuser","password", "id");
 		String uid = user.getId();
@@ -141,7 +141,7 @@ public class UserIntegrationTests extends AuthenticationHelper{
 	
 	@Test 
 	public void testUpdateUserDetails(){
-		login("admin", "password", null);
+		login("admin", "password");
 		User user = userService.create("temporaryUser","password", "twitter");
 		String uid = user.getId();
 		//change password 
@@ -162,11 +162,11 @@ public class UserIntegrationTests extends AuthenticationHelper{
 	
 	@Test 
 	public void testCreateAdminUser(){
-		login("admin", "password", null);
+		login("admin", "password");
 		User user = userService.create("newadmin","password", "twitter");
 		userService.createRole(user,"ROLE_ADMIN");
 		logout();
-		login("newadmin", "password", null);
+		login("newadmin", "password");
 		//ensure they can find all users 
 		assertThat(userService.findAll().size(), equalTo(3));
 
@@ -198,11 +198,7 @@ public class UserIntegrationTests extends AuthenticationHelper{
 		assertThat(boards.size(), equalTo(1));
 
 		//delete the user to clean up 
-		login("admin","password", null);
-		userService.delete(user);
-		
-	}
-	
-	
-	
+		login("admin","password");
+		userService.delete(user);		
+	}	
 }

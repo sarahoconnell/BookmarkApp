@@ -49,7 +49,7 @@ public class DashboardController extends BaseController {
 	@RequestMapping(value=Constants.viewPublicBoardMapping, method = RequestMethod.GET)
 	public String viewPublicBoard(@RequestParam String boardid, ModelMap model) {
 
-		Board board = boardService.findById(boardid);
+		Board board = boardService.findPublicById(boardid);
 		Collection<Link> allLinks = linkService.findAllByBoardId(boardid);
 		model.addAttribute(Constants.links, allLinks);
 		model.addAttribute(Constants.board, board);

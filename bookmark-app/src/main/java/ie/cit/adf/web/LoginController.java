@@ -26,9 +26,9 @@ public class LoginController extends BaseController{
 		return Constants.indexPage; 
 	}
 
-	@Secured("ROLE_USER, ROLE_ADMIN")
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	@RequestMapping(value=Constants.welcomeMapping, method = RequestMethod.GET)
-	public String welcome(ModelMap model, Principal principal ) {
+	public String welcome(ModelMap model) {
  
 		try{			
 			if(isAdmin())

@@ -2,6 +2,7 @@ package ie.cit.adf.integration;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import ie.cit.adf.constants.Constants;
 import ie.cit.adf.domain.Board;
 import ie.cit.adf.domain.Link;
 import ie.cit.adf.services.BoardService;
@@ -43,17 +44,87 @@ public class DashboardIntegrationTests extends AuthenticationHelper{
 	@Autowired
 	private LinkService linkService;
 	
+	
+	@Test
+	public void testShowPublicBoards(){
+		ModelMap model = new ExtendedModelMap();
+		// no need to login
+		
+		String page = dashboardController.showPublicBoards(model);
+		assertTrue(page.equals(Constants.publicBoardsPage));
+		//check that the private/public Boards attribute is set 
+		Collection<Board> publicBoards = (Collection<Board>)model.get(Constants.publicBoards);
+		assertTrue(publicBoards != null);
+		assertTrue(publicBoards.size()>0);
+		for (Board board : publicBoards) 
+			assertTrue(board.getIsPublic());
+		
+		Collection<Board> privateBoards = (Collection<Board>)model.get(Constants.privateBoards);
+		assertTrue(privateBoards == null);
+	}
+
+	@Test
+	public void testViewPublicBoard(){
+		ModelMap model = new ExtendedModelMap();
+		// no need to login
+		
+		// get a public board first
+		String page = dashboardController.showPublicBoards(model);
+		assertTrue(page.equals(Constants.publicBoardsPage));
+		//check that the private/public Boards attribute is set 
+		Collection<Board> publicBoards = (Collection<Board>)model.get("publicBoards");
+		assertTrue(publicBoards != null);
+		Board board = null;
+		if(publicBoards.iterator().hasNext())
+			board = publicBoards.iterator().next();
+		
+		//view the board links
+		page = dashboardController.viewPublicBoard(board.getId(), model);
+		assertTrue(page.equals(Constants.publicBoardPage));
+		//check that the link/board attribute is set 
+		Collection<Board> links = (Collection<Board>)model.get(Constants.links);
+		assertTrue(links != null);
+		assertTrue(links.size()>0);
+		Board publicBoard = (Board)model.get(Constants.board);
+		assertTrue(publicBoard != null);
+		assertTrue(publicBoard.getId() == board.getId());
+	}
+	@Test
+	public void testViewBoard(){
+		ModelMap model = new ExtendedModelMap();
+		// login
+		login("user", "password");
+		
+		// get a private boardid
+		String page = dashboardController.dashboard(model);
+		Collection<Board> privateBoards = (Collection<Board>)model.get(Constants.privateBoards);
+		assertTrue(privateBoards.size()>0);
+		assertTrue(privateBoards != null);
+		Board board = null;
+		if(privateBoards.iterator().hasNext())
+			board = privateBoards.iterator().next();
+		
+		page = dashboardController.viewBoard(board.getId(), model);
+		assertTrue(page.equals(Constants.boardPage));
+		//check that the link/board attribute is set 
+		Collection<Board> links = (Collection<Board>)model.get(Constants.links);
+		assertTrue(links != null);
+		assertTrue(links.size()>0);
+		Board publicBoard = (Board)model.get(Constants.board);
+		assertTrue(publicBoard != null);
+		assertTrue(publicBoard.getId() == board.getId());
+	}
 	@Test
 	public void testViewDashboard(){
 		ModelMap model = new ExtendedModelMap();
 		//login and check that you are directed to dashboard.jsp 
-		login("user", "password", "ROLE_USER");
+		login("user", "password");
 		String page = dashboardController.dashboard(model);
-		assertTrue(page.equals("dashboard.jsp"));
+		assertTrue(page.equals(Constants.dashboardPage));
 		//check that the private/public Boards attribute is set 
-		Collection<Board> publicBoards = (Collection<Board>)model.get("publicBoards");
+		Collection<Board> publicBoards = (Collection<Board>)model.get(Constants.publicBoards);
 		assertTrue(publicBoards != null);
-		Collection<Board> privateBoards = (Collection<Board>)model.get("privateBoards");
+		Collection<Board> privateBoards = (Collection<Board>)model.get(Constants.privateBoards);
 		assertTrue(privateBoards != null);
 	}
 	
@@ -61,9 +132,9 @@ public class DashboardIntegrationTests extends AuthenticationHelper{
 	public void testViewAdmin(){
 		ModelMap model = new ExtendedModelMap();
 		//login and check that you are directed to admin.jsp 
-		login("admin", "password", "ROLE_ADMIN");
+		login("admin", "password");
 		String page = userController.showAdmin(model);
-		assertTrue(page.equals("admin.jsp"));
+		assertTrue(page.equals(Constants.adminPage));
 		//check that the private/public Boards attribute is set 
 		Collection<Board> users = (Collection<Board>)model.get("users");
 		assertTrue(users != null);
@@ -71,16 +142,16 @@ public class DashboardIntegrationTests extends AuthenticationHelper{
 	
 	@Test(expected = AccessDeniedException.class)
 	public void testAdminAccessDenied(){
-		login("user", "password", "ROLE_USER");
+		login("user", "password");
 		ModelMap model = new ExtendedModelMap();
 		String page = userController.showAdmin(model);
 	}
 	@Test
 	public void testAdminAccess(){
-		login("admin", "password", "ROLE_ADMIN");
+		login("admin", "password");
 		ModelMap model = new ExtendedModelMap();
 		String page = userController.showAdmin(model);
-		assertTrue(page.equals("admin.jsp"));
+		assertTrue(page.equals(Constants.adminPage));
 	}
 
 	@Test 
@@ -90,7 +161,7 @@ public class DashboardIntegrationTests extends AuthenticationHelper{
 		userController.create("temp", "temp", "temp", "twitter", model);
 		//find the user 
 		String uid = userService.findByName("temp").getId();
-		login("admin", "password", "ROLE_ADMIN");
+		login("admin", "password");
 		ModelMap modelMap = new ExtendedModelMap();
 		userController.removeUser(uid, modelMap);
 		
@@ -106,7 +177,7 @@ public class DashboardIntegrationTests extends AuthenticationHelper{
 		userController.create("temp", "temp", "temp", "twitter", model);
 		//find the user 
 		String uid = userService.findByName("temp").getId();
-		login("admin", "password", "ROLE_ADMIN");
+		login("admin", "password");
 		ModelMap modelMap = new ExtendedModelMap();
 		userController.toggleUserEnable(uid,  false,  modelMap);
 		assertFalse(userService.findById(uid).getEnabled());
@@ -120,10 +191,10 @@ public class DashboardIntegrationTests extends AuthenticationHelper{
 	
 	@Test 
 	public void testBoardOperations(){
-		login("user", "password", "ROLE_USER");
+		login("user", "password");
 		Model model = new ExtendedModelMap();
 		
-		dashboardController.createBoard("", "New Board", "DEscription", "fav.png", false, model);
+		dashboardController.createBoard("", "New Board", "DEscription", "star-icon", false, model);
 		//ensure the board exists for this user
 		Collection<Board> boards = boardService.findAllByUserId(userService.findByName("user").getId());
 		boolean foundBoard = false;
@@ -137,7 +208,7 @@ public class DashboardIntegrationTests extends AuthenticationHelper{
 		assertTrue(foundBoard);
 		
 		//test updating the board 
-		dashboardController.createBoard(boardId, "A Better Name", "New Description", "fav.png",false,   model);
+		dashboardController.createBoard(boardId, "A Better Name", "New Description", "star-icon",false,   model);
 		//make sure the board settings were saved 
 		Board board = boardService.findById(boardId);
 		assertTrue(board.getName().equals("A Better Name"));
@@ -153,13 +224,13 @@ public class DashboardIntegrationTests extends AuthenticationHelper{
 	
 	@Test 
 	public void testLinkOperations(){
-		login("user", "password", "ROLE_USER");
+		login("user", "password");
 
 		Model model = new ExtendedModelMap();
 		
 		
 		//create a board for this 
-		dashboardController.createBoard("", "LinkBoard", "Tests", "fav.png",false,  model);
+		dashboardController.createBoard("", "LinkBoard", "Tests", "star-icon",false,  model);
 		//Get one of the boards 
 		Collection<Board> boards = boardService.findAllByUserId(userService.findByName("user").getId());
 		Board board = boards.iterator().next();
@@ -191,9 +262,6 @@ public class DashboardIntegrationTests extends AuthenticationHelper{
 		dashboardController.deleteLink(linkId, modelMap);
 		//make sure it's gone 
 		assertTrue(linkService.findById(linkId) == null);
-
-		
-	}
-	
+	}	
 	
 }

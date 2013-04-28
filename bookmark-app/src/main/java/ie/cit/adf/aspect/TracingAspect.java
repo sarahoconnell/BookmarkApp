@@ -19,11 +19,4 @@ public class TracingAspect {
 	String method = jp.getSignature().getName();
 	log.trace("DAO method invoked:" + clazz + "#" + method);
     }
-
-    @Before("execution(* ie.cit.adf.web.DashboardRestController*.*(..))")
-    public void traceWeb(JoinPoint jp) {
-	String clazz = jp.getTarget().getClass().getName();
-	String method = jp.getSignature().getName();
-	log.trace("REST Controller method invoked:" + clazz + "#" + method);
-    }
 }

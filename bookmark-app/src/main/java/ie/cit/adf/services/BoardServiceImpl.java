@@ -11,7 +11,6 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Secured({"ROLE_USER", "ROLE_ADMIN"})
 @Service
 @Transactional
 public class BoardServiceImpl implements BoardService {
@@ -20,32 +19,44 @@ public class BoardServiceImpl implements BoardService {
     @Qualifier("hibernateBoardRepository")
 	BoardRepository repo;
 
+	// not secured
+	public  Collection<Board> findAllPublic() {
+		return repo.findAllPublic();
+	}
+
+	// not secured
+	public Board findPublicById(String boardId) {
+		return repo.findPublicById(boardId);
+	}
+
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public Board findById(String boardId) {
 		return repo.findById(boardId);
 	}
-	
+
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public Collection<Board> findAll() {
 		return repo.findAll();
-	}
-	
+	}	
 
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public  Collection<Board> findAllByUserId(String userId) {
 		return repo.findAllByUserId(userId);
 	}
-	
+
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public  Collection<Board> findAllPublicByUserId(String userId, boolean ispublic) {
 		return repo.findAllPublicByUserId(userId, ispublic);
 	}
 
-	public  Collection<Board> findAllPublic() {
-		return repo.findAllPublic();
-	}
-	
+
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public Board create(Board board) {
 		repo.create(board);
 		return board;
 	}
 
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public Board create(String name, String description, String userId, String img, boolean ispublic) {
 		Board board = new Board();
 		board.setName(name);
@@ -57,7 +68,7 @@ public class BoardServiceImpl implements BoardService {
 		return board;
 	}
 
-	@Transactional
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public Board update(String boardId, String name, String description, String img, boolean ispublic) {
 		Board board = repo.findById(boardId);
 		board.setName(name);
@@ -70,6 +81,7 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Transactional
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public Board update(Board board) {
 		repo.update(board);
 		return board;
@@ -77,13 +89,13 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public void delete(Board board) {
 		repo.delete(board);
 	}
 	
-
-
 	@Override
+	@Secured({"ROLE_USER", "ROLE_ADMIN"})
 	public void delete(String boardId) {
 		Board board = repo.findById(boardId);
 		repo.delete(board);

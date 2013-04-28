@@ -15,6 +15,7 @@ public interface LinkRepository {
     void delete(Link link);
 
     Link findById(String id);
+    
     Collection<Link> findAllByBoardId(String boardId);
     Collection<Link> findAll();
 

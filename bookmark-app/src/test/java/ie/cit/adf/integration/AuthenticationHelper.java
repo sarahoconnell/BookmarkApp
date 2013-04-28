@@ -21,18 +21,11 @@ public class AuthenticationHelper {
 	/**
 	 * Logs in as the admin user
 	 */
-	protected void login(Object principal, Object credentials, String userRole){
+	protected void login(Object principal, Object credentials){
 		SecurityContext securityContext = new SecurityContextImpl();
 		UsernamePasswordAuthenticationToken authentication;
-		if(userRole != null){
-			Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-			GrantedAuthority authority = new GrantedAuthorityImpl(userRole);
-			authorities.add(authority);
-			authentication = new UsernamePasswordAuthenticationToken(principal, credentials, authorities);
-		}
-		else{
-			authentication = new UsernamePasswordAuthenticationToken(principal, credentials);
-		}
+		
+		authentication = new UsernamePasswordAuthenticationToken(principal, credentials);
 		
 		securityContext.setAuthentication(authentication);
 		provider.authenticate(authentication);
