@@ -3,6 +3,7 @@
 
   <h1>${board.name}</h1>
  
+  <c:if test="${editable}"> 
    <a href="#linkModal" 
       data-gotolink="board" 
       data-boardid="${board.id}" 
@@ -10,6 +11,7 @@
       class="open-linkModal btn btn-success btn-large" 
       data-toggle="modal">
       <i class="icon-heart icon-white"></i> Add Link</a>
+   </c:if>
    
    <br/> <br/>
   <div class="row-fluid">

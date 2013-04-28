@@ -86,8 +86,7 @@
 	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
 		<property name="messageConverters">
 			<list>
-			   <!-- We only have one message converter for the RestTemplate, namely the XStream Marshller -->
-               <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>       
+			   <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>       
 			   <bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
 			</list>
 		</property>

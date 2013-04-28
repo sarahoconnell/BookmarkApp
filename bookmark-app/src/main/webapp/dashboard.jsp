@@ -1,13 +1,14 @@
 <jsp:include page="includes/header.jsp"/>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<c:if test="${editable}"> 
 <a href="#boardModal" 
    role="button" 
    class="btn btn-success btn-large open-boardModal" 
    data-toggle="modal"
    data-id="NEW" >
    <i class="icon-folder-close icon-white"></i> Create Board</a>
- 
+ </c:if>
 <br>
 <br>
 

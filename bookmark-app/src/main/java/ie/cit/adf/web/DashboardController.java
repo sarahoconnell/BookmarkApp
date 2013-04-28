@@ -203,25 +203,27 @@ public class DashboardController extends BaseController {
 	 * @return
 	 */
 	private byte[] generateSnapshot(String boardId, String url, String name){
-			//TODO: Refactor out to a utility class?
-			//TODO: Buy credits so we can generate bigger images :) 
-		
-			//get the image for this URL using the W3Snapshot service
-			String apikey = "e8c2173d19e93d234627817c039dea6d";
-			//http://images.w3snapshot.com/?size=[size]&key=[key]&url=[url]&format=[format]&quality=[quality]			 
-			String service = "http://images.w3snapshot.com/?size=S&key="+apikey+"&url="+url;//"&format=[format]&quality=[quality]";
-			System.out.println(service);
-			BufferedImage image = restTemplate.getForObject( service, BufferedImage.class);
-			if(image != null){
-				try {
-					ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-					ImageIO.write(image, "jpg", byteStream);				    
-					byteStream.flush();
-					return byteStream.toByteArray();
-				} catch (IOException e) {
-				    e.printStackTrace();
-				}
+		//TODO: Refactor out to a utility class?
+		//TODO: Buy credits so we can generate bigger images :) 
+	
+		//get the image for this URL using the W3Snapshot service
+	    String apikey = "e8c2173d19e93d234627817c039dea6d";
+	
+	    //String apikey = "32d2ffba244680fe0e84d8a2c975ad4d";
+		//http://images.w3snapshot.com/?size=[size]&key=[key]&url=[url]&format=[format]&quality=[quality]			 
+		String service = "http://images.w3snapshot.com/?size=600&key="+apikey+"&url="+url + "&format=png&quality=100";//&quality=[quality]";
+		System.out.println(service);
+		BufferedImage image = restTemplate.getForObject( service, BufferedImage.class);
+		if(image != null){
+			try {
+				ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+				ImageIO.write(image, "jpg", byteStream);				    
+				byteStream.flush();
+				return byteStream.toByteArray();
+			} catch (IOException e) {
+			    e.printStackTrace();
 			}
-			return null;
+		}
+		return null;
 	}	
 }

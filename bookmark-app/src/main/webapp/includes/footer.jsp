@@ -165,7 +165,7 @@
 	  </div>	
   </div>
   <div class="modal-footer">
-   <img src="/bookmark-app/static/images/loading.gif" id="loading-indicator" style="display:none" />
+   <img src="static/images/loading.gif" id="loading-indicator" style="display:none" />
     <button type="button"
             class="saveLink btn btn-primary" 
             id="saveLink" 
@@ -306,8 +306,8 @@
 	
 <script src="http://code.jquery.com/jquery.js"></script>
 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
-<script src="/bookmark-app/static/js/jquery.isotope.min.js"></script>
-<script src="/bookmark-app/static/js/script.js"></script>
+<script src="static/js/jquery.isotope.min.js"></script>
+<script src="static/js/script.js"></script>
 
 </body>
 </html>
