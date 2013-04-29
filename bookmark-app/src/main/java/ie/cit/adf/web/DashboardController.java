@@ -85,7 +85,7 @@ public class DashboardController extends BaseController {
 	@RequestMapping(value=Constants.viewBoardMapping, method = RequestMethod.GET)
 	public String viewBoard(@RequestParam String boardid, ModelMap model) {
 
-		if (loggedIn()) // ROLE?
+		if (loggedIn()) 
 		{	
 			Board board = boardService.findById(boardid);
 			Collection<Link> allLinks = linkService.findAllByBoardId(boardid);
@@ -108,7 +108,7 @@ public class DashboardController extends BaseController {
 	@RequestMapping(value=Constants.deleteBoardMapping, method = RequestMethod.POST)
 	public String deleteBoard(@RequestParam String boardid, ModelMap model) {
 
-		if (loggedIn()) // ROLE?
+		if (loggedIn())
 		{	
 			Board board = boardService.findById(boardid);
 			boardService.delete(board);
@@ -122,7 +122,7 @@ public class DashboardController extends BaseController {
 	@RequestMapping(value=Constants.deleteLinkMapping, method = RequestMethod.POST)
 	public String deleteLink(@RequestParam String linkid, ModelMap model) {
 
-		if (loggedIn()) // ROLE?
+		if (loggedIn())
 		{	
 			Link link = linkService.findById(linkid);
 			linkService.delete(link);
@@ -138,7 +138,7 @@ public class DashboardController extends BaseController {
 	@RequestMapping(value=Constants.createLinkMapping, method = RequestMethod.POST)
 	public String createLink(@RequestParam String id, @RequestParam String url, @RequestParam String name, @RequestParam String description, @RequestParam String boardId, @RequestParam String gotolink, Model model) {
 	
-		if (loggedIn()) // ROLE?
+		if (loggedIn())
 		{			
 			byte[] thumbnailData = null; 
 			
@@ -203,26 +203,27 @@ public class DashboardController extends BaseController {
 	 * @return
 	 */
 	private byte[] generateSnapshot(String boardId, String url, String name){
-		//TODO: Refactor out to a utility class?
-		//TODO: Buy credits so we can generate bigger images :) 
-	
-		//get the image for this URL using the W3Snapshot service
-	    String apikey = "e8c2173d19e93d234627817c039dea6d";
-	
-	    //String apikey = "32d2ffba244680fe0e84d8a2c975ad4d";
-		//http://images.w3snapshot.com/?size=[size]&key=[key]&url=[url]&format=[format]&quality=[quality]			 
-		String service = "http://images.w3snapshot.com/?size=600&key="+apikey+"&url="+url + "&format=png&quality=100";//&quality=[quality]";
-		System.out.println(service);
-		BufferedImage image = restTemplate.getForObject( service, BufferedImage.class);
-		if(image != null){
-			try {
+		
+		try {
+			//get the image for this URL using the W3Snapshot service
+		    String apikey = "e8c2173d19e93d234627817c039dea6d";
+		
+		    //String apikey = "32d2ffba244680fe0e84d8a2c975ad4d";
+			//http://images.w3snapshot.com/?size=[size]&key=[key]&url=[url]&format=[format]&quality=[quality]			 
+			String service = "http://images.w3snapshot.com/?size=270&key="+apikey+"&url="+url + "&format=png&quality=100";//&quality=[quality]";
+			System.out.println(service);
+			BufferedImage image = restTemplate.getForObject( service, BufferedImage.class);
+			if(image != null){
 				ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
 				ImageIO.write(image, "jpg", byteStream);				    
 				byteStream.flush();
 				return byteStream.toByteArray();
-			} catch (IOException e) {
-			    e.printStackTrace();
-			}
+			} 
+		}
+		catch (Exception e) {
+			// catch any exception and ignore
+			// the system will use default thumbnail
+		    e.printStackTrace();
 		}
 		return null;
 	}	

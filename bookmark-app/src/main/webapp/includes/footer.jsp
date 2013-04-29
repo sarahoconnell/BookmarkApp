@@ -226,7 +226,7 @@
 	 	<div class="span1">
 		 	 <ul class="the-icons">    
 		 	  <li><i class="icon-cloud img_thumbnail" id="icon-cloud"></i> </li>	
-		      <li><i class="icon-cog img_thumbnail" id="icon-cog"></i></li>
+		      <li><i class="icon-search img_thumbnail" id="icon-search"></i></li>
 		      <li><i class="icon-cogs img_thumbnail" id="icon-cogs"></i></li>
 		      <li><i class="icon-comment img_thumbnail" id="icon-comment"></i></li>
 		      <li><i class="icon-credit-card img_thumbnail" id="icon-credit-card"></i></li>
@@ -254,7 +254,7 @@
 		  <div class="span1">
 		  <ul class="the-icons">
 		      <li><i class="icon-home img_thumbnail" id="icon-home"></i></li>		      
-		      <li><i class="icon-home img_thumbnail" id="icon-home"></i> </li>
+		      <li><i class="icon-info-sign img_thumbnail" id="icon-info-sign"></i> </li>
 		      <li><i class="icon-inbox img_thumbnail" id="icon-inbox"></i> </li>
 		      <li><i class="icon-key img_thumbnail" id="icon-key"></i></li>
 		      <li><i class="icon-lightbulb img_thumbnail" id="icon-lightbulb"></i></li>

@@ -35,6 +35,7 @@ public class BaseController {
 		return null;
 	}
 	
+	// extra check
 	public boolean loggedIn()
 	{
 		// logged in user
@@ -62,8 +63,7 @@ public class BaseController {
 			{
 				if(authority.getAuthority().equalsIgnoreCase(ADMIN_USER))
 					return true;	
-			}
-				
+			}				
 		}
 		return false;
 	}
