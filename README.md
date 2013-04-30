@@ -6,7 +6,7 @@ More details: http://courses.cit.ie/index.cfm/page/module/moduleId/7496
 
 ======================
 Demonstration purpose only!<br>
-Run the application here: ...cloudfoundry...
+Run the application here: http://bookmark-app.cloudfoundry.com/
 
 ======================
 To use the application, simply register and login (default = ROLE_USER), otherwise: <br>
