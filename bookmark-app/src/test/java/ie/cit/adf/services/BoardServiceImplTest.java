@@ -26,7 +26,7 @@ public class BoardServiceImplTest {
 	
 	@Test
 	public void testCreateBoard(){
-		Board board = boardService.create("My Board", "Board Description", "userid999", "fav.png",false);
+		Board board = boardService.create("My Board", "Board Description", "userid999", "icon-star",false);
 		String id = board.getId();
 		Mockito.verify(boardRepository).create(board);
 		
@@ -40,10 +40,10 @@ public class BoardServiceImplTest {
 	
 	@Test
 	public void testFindAll() {  
-		Board board1 = boardService.create("Sarah's Board", "A board for Sarah", "sarah", "fav.png",false);
-		Board board2 = boardService.create("Sarah's SecondBoard", "A second board for Sarah", "sarah", "fav.png",false);
-		Board board3 = boardService.create("John's Board", "A board for John", "john", "fav.png",false);
-		Board notIncluded = boardService.create("Sally's Board", "", "", "fav.png",false);
+		Board board1 = boardService.create("Sarah's Board", "A board for Sarah", "sarah", "icon-star",false);
+		Board board2 = boardService.create("Sarah's SecondBoard", "A second board for Sarah", "sarah", "icon-star",false);
+		Board board3 = boardService.create("John's Board", "A board for John", "john", "icon-star",false);
+		Board notIncluded = boardService.create("Sally's Board", "", "", "icon-star",false);
 		
 		ArrayList<Board> boards = new ArrayList<Board>();
 		boards.add(board1);
@@ -66,10 +66,10 @@ public class BoardServiceImplTest {
 
 	@Test
 	public void testFindByUserId() {  
-		Board board1 = boardService.create("Sarah's Board", "A board for Sarah", "sarah", "fav.png",false);
-		Board board2 = boardService.create("Sarah's SecondBoard", "A second board for Sarah", "sarah", "fav.png",false);
-		Board board3 = boardService.create("John's Board", "A board for John", "john", "fav.png",false);
-		Board notIncluded = boardService.create("Sally's Board", "", "sally", "fav.png",false);
+		Board board1 = boardService.create("Sarah's Board", "A board for Sarah", "sarah", "icon-star",false);
+		Board board2 = boardService.create("Sarah's SecondBoard", "A second board for Sarah", "sarah", "icon-star",false);
+		Board board3 = boardService.create("John's Board", "A board for John", "john", "icon-star",false);
+		Board notIncluded = boardService.create("Sally's Board", "", "sally", "icon-star",false);
 		
 		ArrayList<Board> sarahsBoards = new ArrayList<Board>();
 		sarahsBoards.add(board1);
@@ -100,10 +100,10 @@ public class BoardServiceImplTest {
 	
 	@Test
 	public void testFindById() {  
-		Board board1 = boardService.create("Sarah's Board", "A board for Sarah", "sarah", "fav.png",false);
-		Board board2 = boardService.create("Sarah's SecondBoard", "A second board for Sarah", "sarah", "fav.png",false);
-		Board board3 = boardService.create("John's Board", "A board for John", "john", "fav.png",false);
-		Board notIncluded = boardService.create("Sally's Board", "", "sally", "fav.png",false);
+		Board board1 = boardService.create("Sarah's Board", "A board for Sarah", "sarah", "icon-star",false);
+		Board board2 = boardService.create("Sarah's SecondBoard", "A second board for Sarah", "sarah", "icon-star",false);
+		Board board3 = boardService.create("John's Board", "A board for John", "john", "icon-star",false);
+		Board notIncluded = boardService.create("Sally's Board", "", "sally", "icon-star",false);
 		
 		ArrayList<Board> sarahsBoards = new ArrayList<Board>();
 		sarahsBoards.add(board1);
@@ -136,20 +136,20 @@ public class BoardServiceImplTest {
 
 	@Test
 	public void testUpdate() {  
-		Board board1 = boardService.create("Sarah's Board", "A board for Sarah", "sarah", "fav.png",false);
-		Board board2 = boardService.create("Sarah's SecondBoard", "A second board for Sarah", "sarah", "fav.png",false);
+		Board board1 = boardService.create("Sarah's Board", "A board for Sarah", "sarah", "icon-star",false);
+		Board board2 = boardService.create("Sarah's SecondBoard", "A second board for Sarah", "sarah", "icon-star",false);
 		
 		Mockito.when(boardRepository.findById(board1.getId())).thenReturn(board1);
 		Mockito.when(boardRepository.findById(board2.getId())).thenReturn(board2);
 		
 		
 		board1.setName("New Name");
-		boardService.update(board1.getId(), board1.getName(), board1.getDescription(), "fav.png",false);
+		boardService.update(board1.getId(), board1.getName(), board1.getDescription(), "icon-star",false);
 		Mockito.verify(boardRepository, Mockito.times(1)).update(board1);
 		assertEquals(board1.getName().equals("New Name"), true);
 		
 		board2.setDescription("New Description");
-		boardService.update(board2.getId(), board2.getName(), board2.getDescription(), "fav.png",false);
+		boardService.update(board2.getId(), board2.getName(), board2.getDescription(), "icon-star",false);
 		Mockito.verify(boardRepository, Mockito.times(1)).update(board2);
 		assertEquals(board2.getDescription().equals("New Description"), true);
 		
@@ -160,7 +160,7 @@ public class BoardServiceImplTest {
 
 	@Test
 	public void testDelete() {  
-		Board board1 = boardService.create("Sarah's Board", "A board for Sarah", "sarah", "fav.png",false);
+		Board board1 = boardService.create("Sarah's Board", "A board for Sarah", "sarah", "icon-star",false);
 		boardService.delete(board1);
 		Mockito.verify(boardRepository).delete(board1);        
         

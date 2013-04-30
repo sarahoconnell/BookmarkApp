@@ -9,7 +9,7 @@ function getBoards(id, username){
 		     //Here you have 'data' as xml.
 		     var boardList = '<ul>';
 		     
-		     // e.g. {"boardList":[{"id":"b01","name":"Favourite Sites","description":"My Favourite Websites","userId":"001","img":"fav.png"},
+		     // e.g. {"boardList":[{"id":"b01","name":"Favourite Sites","description":"My Favourite Websites","userId":"001","img":"icon-star"},
 		     //                    {"id":"b02","name":"News","description":"News","userId":"001","img":"news.jpg"}]} 
 		     
 		    

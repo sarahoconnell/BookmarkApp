@@ -144,7 +144,7 @@ public class RestClientTest  {
 	 @Test
 	 // curl -X POST -i http://localhost:8080/bookmark-app/api/boards?name=name&description=description&userid=userid&img=img
 	 // curl -X DELETE -i http://localhost:8080/bookmark-app/api/boards/{id}
-	 // {"name":"NEW BOARD","description":"My Favourite Websites","userId":"001","img":"fav.png", "isPublic":true}
+	 // {"name":"NEW BOARD","description":"My Favourite Websites","userId":"001","img":"icon-star", "isPublic":true}
 	 public void createBoardTest() {
 
 		Board newBoard = new Board();
