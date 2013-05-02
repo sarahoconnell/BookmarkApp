@@ -1,6 +1,7 @@
 package ie.cit.adf.rest;
 
 import ie.cit.adf.domain.Board;
+
 import ie.cit.adf.domain.Boards;
 import ie.cit.adf.domain.Link;
 import ie.cit.adf.domain.Links;
@@ -25,9 +26,16 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * These tests require a server to be up and running in order to respond to REST calls.
+ * The maven compile package execution should not run these tests.
+ * 
+ * @author sarah
+ *
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/test/resources/system-test-context.xml")
-public class RestClientTest  {
+public class RestClientTests  {
 
 	 @Autowired
 	 @Qualifier("restTemplate")

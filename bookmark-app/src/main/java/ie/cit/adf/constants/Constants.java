@@ -25,12 +25,12 @@ public class Constants {
 			
 		
 		// Return Pages
-		public static final String registerPage = "register.jsp";
-		public static final String adminPage = "admin.jsp";
-		public static final String publicBoardsPage = "publicBoards.jsp";
-		public static final String publicBoardPage = "publicBoard.jsp";
-		public static final String dashboardPage = "dashboard.jsp";
-		public static final String boardPage = "board.jsp";
+		public static final String registerPage = "/WEB-INF/views/register.jsp";
+		public static final String adminPage = "/WEB-INF/views/admin.jsp";
+		public static final String publicBoardsPage = "/WEB-INF/views/publicBoards.jsp";
+		public static final String publicBoardPage = "/WEB-INF/views/publicBoard.jsp";
+		public static final String dashboardPage = "/WEB-INF/views/dashboard.jsp";
+		public static final String boardPage = "/WEB-INF/views/board.jsp";
 		public static final String indexPage = "index.jsp";
 					
 		// Model vars & messages		

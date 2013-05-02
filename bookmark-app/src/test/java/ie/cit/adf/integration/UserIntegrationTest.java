@@ -195,7 +195,7 @@ public class UserIntegrationTest extends AuthenticationHelper{
 		assertThat(user.getName(), equalTo("sarah"));
 		//ensure the user has one board created 
 		Collection<Board> boards = boardService.findAllByUserId(user.getId());
-		assertThat(boards.size(), equalTo(1));
+		assertThat(boards.size(), equalTo(0));
 
 		//delete the user to clean up 
 		login("admin","password");
