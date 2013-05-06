@@ -33,8 +33,6 @@ public class User {
 	@Column(nullable=false, columnDefinition="TINYINT(1)")
 	private boolean enabled;
 	
-	private static final long serialVersionUID = 3L;
-
 	public User(String name) {
 		this(UUID.randomUUID().toString(), name, "", "",  true);
 	}

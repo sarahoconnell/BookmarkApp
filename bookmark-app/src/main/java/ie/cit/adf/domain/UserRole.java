@@ -27,9 +27,6 @@ public class UserRole {
 	@NotEmpty
 	private String authority;
 	
-	
-	private static final long serialVersionUID = 3L;
-
 	public UserRole(String userId, String authority) {
 		this(UUID.randomUUID().toString(), userId, authority);
 	}

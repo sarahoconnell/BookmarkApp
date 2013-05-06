@@ -37,14 +37,7 @@ public class Link  {
 	@Basic 
 	private byte[] image;
 
-	  @JsonAnySetter
-	  public void handleUnknown(String key, Object value) {
-	    // do something: put to a Map; log a warning, whatever
-	    Log log = LogFactory.getLog(Link.class);
-		log.trace("handleUnknown key: "+key);
-		log.trace("handleUnknown value: "+value);
-	  }
-	
+
 	public Link() {
 		this("");
 	}
@@ -115,5 +108,13 @@ public class Link  {
 		return  new String(Base64.encode(this.image));
 		   //return new String(this.image);
 	}
+	
+	 @JsonAnySetter
+	  public void handleUnknown(String key, Object value) {
+	    // handle byte array 
+	    Log log = LogFactory.getLog(Link.class);
+		log.trace("handleUnknown key: "+key);
+		log.trace("handleUnknown value: "+value);
+	  }
 	
 }
